@@ -1,8 +1,8 @@
 #ifndef BOARD_ITERATOR_H
 #define BOARD_ITERATOR_H
 
-#include "board.h"
 #include "square.h"
+class Board; // forward declaration
 
 class BoardIterator {
     Board board;
@@ -10,6 +10,8 @@ class BoardIterator {
     int currCol;
 
     public:
+        BoardIterator( Board );
+        ~BoardIterator();
         bool operator!=( const BoardIterator& ) const;
         bool operator==( const BoardIterator& ) const;
         Square* operator*() const;
