@@ -8,6 +8,7 @@ public Board {
     vector<string> movesMade;
     Square arr[8][8];
     public:
+        Board();
         vector<string> possibleMoves();
         Square checkSquare(int row, int col);
         bool verifyCheck(int player);
@@ -18,5 +19,5 @@ public Board {
         BoardIterator begin();
         BoardIterator end();
         void makePiece(Square piece, int row, int col);
-        void deletePiece(Square piece)
+        void deletePiece(int row, int col);
 }

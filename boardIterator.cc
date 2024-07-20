@@ -1,7 +1,7 @@
 #include "boardIterator.h"
 #include "board.h"
 
-BoardIterator::BoardIterator( Board board): Board{Board}, currCol{0}, currRow{0} {}
+BoardIterator::BoardIterator( Board board): Board{board}, currCol{0}, currRow{0} {}
 
 bool BoardIterator::operator!=( const BoardIterator& other ) const {
     return board != other.board || currRow != other.currRow || currCol != other.currCol;
