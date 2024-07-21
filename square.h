@@ -2,6 +2,7 @@
 #define SQUARE_H
 
 #include "board.h"
+#include "pieceType.h"
 
 class Square {
     virtual:
