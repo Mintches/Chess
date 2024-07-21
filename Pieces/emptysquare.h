@@ -1,13 +1,13 @@
-#ifndef QUEEN_H
-#define QUEEN_H
+#ifndef EMPTY_SQUARE_H
+#define EMPTY_SQUARE_H
 
 #include "square.h"
 #include  "board.h"
 
-class Queen : public Square { // queen inherits from square
+class EmptySquare : public Square { // emptysquare inherits from square
     public:
-        Queen(int row, int col, int player); // constructor
-        ~Queen(); // destructor
+        EmptySquare(int row, int col, int player); // constructor
+        ~EmptySquare(); // destructor
 
         bool verifyMove(Board board, int row, int col) override;
 
