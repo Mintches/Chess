@@ -1,6 +1,7 @@
 #include <iostream>
 #include "game.h"
 #include "board.h"
+#include "pieceType.h"
 #include "Players/player.h"
 
 Game::Game(Player *player1, Player *player2) player1{player1}, player2{player2}, currPlayer{player1} {}
@@ -8,6 +9,7 @@ Game::Game(Player *player1, Player *player2) player1{player1}, player2{player2},
 void Game::setupGame() {
     // chess board has letters left to right (a, b, c, d, e, f, g, h)
     // chess board has numbers bottom up (1, 2, 3, 4, 5, 6, 7, 8)
+    cout << "hi" << endl;
     string op;
     while (cin >> op) {
         if (op == "done") break;
@@ -53,4 +55,14 @@ void Game::setPlayer(int player) {
 
 char Game::getState(int row, int col) override {
     return 'a';
+}
+
+void printBoard() {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (arr[i][j].returnType() == PieceType::KING) cout << "k";
+            else cout << ".";
+        }
+        cout << "\n";
+    }
 }

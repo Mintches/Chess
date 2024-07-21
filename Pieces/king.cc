@@ -1,4 +1,5 @@
 #include "king.h"
+#include "../pieceType.h"
 
 King::King(int row, int col, int player) : Square(row, col, player) {} 
 King::~King() {} // do nothing

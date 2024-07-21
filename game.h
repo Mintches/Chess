@@ -10,6 +10,7 @@ class Game : public Subject {
     Player *player1;
     Player *player2;
     Player *currPlayer;
+    Board currentBoard;
     public:
         Game(Player player1, Player player2);
         void setupGame();
@@ -19,4 +20,5 @@ class Game : public Subject {
         void addScore(int player);
         void setPlayer(int player);
         char getState(int row, int col) override;
+        void printBoard();
 }
