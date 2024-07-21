@@ -1,22 +1,24 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 
-#include "board.h"
 #include "pieceType.h"
+
+class Board; // forward declaration
 
 class Square {
     int row;
     int col;
     int player;
     public:
+        Square();
         Square(int row, int col, int player); // constructor
         ~Square(); // destructor
 
-        bool verifyMove(Board board, int row, int col);
+        virtual bool verifyMove(Board *board, int row, int col);
 
         Square getPiece();
 
-        PieceType returnType();
+        virtual PieceType returnType();
 };
 
 #endif

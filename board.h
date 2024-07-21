@@ -1,8 +1,10 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <string>
 #include <vector>
 
 #include "boardIterator.h"
-#include "square.h"
 
 using namespace std;
 
@@ -23,3 +25,5 @@ class Board {
         void makePiece(int row, int col, int piece);
         void deletePiece(int row, int col);
 };
+
+#endif

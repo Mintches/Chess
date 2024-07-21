@@ -1,8 +1,10 @@
+#ifndef SUBJECT_H
+#define SUBJECT_H
+
 #include <vector>
-
-#include "Observers/observer.h"
-
 using namespace std;
+
+class Observer; //forward declaration
 
 class Subject {
     vector<Observer*> observer;
@@ -12,3 +14,5 @@ class Subject {
         void notifyObservers();
         virtual char getState(int row, int col) = 0;
 };
+
+#endif

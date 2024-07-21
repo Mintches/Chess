@@ -1,17 +1,15 @@
 #include "square.h"
 
-Square::Square(int row, int col, int player) : row(row), col(col), player(player) {}
-Square::~Square() {} // do nothing
+Square::Square(): row{0}, col{0}, player{0} {}
 
-bool Square::verifyMove(Board board, int row, int col) { // incomplete
-    return true;
-}
+Square::Square(int row, int col, int player) : row{row}, col{col}, player{player} {}
+Square::~Square() {} // do nothing
 
 Square Square::getPiece() {
     return *this;
 }
 
 PieceType Square::returnType() { // incomplete
-    return PieceType::Queen;
+    return PieceType::QUEEN;
 }
 

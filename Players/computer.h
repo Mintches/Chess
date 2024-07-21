@@ -10,7 +10,7 @@ using namespace std;
 
 class Computer: public Player {
     public:
-        virtual string getMove(Board board) const override;
+        virtual string getMove(Board board) const;
 };
 
 #endif

@@ -1,4 +1,7 @@
-#include ".../subject.h"
+#ifndef OBSERVER_H
+#define OBSERVER_H
+
+#include "../subject.h"
 using namespace std;
 
 class Observer {
@@ -7,3 +10,5 @@ class Observer {
         virtual void notify();
         virtual ~Observer();
 };
+
+#endif

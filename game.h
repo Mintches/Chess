@@ -1,11 +1,12 @@
 #include "board.h"
-#include "Players/player.h"
 #include "subject.h"
 using namespace std;
 
+class Player; // forward declaration
+
 class Game : public Subject {
     vector<Board> gameHistory;
-    int state;
+    int state = 0;
     int player1Score = 0;
     int player2Score = 0;
     Player *player1;

@@ -13,24 +13,40 @@ using namespace std;
 Board::Board() {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            arr[i][j] = Blank();
+            arr[i][j] = EmptySquare(i, j, 0);
         }
     }
 }
 
-vector<string> Board::possibleMoves() {}
+vector<string> Board::possibleMoves() {
+    vector<string> s;
+    return s;
+}
 
-Square Board::checkSquare(int row, int col) {}
+Square Board::checkSquare(int row, int col) {
+    Square s;
+    return s;
+}
 
-bool Board::verifyCheck(int player) {}
+bool Board::verifyCheck(int player) {
+    return true;
+}
 
-bool Board::verifyCheckmate(int player) {}
+bool Board::verifyCheckmate(int player) {
+    return true;
+}
 
-bool Board::verifyStalemate(int player) {}
+bool Board::verifyStalemate(int player) {
+    return true;
+}
 
-bool Board::verifyMove(int player) {}
+bool Board::verifyMove(int player) {
+    return true;
+}
 
-bool Board::movePiece(string move, int player) {}
+bool Board::movePiece(string move, int player) {
+    return true;
+}
 
 void Board::makePiece(int row, int col, int piece) {
     if (piece == 'p') arr[row][col] = Pawn(row, col, 2);
@@ -48,5 +64,5 @@ void Board::makePiece(int row, int col, int piece) {
 }
 
 void Board::deletePiece(int row, int col) {
-    arr[row][col] = EmptySquare();
+    arr[row][col] = EmptySquare(row, col, 0);
 }
