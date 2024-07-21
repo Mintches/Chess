@@ -1,5 +1,6 @@
 #include "board.h"
 #include "Players/player.h"
+#include "subject.h"
 using namespace std;
 
 class Game : public Subject {
@@ -12,7 +13,7 @@ class Game : public Subject {
     Player *currPlayer;
     Board currentBoard;
     public:
-        Game(Player player1, Player player2);
+        Game(Player *player1, Player *player2);
         void setupGame();
         void playGame();
         void endGame();
@@ -21,4 +22,4 @@ class Game : public Subject {
         void setPlayer(int player);
         char getState(int row, int col) override;
         void printBoard();
-}
+};

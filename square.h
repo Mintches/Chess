@@ -16,7 +16,7 @@ class Square {
 
         Square getPiece();
 
-        PieceType::PieceType returnType();
+        PieceType returnType();
 };
 
 #endif

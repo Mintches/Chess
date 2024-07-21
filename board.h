@@ -1,5 +1,7 @@
 #include <string>
+#include <vector>
 
+#include "boardIterator.h"
 #include "square.h"
 
 using namespace std;
@@ -20,4 +22,4 @@ class Board {
         BoardIterator end();
         void makePiece(int row, int col, int piece);
         void deletePiece(int row, int col);
-}
+};

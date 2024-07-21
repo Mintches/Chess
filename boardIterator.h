@@ -15,6 +15,6 @@ class BoardIterator {
         bool operator==( const BoardIterator& ) const;
         Square* operator*() const;
         BoardIterator& operator++();
-}
+};
 
 #endif
