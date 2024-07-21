@@ -17,5 +17,6 @@ class Game : public Subject {
         void endGame();
         void printScore();
         void addScore(int player);
+        void setPlayer(int player);
         char getState(int row, int col) override;
 }
