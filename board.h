@@ -4,7 +4,7 @@
 
 using namespace std;
 
-public Board {
+class Board {
     vector<string> movesMade;
     Square arr[8][8];
     public:

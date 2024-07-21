@@ -5,10 +5,9 @@
 #include "pieceType.h"
 
 class Square {
-    virtual:
-        int row;
-        int col;
-        int player;
+    int row;
+    int col;
+    int player;
     public:
         Square(int row, int col, int player); // constructor
         ~Square(); // destructor

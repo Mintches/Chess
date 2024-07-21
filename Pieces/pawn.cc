@@ -1,6 +1,7 @@
 #include "pawn.h"
 
-Pawn::Pawn(int row, int col, int player) : Square(row, col, player) {} 
+Pawn::Pawn(int row, int col, int player) : Square(row, col, player) {}
+
 Pawn::~Pawn() {} // do nothing
 
 bool Pawn::verify(Board board, int row, int col) {
