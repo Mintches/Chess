@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "board.h"
 #include "square.h"
 #include "Pieces/pawn.h"
@@ -24,8 +26,7 @@ vector<string> Board::possibleMoves() {
 }
 
 Square *Board::checkSquare(int row, int col) {
-    Square *s = new EmptySquare(0, 0, 0);
-    return s;
+    return arr[row][col];
 }
 
 bool Board::verifyCheck(int player) {

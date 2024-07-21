@@ -3,4 +3,6 @@ using namespace std;
 
 TextObserver::TextObserver(Subject *sub): sub{sub} {}
 
-void TextObserver::notify() override {}
+void TextObserver::notify() {}
+
+TextObserver::~TextObserver() {}

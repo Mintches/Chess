@@ -13,7 +13,8 @@ void Game::setupGame() {
     // lowercase = black
     // uppercase = white
     string op;
-    Board b = Board();
+    //Board b = Board();
+    //currentBoard = b;
     while (cin >> op) {
         if (op == "done") break;
         else if (op == "+") { // add piece to square
@@ -24,7 +25,9 @@ void Game::setupGame() {
             char rank = sq[0];
             int row = 8 - ((int) sq[1] - '0'); 
             int col = (int) rank  - 97;
-            b.makePiece(row, col, p);
+            currentBoard.makePiece(row, col, p);
+            if (currentBoard.checkSquare(row, col)->returnType() == PieceType::EMPTY) cout << "why\n";
+            else cout << "ok\n";
         } else if (op == "-") { // delete piece on square
             string sq;
             cin >> sq;
@@ -32,13 +35,14 @@ void Game::setupGame() {
             char rank = sq[0];
             int row = 8 - ((int) sq[1] - '0'); 
             int col = (int) rank  - 97;
-            b.deletePiece(row, col);
+            currentBoard.deletePiece(row, col);
         } else { // set player colour to go first
             string colour;
             cin >> colour;
             if (colour == "white") setPlayer(1);
             else setPlayer(2);
         }
+        printBoard();
     }
 }
 
@@ -62,7 +66,13 @@ char Game::getState(int row, int col) {
 void Game::printBoard() {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (currentBoard.checkSquare(i, j)->returnType() == PieceType::KING) cout << "k";
+            PieceType curPiece = currentBoard.checkSquare(i, j)->returnType();
+            if (curPiece == PieceType::KING) cout << "k";
+            else if (curPiece == PieceType::QUEEN) cout << "q";
+            else if (curPiece == PieceType::PAWN) cout << "p";
+            else if (curPiece == PieceType::BISHOP) cout << "b";
+            else if (curPiece == PieceType::ROOK) cout << "r";
+            else if (curPiece == PieceType::KNIGHT) cout << "n";
             else cout << ".";
         }
         cout << "\n";
