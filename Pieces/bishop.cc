@@ -1,7 +1,7 @@
 #include "bishop.h"
 
 Bishop::Bishop(int row, int col, int player) : Square(row, col, player) {} 
-Bishop::~Bishop() {} // destructor, does nothing
+Bishop::~Bishop() {} // do nothing
 
 bool Bishop::verify(Board board, int row, int col) {
     return true;
