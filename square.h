@@ -17,8 +17,7 @@ class Square {
 
         Square getPiece();
 
-        enum {Pawn, Knight, Bishop, Rook, Queen, King, Blank};
-        PieceType returnType();
+        PieceType::PieceType returnType();
 };
 
 #endif
