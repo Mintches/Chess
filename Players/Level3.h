@@ -1,4 +1,4 @@
-#ifndef LEVEL3_H
+/*#ifndef LEVEL3_H
 #define LEVEL3_H
 
 #include <string>
@@ -6,7 +6,7 @@
 using namespace std;
 
 class Level3: public Computer {
-    virtual string getMove(Board board) const override;
+    string getMove(Board board) const override;
 };
 
-#endif
+#endif*/

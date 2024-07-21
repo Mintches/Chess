@@ -1,7 +1,7 @@
 #include "boardIterator.h"
 #include "board.h"
 
-BoardIterator::BoardIterator(Board *board): board{board}, currCol{0}, currRow{0} {}
+BoardIterator::BoardIterator(Board *board): board{board}, currRow{0}, currCol{0} {}
 
 bool BoardIterator::operator!=( const BoardIterator& other ) const {
     return board != other.board || currRow != other.currRow || currCol != other.currCol;
@@ -11,8 +11,8 @@ bool BoardIterator::operator==( const BoardIterator& other ) const {
     return board == other.board && currRow == other.currRow && currCol == other.currCol;
 }
 
-Square* BoardIterator::operator*() const {
-    return board.grid[currCol][currRow];
+Square *BoardIterator::operator*() const {
+    return board->checkSquare(currRow, currCol);
 }
 
 BoardIterator& BoardIterator::operator++() {

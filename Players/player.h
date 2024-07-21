@@ -3,7 +3,8 @@
 
 class Player {
     public:
-        virtual std::string getMove() const;
+        virtual std::string getMove() const = 0;
+        virtual ~Player() = default;
 };
 
 #endif

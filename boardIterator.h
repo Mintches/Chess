@@ -14,7 +14,7 @@ class BoardIterator {
         BoardIterator(Board *board);
         bool operator!=( const BoardIterator& ) const;
         bool operator==( const BoardIterator& ) const;
-        Square* operator*() const;
+        Square *operator*() const;
         BoardIterator& operator++();
 };
 

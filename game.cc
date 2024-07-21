@@ -62,7 +62,7 @@ char Game::getState(int row, int col) {
 void Game::printBoard() {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (currentBoard.checkSquare(i, j).returnType() == PieceType::KING) cout << "k";
+            if (currentBoard.checkSquare(i, j)->returnType() == PieceType::KING) cout << "k";
             else cout << ".";
         }
         cout << "\n";

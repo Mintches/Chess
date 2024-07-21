@@ -12,13 +12,13 @@ class Square {
     public:
         Square();
         Square(int row, int col, int player); // constructor
-        ~Square(); // destructor
+        virtual ~Square() = default; // destructor
 
-        virtual bool verifyMove(Board *board, int row, int col);
+        virtual bool verifyMove(Board *board, int row, int col) = 0;
 
-        Square getPiece();
+        //Square getPiece();
 
-        virtual PieceType returnType();
+        virtual PieceType returnType() = 0;
 };
 
 #endif

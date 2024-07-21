@@ -5,16 +5,17 @@
 #include <vector>
 
 #include "boardIterator.h"
+#include "square.h"
 
 using namespace std;
 
 class Board {
     vector<string> movesMade;
-    Square arr[8][8];
+    Square *arr[8][8];
     public:
         Board();
         vector<string> possibleMoves();
-        Square checkSquare(int row, int col);
+        Square *checkSquare(int row, int col);
         bool verifyCheck(int player);
         bool verifyCheckmate(int player);
         bool verifyStalemate(int player);

@@ -7,7 +7,7 @@ using namespace std;
 
 class Human: public Player {
     public:
-        virtual string getMove() const override;
+        string getMove() const override;
 };
 
 #endif
