@@ -11,7 +11,7 @@ class Square {
         int player;
     public:
         Square(int row, int col, int player); // constructor
-        ~Square() // destructor
+        ~Square(); // destructor
 
         bool verifyMove(Board board, int row, int col);
 
