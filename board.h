@@ -18,6 +18,6 @@ public Board {
         bool movePiece(string move, int player);
         BoardIterator begin();
         BoardIterator end();
-        void makePiece(Square piece, int row, int col);
+        void makePiece(int row, int col, int piece);
         void deletePiece(int row, int col);
 }
