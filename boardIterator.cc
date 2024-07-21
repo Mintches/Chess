@@ -18,7 +18,7 @@ Square* BoardIterator::operator*() const {
 BoardIterator& BoardIterator::operator++() {
     if (currCol < 8) {
         ++currCol;
-    } else (currRow < 8) { // move to next row
+    } else if (currRow < 8) { // move to next row
         ++currRow;
         currCol = 0;
     } // TODO: what happens once everything is looped through?
