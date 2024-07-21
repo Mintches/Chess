@@ -47,6 +47,11 @@ void Game::printScore() {}
 
 void Game::addScore(int player) {}
 
+void Game::setPlayer(int player) {
+    if (player == 1) currPlayer = player1;
+    else currPlayer = player2;
+}
+
 char Game::getState(int row, int col) override {
     return 'a';
 }
