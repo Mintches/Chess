@@ -4,7 +4,7 @@
 #include "board.h"
 
 class Square {
-    private:
+    virtual:
         int row;
         int col;
         int player;
