@@ -63,3 +63,5 @@ Move Level4::getMove(Board board, int depth) const {
     }
     return best;
 }
+
+// minimax currently assumes it's the white players' turn, deal with that later
