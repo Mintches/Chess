@@ -23,8 +23,7 @@ void Game::setupGame() {
             char p;
             string sq;
             cin >> p;
-            // parse input into row and col
-            pair<int, int> in = inp.getSquare();
+            // parse input into row and colpair<int, int> in = inp.getSquare();
             currentBoard.makePiece(in[0], in[1], p);
         } else if (op == "-") { // delete piece on square
             pair<int, int> in = inp.getSquare();
@@ -64,7 +63,7 @@ char Game::getState(int row, int col) {
 void Game::printBoard() {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            PieceType curPiece = currentBoard.checkSquare(i, j)->returnType();
+            PieceType curPiece = currentBoard.getSquare(i, j)->returnType();
             if (curPiece == PieceType::KING) cout << "k";
             else if (curPiece == PieceType::QUEEN) cout << "q";
             else if (curPiece == PieceType::PAWN) cout << "p";
