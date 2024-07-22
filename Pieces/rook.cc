@@ -1,6 +1,6 @@
 #include "rook.h"
 
-Rook::Rook(int row, int col, int player) : Square(row, col, player) {} 
+Rook::Rook(int row, int col, Colour player) : Square(row, col, player) {} 
 Rook::~Rook() {} // do nothing
 
 bool Rook::verifyMove(Board *board, int torow, int tocol) {
@@ -18,14 +18,14 @@ bool Rook::verifyMove(Board *board, int torow, int tocol) {
         if (col > tocol) shift = -1;
         curcol += shift;
         while (col != tocol) {
-            if (board->checkSquare(currow, curcol)->returnType() != PieceType::EMPTY) return false;
+            if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return false;
             curcol += shift;
         }
     } else { // the rook moves vertically
         if (row > torow) shift = -1;
         currow += shift;
         while (row != torow) {
-            if (board->checkSquare(currow, curcol)->returnType() != PieceType::EMPTY) return false;
+            if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return false;
             currow += shift;
         }
     }

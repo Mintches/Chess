@@ -1,10 +1,10 @@
 #include "queen.h"
 
-Queen::Queen(int row, int col, int player) : Square(row, col, player) {} 
+Queen::Queen(int row, int col, Colour player) : Square(row, col, player) {} 
 
 Queen::~Queen() {} // do nothing
 
-bool Queen::verifyMove(Board *board, int row, int col) {
+bool Queen::verifyMove(Board *board, int torow, int tocol) {
     // check if queen can physical move there
     if ((row != torow && col != tocol) && (abs(torow - row) != abs(tocol - col))) return false;
     // check if the queen is not already on that square
