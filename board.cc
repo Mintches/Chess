@@ -1,4 +1,6 @@
 #include <iostream>
+#include <utility>
+#include <vector>
 
 #include "board.h"
 #include "square.h"
@@ -21,8 +23,13 @@ Board::Board() {
     }
 }
 
-vector<Move> Board::possibleMoves() {
+vector<Move> Board::possibleMoves(Colour player) {
     vector<Move> s;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            vector<pair<int, int>> v = arr[i][j].possibleMoves();
+        }
+    }
     return s;
 }
 
@@ -99,4 +106,10 @@ void Board::makePiece(int row, int col, int piece) {
 
 void Board::deletePiece(int row, int col) {
     arr[row][col] = new EmptySquare(row, col, Colour::WHITE);
+}
+
+void Board::undoMove() {
+    if (movesMade.size() == 0) return;
+    arr[][]
+
 }

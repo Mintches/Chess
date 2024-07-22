@@ -1,6 +1,9 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 
+#include <utility>
+#include <vector>
+
 #include "stdlib.h"
 #include "colour.h"
 #include "pieceType.h"
@@ -19,6 +22,7 @@ public:
 
     Colour returnPlayer(Board *board, int row, int col);
     virtual bool verifyMove(Board *board, int row, int col) = 0;
+    virtual vector<pair<int, int>> possibleMoves(Board *board) = 0;
 
     //Square getPiece();
 
