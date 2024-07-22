@@ -10,7 +10,7 @@ class King : public Square { // king inherits from square
         King(int row, int col, int player); // constructor
         ~King(); // destructor
 
-        bool verifyMove(Board *board, int row, int col) override;
+        bool verifyMove(Board *board, int torow, int tocol) override;
 
         void updatePos(int row, int col);
         
