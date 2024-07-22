@@ -1,4 +1,4 @@
-/*#ifndef LEVEL3_H
+#ifndef LEVEL3_H
 #define LEVEL3_H
 
 #include <string>
@@ -9,4 +9,4 @@ class Level3: public Computer {
     string getMove(Board board) const override;
 };
 
-#endif*/
+#endif
