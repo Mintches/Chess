@@ -13,5 +13,5 @@ Square::Square(int row, int col, int player) : row{row}, col{col}, player{player
 }*/
 
 int returnPlayer(Board *board, int row, int col) {
-    
+    return player;
 }
