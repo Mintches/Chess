@@ -21,8 +21,8 @@ Board::Board() {
     }
 }
 
-vector<string> Board::possibleMoves() {
-    vector<string> s;
+vector<Move> Board::possibleMoves() {
+    vector<Move> s;
     return s;
 }
 
@@ -51,16 +51,35 @@ bool Board::verifyStalemate(Colour player) { // if no possible moves for current
     return true;
 }
 
-bool Board::verifyMove(Colour player) {
+/*bool Board::verifyMove(Colour player, int row1, int col1, int row2, int col2) {
     if (verifyCheck(player)) {
         return false;
     } else {
         return true;
     }
-}
+}*/
 
-bool Board::movePiece(string move, Colour player) { // do move yep
-    return true;
+bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) { // do move yep
+    if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
+    Move m{arr[row1][col1], nullptr, arr[row2][col2], false, false};
+    arr[row2][col2] = arr[row1][col1];
+    arr[row1][col1] = new EmptySquare(row1, row2, Colour::WHITE);
+    if (verifyCheck(player)) {
+
+    }
+    else {
+        if (player == Colour::WHITE) {
+            if (verifyCheck(Colour::BLACK)) m.setCheck() = true;
+            if (verifyStalemate(Colour::BLACK)) m.setStalemate() = true;
+        }
+        else {
+            if (verifyCheck(Colour::WHITE)) m.setCheck() = true;
+            if (verifyStalemate(Colour::WHITE)) m.setStalemate() = true;
+        }
+        movesMade.push_back(m);
+        return true;
+    }
+
 }
 
 void Board::makePiece(int row, int col, int piece) {

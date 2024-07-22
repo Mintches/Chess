@@ -22,8 +22,8 @@ class Board {
         bool verifyCheckmate(Colour player);
         bool verifyStalemate(Colour player);
         bool verifyDraw();
-        bool verifyMove(Colour player);
-        bool movePiece(string move, Colour player);
+        //bool verifyMove(Colour player, int row1, int col1, int row2, int col2);
+        bool movePiece(Colour player, int row1, int col1, int row2, int col2);
         BoardIterator begin();
         BoardIterator end();
         void makePiece(int row, int col, int piece);
