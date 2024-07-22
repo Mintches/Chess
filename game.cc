@@ -5,6 +5,7 @@
 #include "Players/player.h"
 #include "move.h"
 #include "input.h"
+#include "textObserver.h"
 
 Game::Game(Player *player1, Player *player2): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{player1}, player2{player2}, currPlayer{player1}, currentBoard{Board()} {}
 
@@ -47,12 +48,16 @@ void Game::playGame() {
 
 void Game::endGame() {}
 
-void Game::printScore() {}
+void Game::printScore() {
+    cout << "Final score:" << endl;
+    cout << "White: " << player1Score << endl;
+    cout << "Black: " << player2Score << endl;
+}
 
-void Game::addScore(int player) {}
+void Game::addScore(Colour player) {}
 
-void Game::setPlayer(int player) {
-    if (player == 1) currPlayer = player1;
+void Game::setPlayer(Colour player) {
+    if (player == Colour::WHITE) currPlayer = player1;
     else currPlayer = player2;
 }
 
@@ -61,17 +66,6 @@ char Game::getState(int row, int col) {
 }
 
 void Game::printBoard() {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            PieceType curPiece = currentBoard.getSquare(i, j)->returnType();
-            if (curPiece == PieceType::KING) cout << "k";
-            else if (curPiece == PieceType::QUEEN) cout << "q";
-            else if (curPiece == PieceType::PAWN) cout << "p";
-            else if (curPiece == PieceType::BISHOP) cout << "b";
-            else if (curPiece == PieceType::ROOK) cout << "r";
-            else if (curPiece == PieceType::KNIGHT) cout << "n";
-            else cout << ".";
-        }
-        cout << "\n";
-    }
+    TextObserver *to = new TextObserver{this};
+    to->notify();
 }
