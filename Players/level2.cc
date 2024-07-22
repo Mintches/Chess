@@ -5,9 +5,9 @@
 
 using namespace std;
 
-string Level2::getMove(Board board, Colour player) const {
+string Level2::getMove(Board *board, Colour player) const {
 
-    for (auto mv : board.possibleMoves(player)) {
+    for (auto mv : board->possibleMoves(player)) {
         PieceType maxCapture = PieceType::EMPTY;
         Move bestMv;
         if (mv.getCaptured()->returnType() >= maxCapture) {

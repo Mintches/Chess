@@ -12,7 +12,7 @@ bool BoardIterator::operator==( const BoardIterator& other ) const {
 }
 
 Square *BoardIterator::operator*() const {
-    return board->checkSquare(currRow, currCol);
+    return board->getSquare(currRow, currCol);
 }
 
 BoardIterator& BoardIterator::operator++() {

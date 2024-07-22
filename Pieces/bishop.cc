@@ -1,7 +1,7 @@
 #include <utility>
 
 #include "bishop.h"
-#include "move.h"
+
 using namespace std;
 
 Bishop::Bishop(int row, int col, Colour player): Square{row, col, player} {} 

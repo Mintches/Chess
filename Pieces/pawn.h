@@ -15,6 +15,8 @@ public:
 
     void updatePos(int row, int col);
 
+    vector<pair<int, int>> possibleMoves(Board *board) override;
+
     PieceType returnType() override;
     
     void promote(PieceType type);

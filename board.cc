@@ -27,7 +27,7 @@ vector<Move> Board::possibleMoves(Colour player) {
     vector<Move> s;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            vector<pair<int, int>> v = arr[i][j].possibleMoves();
+            vector<pair<int, int>> v = arr[i][j]->possibleMoves(this);
         }
     }
     return s;
@@ -72,16 +72,17 @@ bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) { /
     arr[row2][col2] = arr[row1][col1];
     arr[row1][col1] = new EmptySquare(row1, row2, Colour::WHITE);
     if (verifyCheck(player)) {
-
+        undoMove();
+        return false;
     }
     else {
         if (player == Colour::WHITE) {
-            if (verifyCheck(Colour::BLACK)) m.setCheck() = true;
-            if (verifyStalemate(Colour::BLACK)) m.setStalemate() = true;
+            if (verifyCheck(Colour::BLACK)) m.setCheck(true);
+            if (verifyStalemate(Colour::BLACK)) m.setStalemate(true);
         }
         else {
-            if (verifyCheck(Colour::WHITE)) m.setCheck() = true;
-            if (verifyStalemate(Colour::WHITE)) m.setStalemate() = true;
+            if (verifyCheck(Colour::WHITE)) m.setCheck(true);
+            if (verifyStalemate(Colour::WHITE)) m.setStalemate(true);
         }
         movesMade.push_back(m);
         return true;
@@ -109,7 +110,8 @@ void Board::deletePiece(int row, int col) {
 }
 
 void Board::undoMove() {
-    if (movesMade.size() == 0) return;
-    arr[][]
+    /*if (movesMade.size() == 0) return;
+    arr[][]*/
+    return;
 
 }

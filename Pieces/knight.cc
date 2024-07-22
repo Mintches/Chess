@@ -18,6 +18,12 @@ void Knight::updatePos(int row, int col) {
 
 }
 
+vector<pair<int, int>> Knight::possibleMoves(Board *board) {
+    vector<pair<int, int>> v;
+    return v;
+}
+
+
 PieceType Knight::returnType() {
     return PieceType::KNIGHT;
 }

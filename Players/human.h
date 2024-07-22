@@ -7,7 +7,7 @@ using namespace std;
 
 class Human: public Player {
     public:
-        string getMove() const override;
+        string getMove(Board *board, Colour player) const override;
 };
 
 #endif

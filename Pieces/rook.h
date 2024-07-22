@@ -14,6 +14,8 @@ class Rook : public Square { // bishop inherits from square
         bool verifyMove(Board *board, int row, int col) override;
 
         void updatePos(int row, int col);
+
+        vector<pair<int, int>> possibleMoves(Board *board) override;
         
         PieceType returnType() override;
 };

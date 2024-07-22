@@ -6,8 +6,9 @@
 using namespace std;
 
 class Level4: public Computer {
-    int minimax(Board board, int depth, int alpha, int beta, bool mxPlayer);
-    string getMove(Board board, int depth) const override;
+    int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer);
+    string getMove(Board *board, Colour player) const override;
+    //string getMove(Board *board, int depth) const override;
 };
 
 #endif

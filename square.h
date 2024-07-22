@@ -8,6 +8,8 @@
 #include "colour.h"
 #include "pieceType.h"
 
+using namespace std;
+
 class Board; // forward declaration
 
 class Square {

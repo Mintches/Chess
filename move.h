@@ -1,3 +1,6 @@
+#ifndef MOVE_H
+#define MOVE_H
+
 #include <vector>
 using namespace std;
 
@@ -10,6 +13,8 @@ class Move {
     bool check; 
     bool stalemate;
     public:
+        Move();
+        Move(Square *to, Square *from, Square *captured, bool check, bool stalemate);
         Square *getTo();
         Square *getFrom();
         Square *getCaptured();
@@ -17,4 +22,6 @@ class Move {
         bool getStalemate();
         void setCheck(bool t);
         void setStalemate(bool t);
-}
+};
+
+#endif

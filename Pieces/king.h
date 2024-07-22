@@ -13,6 +13,8 @@ class King : public Square { // king inherits from square
         bool verifyMove(Board *board, int torow, int tocol) override;
 
         void updatePos(int row, int col);
+
+        vector<pair<int, int>> possibleMoves(Board *board) override;
         
         PieceType returnType() override;
 };

@@ -70,7 +70,10 @@ Move Level4::getMove(Board board, int depth) const {
 
 */
 
-string Level4::getMove(Board board, int depth) const {
-    return "" // placeholder so it doesn't crash
-}
+/*string Level4::getMove(Board *board, int depth) const {
+    return ""; // placeholder so it doesn't crash
+}*/
 
+string Level4::getMove(Board *board, Colour player) const {
+    return ""; // placeholder so it doesn't crash
+}

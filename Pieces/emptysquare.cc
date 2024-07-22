@@ -11,6 +11,11 @@ void EmptySquare::updatePos(int row, int col) {
 
 }
 
+vector<pair<int, int>> EmptySquare::possibleMoves(Board *board) {
+    vector<pair<int, int>> v;
+    return v;
+}
+
 PieceType EmptySquare::returnType() {
     return PieceType::EMPTY;
 }

@@ -31,6 +31,12 @@ void Pawn::updatePos(int row, int col) {
 
 }
 
+vector<pair<int, int>> Pawn::possibleMoves(Board *board) {
+    vector<pair<int, int>> v;
+    return v;
+}
+
+
 PieceType Pawn::returnType() {
     return PieceType::PAWN;
 }

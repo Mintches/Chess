@@ -1,4 +1,5 @@
 #include "square.h"
+#include "colour.h"
 
 Square::Square(): row{0}, col{0}, player{Colour::WHITE} {}
 

@@ -14,6 +14,12 @@ void King::updatePos(int row, int col) {
 
 }
 
+vector<pair<int, int>> King::possibleMoves(Board *board) {
+    vector<pair<int, int>> v;
+    return v;
+}
+
+
 PieceType King::returnType() {
     return PieceType::KING;
 }

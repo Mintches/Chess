@@ -1,2 +1,3 @@
-Pieces/rook.o: Pieces/rook.cc Pieces/rook.h Pieces/../square.h \
- Pieces/../pieceType.h
+Pieces/rook.o: Pieces/rook.cc Pieces/rook.h Pieces/../board.h \
+ Pieces/../colour.h Pieces/../boardIterator.h Pieces/../square.h \
+ Pieces/../pieceType.h Pieces/../move.h Pieces/../square.h
