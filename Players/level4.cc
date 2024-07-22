@@ -4,6 +4,7 @@
 #include "level4.h"
 using namespace std;
 
+/*
 const int INF = 9999999;
 
 // minimax heuristic = sums of the values of all pieces for each player
@@ -65,3 +66,11 @@ Move Level4::getMove(Board board, int depth) const {
 }
 
 // minimax currently assumes it's the white players' turn, deal with that later
+// bool movePiece(Colour player, int row1, int col1, int row2, int col2);
+
+*/
+
+string Level4::getMove(Board board, int depth) const {
+    return "" // placeholder so it doesn't crash
+}
+
