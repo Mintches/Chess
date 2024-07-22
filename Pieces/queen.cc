@@ -12,8 +12,6 @@ bool Queen::verifyMove(Board *board, int row, int col) {
     return true;
 }
 
-
-
 void Queen::updatePos(int row, int col) {
 
 }

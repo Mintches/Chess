@@ -20,6 +20,7 @@ class Board {
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);
         bool verifyStalemate(Colour player);
+        bool verifyDraw();
         bool verifyMove(Colour player);
         bool movePiece(string move, Colour player);
         BoardIterator begin();
