@@ -4,6 +4,7 @@
 #include "pieceType.h"
 #include "Players/player.h"
 #include "move.h"
+#include "input.h"
 
 Game::Game(Player *player1, Player *player2): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{player1}, player2{player2}, currPlayer{player1}, currentBoard{Board()} {}
 
@@ -15,27 +16,19 @@ void Game::setupGame() {
     string op;
     //Board b = Board();
     //currentBoard = b;
+    Input inp;
     while (cin >> op) {
         if (op == "done") break;
         else if (op == "+") { // add piece to square
             char p;
             string sq;
-            cin >> p >> sq;
+            cin >> p;
             // parse input into row and col
-            char rank = sq[0];
-            int row = 8 - ((int) sq[1] - '0'); 
-            int col = (int) rank  - 97;
-            currentBoard.makePiece(row, col, p);
-            if (currentBoard.checkSquare(row, col)->returnType() == PieceType::EMPTY) cout << "why\n";
-            else cout << "ok\n";
+            pair<int, int> in = inp.getSquare();
+            currentBoard.makePiece(in[0], in[1], p);
         } else if (op == "-") { // delete piece on square
-            string sq;
-            cin >> sq;
-            // parse input into rank and row
-            char rank = sq[0];
-            int row = 8 - ((int) sq[1] - '0'); 
-            int col = (int) rank  - 97;
-            currentBoard.deletePiece(row, col);
+            pair<int, int> in = inp.getSquare();
+            currentBoard.deletePiece(in[0], in[1]);
         } else { // set player colour to go first
             string colour;
             cin >> colour;
@@ -47,7 +40,6 @@ void Game::setupGame() {
 }
 
 void Game::playGame() {
-    
     if (currentBoard.verifyMove(mv)) {
         currentBoard.movePiece(mv);
     }
