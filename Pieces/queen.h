@@ -7,7 +7,7 @@ class Board; // forward declaration
 
 class Queen : public Square { // queen inherits from square
     public:
-        Queen(int row, int col, int player); // constructor
+        Queen(int row, int col, Colour player); // constructor
         ~Queen(); // destructor
 
         bool verifyMove(Board *board, int row, int col) override;

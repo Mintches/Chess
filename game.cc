@@ -3,13 +3,13 @@
 #include "board.h"
 #include "pieceType.h"
 #include "Players/player.h"
+#include "move.h"
 
 Game::Game(Player *player1, Player *player2): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{player1}, player2{player2}, currPlayer{player1}, currentBoard{Board()} {}
 
 void Game::setupGame() {
     // chess board has letters left to right (a, b, c, d, e, f, g, h)
-    // chess board has numbers bottom up (1, 2, 3, 4, 5, 6, 7, 8)
-    cout << "hi" << endl;
+    // chess board has numbers bottom up (1, 2, 3, 4, 5, 6, 7, 8)\
     // lowercase = black
     // uppercase = white
     string op;
@@ -46,7 +46,13 @@ void Game::setupGame() {
     }
 }
 
-void Game::playGame() {}
+void Game::playGame() {
+    
+    if (currentBoard.verifyMove(mv)) {
+        currentBoard.movePiece(mv);
+    }
+    
+}
 
 void Game::endGame() {}
 

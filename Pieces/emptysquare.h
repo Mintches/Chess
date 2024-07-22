@@ -7,7 +7,7 @@ class Board; // forward declaration
 
 class EmptySquare : public Square { // emptysquare inherits from square
     public:
-        EmptySquare(int row, int col, int player); // constructor
+        EmptySquare(int row, int col, Colour player); // constructor
         ~EmptySquare(); // destructor
 
         bool verifyMove(Board *board, int row, int col) override;
