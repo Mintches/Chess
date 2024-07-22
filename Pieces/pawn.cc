@@ -12,15 +12,15 @@ bool Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
     } else if (player == Colour::BLACK) {
         forward = 1;
     }
-    if (col - tocol == 0 && board->arr[torow][tocol].returnType == PieceType::EMPTY) { // move straight forward
+    if (col - tocol == 0 && board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) { // move straight forward
         if (row - torow == forward) {
             return true;
-        } else if (row - torow == forward * 2 && board->arr[torow - forward][tocol].returnType == PieceType::EMPTY) {
+        } else if (row - torow == forward * 2 && board->getSquare(torow - forward, tocol)->returnType() == PieceType::EMPTY) {
             return true;
         }
     } else if (abs(col - tocol) == 1 && row - torow == forward 
-               && board->arr[torow - forward][tocol].returnType != PieceType::EMPTY
-               && returnPlayer(board, torow, tocol) != player) { // diagonal
+               && board->getSquare(torow - forward, tocol)->returnType() != PieceType::EMPTY
+               && board->getSquare(torow, tocol)->returnPlayer() != player) { // diagonal
         return true;
     } else {
         return false;

@@ -9,7 +9,7 @@ bool Rook::verifyMove(Board *board, int torow, int tocol) {
     // check if the rook is not already on that square
     if (row == torow && col == tocol) return false;
     // check if destination square has one of your own pieces
-    if (returnPlayer(board, row, col) == returnPlayer(board, torow, tocol)) return false;
+    if (board->getSquare(row, col)->returnPlayer() == board->getSquare(torow, tocol)->returnPlayer()) return false;
     
     // go step by step to the destination and see if there's pieces blocking
     int currow = row, curcol = col;

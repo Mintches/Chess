@@ -1,6 +1,7 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
+#include "../board.h"
 #include "../square.h"
 
 class Board; // forward declaration

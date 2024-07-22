@@ -4,10 +4,9 @@
 #include <utility>
 #include <vector>
 
+#include "../board.h"
 #include "../square.h"
 #include "../move.h"
-
-class Board; // forward declaration
 
 class Bishop : public Square { // bishop inherits from square
     public:

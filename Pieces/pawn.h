@@ -1,6 +1,7 @@
 #ifndef PAWN_H
 #define PAWN_H
 
+#include "../board.h"
 #include "../square.h"
 
 class Board; // forward declaration
