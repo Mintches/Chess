@@ -16,7 +16,7 @@ using namespace std;
 Board::Board() {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            arr[i][j] = new EmptySquare(i, j, 0);
+            arr[i][j] = new EmptySquare(i, j, Colour::WHITE);
         }
     }
 }
@@ -26,45 +26,58 @@ vector<string> Board::possibleMoves() {
     return s;
 }
 
-Square *Board::checkSquare(int row, int col) {
+Square *Board::getSquare(int row, int col) {
     return arr[row][col]; // TODO: check the row and col are valid
 }
  
-bool Board::verifyCheck(int player) {
+bool Board::verifyCheck(Colour player) {
+    int kingRow;
+    int kingCol;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (getSquare(i, j)->verifyMove(this, kingRow, kingCol)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Board::verifyCheckmate(Colour player) { // if no possible moves for other player
     return true;
 }
 
-bool Board::verifyCheckmate(int player) {
+bool Board::verifyStalemate(Colour player) { // if no possible moves for current player
     return true;
 }
 
-bool Board::verifyStalemate(int player) {
-    return true;
+bool Board::verifyMove(Colour player) {
+    if (verifyCheck(player)) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
-bool Board::verifyMove(int player) {
-    return true;
-}
-
-bool Board::movePiece(string move, int player) {
+bool Board::movePiece(string move, Colour player) { // do move yep
     return true;
 }
 
 void Board::makePiece(int row, int col, int piece) {
-    if (piece == 'p') arr[row][col] = new Pawn(row, col, 2);
-    else if (piece == 'n') arr[row][col] = new Knight(row, col, 2);
-    else if (piece == 'b') arr[row][col] = new Bishop(row, col, 2);
-    else if (piece == 'k') arr[row][col] = new King(row, col, 2);
-    else if (piece == 'q') arr[row][col] = new Queen(row, col, 2);
-    else if (piece == 'r') arr[row][col] = new Rook(row, col, 2);
-    else if (piece == 'P') arr[row][col] = new Pawn(row, col, 1);
-    else if (piece == 'N') arr[row][col] = new Knight(row, col, 1);
-    else if (piece == 'B') arr[row][col] = new Bishop(row, col, 1);
-    else if (piece == 'K') arr[row][col] = new King(row, col, 1);
-    else if (piece == 'Q') arr[row][col] = new Queen(row, col, 1);
-    else if (piece == 'R') arr[row][col] = new Rook(row, col, 1);
+    if (piece == 'p') arr[row][col] = new Pawn(row, col, Colour::BLACK);
+    else if (piece == 'n') arr[row][col] = new Knight(row, col, Colour::BLACK);
+    else if (piece == 'b') arr[row][col] = new Bishop(row, col, Colour::BLACK);
+    else if (piece == 'k') arr[row][col] = new King(row, col, Colour::BLACK);
+    else if (piece == 'q') arr[row][col] = new Queen(row, col, Colour::BLACK);
+    else if (piece == 'r') arr[row][col] = new Rook(row, col, Colour::BLACK);
+    else if (piece == 'P') arr[row][col] = new Pawn(row, col, Colour::WHITE);
+    else if (piece == 'N') arr[row][col] = new Knight(row, col, Colour::WHITE);
+    else if (piece == 'B') arr[row][col] = new Bishop(row, col, Colour::WHITE);
+    else if (piece == 'K') arr[row][col] = new King(row, col, Colour::WHITE);
+    else if (piece == 'Q') arr[row][col] = new Queen(row, col, Colour::WHITE);
+    else if (piece == 'R') arr[row][col] = new Rook(row, col, Colour::WHITE);
 }
 
 void Board::deletePiece(int row, int col) {
-    arr[row][col] = new EmptySquare(row, col, 0);
+    arr[row][col] = new EmptySquare(row, col, Colour::WHITE);
 }

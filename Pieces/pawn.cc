@@ -1,6 +1,6 @@
 #include "pawn.h"
 
-Pawn::Pawn(int row, int col, Colour player, bool moved) : Square{row, col, player}, moved{moved} {}
+Pawn::Pawn(int row, int col, Colour player) : Square{row, col, player} {}
 
 Pawn::~Pawn() {} // do nothing
 
@@ -18,7 +18,9 @@ bool Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
         } else if (row - torow == forward * 2 && board->arr[torow - forward][tocol].returnType == PieceType::EMPTY) {
             return true;
         }
-    } else if (abs(col - tocol) == 1 && row - torow == forward && returnPlayer(board, torow, tocol) != player) { // diagonal
+    } else if (abs(col - tocol) == 1 && row - torow == forward 
+               && board->arr[torow - forward][tocol].returnType != PieceType::EMPTY
+               && returnPlayer(board, torow, tocol) != player) { // diagonal
         return true;
     } else {
         return false;

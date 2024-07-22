@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "colour.h"
 #include "boardIterator.h"
 #include "square.h"
 
@@ -15,12 +16,12 @@ class Board {
     public:
         Board();
         vector<string> possibleMoves();
-        Square *checkSquare(int row, int col);
-        bool verifyCheck(int player);
-        bool verifyCheckmate(int player);
-        bool verifyStalemate(int player);
-        bool verifyMove(int player);
-        bool movePiece(string move, int player);
+        Square *getSquare(int row, int col);
+        bool verifyCheck(Colour player);
+        bool verifyCheckmate(Colour player);
+        bool verifyStalemate(Colour player);
+        bool verifyMove(Colour player);
+        bool movePiece(string move, Colour player);
         BoardIterator begin();
         BoardIterator end();
         void makePiece(int row, int col, int piece);

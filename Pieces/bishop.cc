@@ -21,7 +21,7 @@ bool Bishop::verifyMove(Board *board, int torow, int tocol) {
     currow += shiftrow;
     curcol += shiftcol;
     while (currow != torow) {
-        if (board->checkSquare(currow, curcol)->returnType() != PieceType::EMPTY) return false;
+        if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return false;
         currow += shiftrow;
         curcol += shiftcol;
     }
