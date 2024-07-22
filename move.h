@@ -8,11 +8,11 @@ class Move {
     Square *from;
     Square *captured;
     bool check;
-    bool checkmate;
+    bool stalemate;
     public:
         Square *getTo();
         Square *getFrom();
         Square *getCaptured();
         bool getCheck();
-        bool getCheckMate();
+        bool getStalemate();
 }
