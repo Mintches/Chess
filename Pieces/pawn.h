@@ -5,18 +5,19 @@
 
 class Board; // forward declaration
 
-class Pawn : public Square { // bishop inherits from square
-    public:
-        Pawn(int row, int col, int player); // constructor
-        ~Pawn(); // destructor
+class Pawn : public Square { // pawn inherits from square
+    bool moved;
+public:
+    Pawn(int row, int col, Colour player, bool moved); // constructor
+    ~Pawn(); // destructor
 
-        bool verifyMove(Board *board, int row, int col) override;
+    bool verifyMove(Board *board, int row, int col) override;
 
-        void updatePos(int row, int col);
+    void updatePos(int row, int col);
 
-        PieceType returnType() override;
-        
-        void promote(PieceType type);
+    PieceType returnType() override;
+    
+    void promote(PieceType type);
 };
 
 #endif

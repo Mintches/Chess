@@ -1,7 +1,7 @@
 #include "bishop.h"
 using namespace std;
 
-Bishop::Bishop(int row, int col, int player): Square{row, col, player} {} 
+Bishop::Bishop(int row, int col, Colour player): Square{row, col, player} {} 
 
 Bishop::~Bishop() {} // do nothing
 

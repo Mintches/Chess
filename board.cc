@@ -9,6 +9,7 @@
 #include "Pieces/bishop.h"
 #include "Pieces/rook.h"
 #include "Pieces/emptysquare.h"
+#include "colour.h"
 
 using namespace std;
 
@@ -26,9 +27,9 @@ vector<string> Board::possibleMoves() {
 }
 
 Square *Board::checkSquare(int row, int col) {
-    return arr[row][col];
+    return arr[row][col]; // TODO: check the row and col are valid
 }
-
+ 
 bool Board::verifyCheck(int player) {
     return true;
 }
