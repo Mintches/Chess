@@ -13,5 +13,5 @@ int main() {
     Player *c = new Computer();
     Game g(p, c);
     g.setupGame();
-    cout << "Hello World!" << endl;
+    g.playGame();
 }
