@@ -20,7 +20,7 @@ public:
     Square(int row, int col, Colour player); // constructor
     virtual ~Square() = default; // destructor
 
-    Colour returnPlayer(Board *board, int row, int col);
+    Colour returnPlayer();
     virtual bool verifyMove(Board *board, int row, int col) = 0;
     virtual vector<pair<int, int>> possibleMoves(Board *board) = 0;
 

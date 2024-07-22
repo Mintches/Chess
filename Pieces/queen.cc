@@ -4,7 +4,7 @@ Queen::Queen(int row, int col, Colour player) : Square(row, col, player) {}
 
 Queen::~Queen() {} // do nothing
 
-bool Queen::verifyMove(Board *board, int row, int col) {
+bool Queen::verifyMove(Board *board, int torow, int tocol) {
     // a queen is just a bishop and a rook, 2 cases
     if (abs(torow - row) == abs(tocol - col)) Bishop::verifyMove(board, row, col); // bishop case
     else if (torow == row || tocol == col) Rook::verifyMove(board, row, col); // rook case

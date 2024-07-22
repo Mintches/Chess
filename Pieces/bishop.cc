@@ -14,7 +14,7 @@ bool Bishop::verifyMove(Board *board, int torow, int tocol) {
     // check if the bishop is not already on that square
     if (row == torow && col == tocol) return false;
     // check if the destination square has one of your own pieces
-    if (returnPlayer(board, row, col) == returnPlayer(board, torow, tocol)) return false;
+    if (board->getSquare(row, col)->returnPlayer() == board->getSquare(torow, tocol)->returnPlayer()) return false;
 
     // go step by step and check each square on the way
     int shiftrow = 1, shiftcol = 1;
@@ -31,11 +31,11 @@ bool Bishop::verifyMove(Board *board, int torow, int tocol) {
     return true;
 }
 
-vector<pair<int, int>> possibleMoves(Board *board) {
-    vector<pair<int, int>>
+vector<pair<int, int>> Bishop::possibleMoves(Board *board) {
+    vector<pair<int, int>> v;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (verifyMove(board, i, j)) v.emplace_back({i, j});
+            if (verifyMove(board, i, j)) v.push_back({i, j});
         }
     }
     return v;

@@ -12,6 +12,6 @@ Square::Square(int row, int col, Colour player) : row{row}, col{col}, player{pla
     return PieceType::QUEEN;
 }*/
 
-Colour returnPlayer(Board *board, int row, int col) {
+Colour Square::returnPlayer() {
     return player;
 }
