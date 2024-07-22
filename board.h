@@ -7,15 +7,16 @@
 #include "colour.h"
 #include "boardIterator.h"
 #include "square.h"
+#include "move.h"
 
 using namespace std;
 
 class Board {
-    vector<string> movesMade;
+    vector<Move> movesMade;
     Square *arr[8][8];
     public:
         Board();
-        vector<string> possibleMoves();
+        vector<Move> possibleMoves();
         Square *getSquare(int row, int col);
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);
