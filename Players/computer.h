@@ -4,13 +4,14 @@
 #include <string>
 
 #include "player.h"
-//#include "../board.h"
+#include "../board.h"
+#include "../colour.h"
 
 using namespace std;
 
 class Computer: public Player {
     public:
-        string getMove() const override;
+        virtual string getMove() const override;
 };
 
 #endif
