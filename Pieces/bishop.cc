@@ -1,4 +1,7 @@
+#include <utility>
+
 #include "bishop.h"
+#include "move.h"
 using namespace std;
 
 Bishop::Bishop(int row, int col, Colour player): Square{row, col, player} {} 
@@ -28,7 +31,17 @@ bool Bishop::verifyMove(Board *board, int torow, int tocol) {
     return true;
 }
 
-void Bishop::updatePos(int row, int col) {
+vector<pair<int, int>> possibleMoves(Board *board) {
+    vector<pair<int, int>>
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (verifyMove(board, i, j)) v.emplace_back({i, j});
+        }
+    }
+    return v;
+}
+
+void Bishop::updatePos(int torow, int tocol) {
 
 }
 

@@ -16,7 +16,7 @@ class Board {
     Square *arr[8][8];
     public:
         Board();
-        vector<Move> possibleMoves();
+        vector<Move> possibleMoves(Colour player);
         Square *getSquare(int row, int col);
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);
@@ -28,6 +28,7 @@ class Board {
         BoardIterator end();
         void makePiece(int row, int col, int piece);
         void deletePiece(int row, int col);
+        void undoMove();
 };
 
 #endif
