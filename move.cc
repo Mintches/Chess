@@ -10,3 +10,7 @@ Square *Move::getCaptured() { return captured; }
 bool Move::getCheck() { return check; }
 
 bool Move::getStalemate() { return stalemate; }
+
+void Move::setCheck(bool t) { check = t; }
+
+void Move::setStalemate() { stalemate = t; }
