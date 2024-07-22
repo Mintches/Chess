@@ -36,7 +36,7 @@ vector<Move> Board::possibleMoves(Colour player) {
 Square *Board::getSquare(int row, int col) {
     return arr[row][col]; // TODO: check the row and col are valid
 }
- 
+
 bool Board::verifyCheck(Colour player) {
     int kingRow;
     int kingCol;

@@ -1,6 +1,13 @@
 #include <string>
-#include "computer.h"
+#include <random>
+#include <vector>
 
-string Level1::getMove(Board board) const {
-    return ""; // TODO: return a Level 1 move
+#include "computer.h"
+#include "../board.h"
+#include "../colour.h"
+#include "../move.h"
+
+string Level1::getMove(Board board, Colour player) const {
+    vector<Move> v = board.possibleMoves(player);
+    return v[random(gen) % v.size()];
 }
