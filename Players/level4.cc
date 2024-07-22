@@ -31,7 +31,7 @@ int minimax(Board board, int depth, int alpha, int beta, bool mxPlayer) {
         int minEval = INF;
         vector<Move> allMoves = board.possibleMoves(Colour::BLACK);
         for (auto m: allMoves) {
-            board.makeMove(m);
+            board.makeMove(m); // change to board.movePiece
             int eval = minimax(board, depth - 1, alpha, beta, true); // call minimax with maximizing player on next depth
             board.undoMove(m);
             minEval = min(minEval, eval);
@@ -43,7 +43,7 @@ int minimax(Board board, int depth, int alpha, int beta, bool mxPlayer) {
 }
 
 // to-do:
-// eval: return weighted sum of pieces from one player - same thing from other player
+// eval: return weighted sum of pieces from white (mx player) - same thing from black (min player)
 // makeMove: makes a move on the board
 // undoMove: undos the move
 // maybe minimax should work on a copy of the board each turn instead of the actual board
@@ -53,7 +53,7 @@ Move Level4::getMove(Board board, int depth) const {
     int mxEval = -INF;
     vector<Move> allMoves = board.possibleMoves(Colour::WHITE);
     for (auto m: allMoves) {
-        board.makeMove(m);
+        board.makeMove(m); // change to  board.movePiece
         int eval = minimax(board, depth - 1, -INF, INF, false);
         board.undoMove(m);
         if (eval > mxEval) {
