@@ -79,7 +79,12 @@ void Game::playGame() {
                 } else if (currentBoard.verifyStalemate(getColour())) {
                     cout << "Stalemate!" << endl;
                     addScore(getColour(), 1);
+                    break;
+                } else if (currentBoard.verifyCheck(getColour())) {
+                    cout << getColourString() << " is in check." << endl;
                 }
+            } else {
+                cout << "invalid move" << endl;
             }
         }
         printBoard();
