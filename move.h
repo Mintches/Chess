@@ -7,17 +7,15 @@ using namespace std;
 class Square; // forward declaration
 
 class Move {
-    Square *to;
-    Square *from;
-    Square *captured;
+    vector<Square *> deleted;
+    vector<Square *> added;
     bool check; 
     bool stalemate;
     public:
         Move();
-        Move(Square *to, Square *from, Square *captured, bool check, bool stalemate);
-        Square *getTo();
-        Square *getFrom();
-        Square *getCaptured();
+        Move(vector<Square *> deleted, vector<Square *> added, bool check, bool stalemate);
+        vector<Square *> getDeleted();
+        vector<Square *> getAdded();
         bool getCheck();
         bool getStalemate();
         void setCheck(bool t);

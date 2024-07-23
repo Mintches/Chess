@@ -9,6 +9,7 @@ bool Knight::verifyMove(Board *board, int torow, int tocol) {
             || (abs(row - torow) == 1 && abs(col - tocol) == 3)) {
             return true;
         }
+        return false;
     } else {
         return false;
     }

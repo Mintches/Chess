@@ -1,15 +1,13 @@
 #include "move.h"
 #include "square.h"
 
-Move::Move(): to{nullptr}, from{nullptr}, captured{nullptr}, check{false}, stalemate{false} {}
+Move::Move() {}
 
-Move::Move(Square *to, Square *from, Square *captured, bool check, bool stalemate): to{to}, from{from}, captured{captured}, check{check}, stalemate{stalemate} {}
+Move::Move(vector<Square *> deleted, vector<Square *> added, bool check, bool stalemate): deleted{deleted}, added{added}, check{check}, stalemate{stalemate} {}
 
-Square *Move::getTo() { return to; }
+vector<Square *> Move::getDeleted() { return deleted; }
 
-Square *Move::getFrom() { return from; }
-
-Square *Move::getCaptured() { return captured; }
+vector<Square *> Move::getAdded() { return added; }
 
 bool Move::getCheck() { return check; }
 
