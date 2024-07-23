@@ -23,6 +23,7 @@ void Game::setupGame() {
     string op;
     //Board b = Board();
     //currentBoard = b;
+    currPlayer = player1;
     Input inp;
     while (cin >> op) {
         if (op == "done") {
@@ -39,22 +40,51 @@ void Game::setupGame() {
         } else if (op == "-") { // delete piece on square
             pair<int, int> in = inp.getSquare();
             currentBoard.deletePiece(in.first, in.second);
-        } else { // set player colour to go first
+        } else if (op == "=") { // set player colour to go first
             string colour;
             cin >> colour;
             if (colour == "white") setPlayer(Colour::WHITE);
-            else setPlayer(Colour::BLACK);
+            else if (colour == "black") setPlayer(Colour::BLACK);
         }
         printBoard();
     }
 }
 
 void Game::playGame() {
-    if (gameHistory.size() == 0) {
+    if (gameHistory.empty()) {
         gameHistory.push_back(standardBoard());
     }
+    string in;
+    while (cin >> in) {
+        if (in == "resign") {
+            gameHistory.push_back(currentBoard);
+            swapPlayer();
+            cout << getColourString() << " wins!" << endl;
+            addScore(getColour(), 0.5);
+            break;
+        } else if (in == "move") {
+            // receive move
+            Move mv = currPlayer->getMove(&currentBoard, getColour());
+
+            // do move, if possible
+            if (currentBoard.movePiece(getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
+                gameHistory.push_back(currentBoard);
+                swapPlayer();
+
+                // in case of checkmate, stalemate, or check
+                if (currentBoard.verifyCheckmate(getColour())) {
+                    cout << "Checkmate! " << getColourString() << " wins!" << endl;
+                    addScore(getColour(), 1);
+                    break;
+                } else if (currentBoard.verifyStalemate(getColour())) {
+                    cout << "Stalemate!" << endl;
+                    addScore(getColour(), 1);
+                }
+            }
+        }
+        printBoard();
+    }
    return;
-    
 }
 
 void Game::printScore() {
@@ -63,11 +93,27 @@ void Game::printScore() {
     cout << "Black: " << player2Score << endl;
 }
 
-void Game::addScore(Colour player) {}
+void Game::addScore(Colour player, float val) {
+    if (player == Colour::WHITE) {
+        player1Score += val;
+    } else {
+        player2Score += val;
+    }
+}
 
 void Game::setPlayer(Colour player) {
     if (player == Colour::WHITE) currPlayer = player1;
     else currPlayer = player2;
+}
+
+void Game::swapPlayer() {
+    if (&currPlayer == &player1) currPlayer = player2;
+    else currPlayer = player1;
+}
+
+Colour Game::getColour() {
+    if (&currPlayer == &player1) return Colour::WHITE;
+    else return Colour::BLACK;
 }
 
 char Game::getState(int row, int col) {
@@ -92,6 +138,8 @@ void Game::printBoard() {
 }
 
 Board Game::standardBoard() {
+    // white plays first
+    setPlayer(Colour::WHITE);
     Board b;
     // setup pawns
     for (int i = 0; i < 8; ++ i) {
@@ -138,3 +186,11 @@ Board Game::standardBoard() {
     return b;
     
 } // there's gotta be a better way 
+
+string Game::getColourString() {
+    if (getColour() == Colour::WHITE) {
+        return "White";
+    } else {
+        return "Black";
+    }
+}

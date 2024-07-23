@@ -13,14 +13,14 @@ bool King::verifyMove(Board *board, int torow, int tocol) {
             }
         }
     }
-    else return false;
+    return false;
 } // maybe check that it's not right beside another king? althought verifyCheck() should deal with that case
 
 void King::updatePos(int row, int col) {
 
 }
 
-vector<pair<int, int>> King::possibleMoves(Board *board) {
+vector<pair<int, int>> King::possibleCoords(Board *board) {
     vector<pair<int, int>> v;
     return v;
 }

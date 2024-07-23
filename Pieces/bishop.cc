@@ -31,7 +31,7 @@ bool Bishop::verifyMove(Board *board, int torow, int tocol) {
     return true;
 }
 
-vector<pair<int, int>> Bishop::possibleMoves(Board *board) {
+vector<pair<int, int>> Bishop::possibleCoords(Board *board) {
     vector<pair<int, int>> v;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {

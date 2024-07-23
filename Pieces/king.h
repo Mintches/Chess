@@ -1,9 +1,9 @@
 #ifndef KING_H
 #define KING_H
 
+#include "../board.h"
 #include "../square.h"
 
-class Board; // forward declaration
 
 class King : public Square { // king inherits from square
     public:
@@ -14,7 +14,7 @@ class King : public Square { // king inherits from square
 
         void updatePos(int row, int col);
 
-        vector<pair<int, int>> possibleMoves(Board *board) override;
+        vector<pair<int, int>> possibleCoords(Board *board) override;
         
         PieceType returnType() override;
 };
