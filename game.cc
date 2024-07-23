@@ -90,6 +90,7 @@ char Game::getState(int row, int col) {
 void Game::printBoard() {
     TextObserver *to = new TextObserver{this};
     to->notify();
+    notifyObserver();
 }
 
 Board Game::standardBoard() {
