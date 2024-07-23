@@ -9,6 +9,9 @@ Square::Square(int row, int col, Colour player) : row{row}, col{col}, player{pla
     return *this;
 }*/
 
+int Square::getRow() { return row; }
+int Square::getCol() { return col; }
+
 /*PieceType Square::returnType() { // incomplete
     return PieceType;
 }*/

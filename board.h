@@ -26,7 +26,7 @@ class Board {
         bool movePiece(Colour player, int row1, int col1, int row2, int col2);
         BoardIterator begin();
         BoardIterator end();
-        void makePiece(int row, int col, int piece);
+        void makePiece(int row, int col, char piece);
         void deletePiece(int row, int col);
         void undoMove();
 };

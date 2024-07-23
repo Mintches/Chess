@@ -25,7 +25,8 @@ public:
     Colour returnPlayer();
     virtual bool verifyMove(Board *board, int row, int col) = 0;
     virtual vector<pair<int, int>> possibleMoves(Board *board) = 0;
-
+    int getRow();
+    int getCol();
     //Square getPiece();
 
     virtual PieceType returnType() = 0;

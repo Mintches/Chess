@@ -73,9 +73,11 @@ bool Board::verifyStalemate(Colour player) { // if no possible moves for current
     }
 }*/
 
-bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) { // do move yep
+bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) {
     if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
-    Move m; //{arr[row1][col1], nullptr, arr[row2][col2], false, false};
+    vector<Square *> emptyDeleted;
+    vector<Square *> emptyAdded;
+    Move m {emptyDeleted, emptyAdded, false, false};
     arr[row2][col2] = arr[row1][col1];
     arr[row1][col1] = new EmptySquare(row1, row2, Colour::WHITE);
     if (verifyCheck(player)) {
@@ -97,7 +99,7 @@ bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) { /
 
 }
 
-void Board::makePiece(int row, int col, int piece) {
+void Board::makePiece(int row, int col, char piece) {
     if (piece == 'p') arr[row][col] = new Pawn(row, col, Colour::BLACK);
     else if (piece == 'n') arr[row][col] = new Knight(row, col, Colour::BLACK);
     else if (piece == 'b') arr[row][col] = new Bishop(row, col, Colour::BLACK);
@@ -123,8 +125,15 @@ void Board::deletePiece(int row, int col) {
 }
 
 void Board::undoMove() {
-    /*if (movesMade.size() == 0) return;
-    arr[][]*/
-    return;
-
+    if (movesMade.size() == 0) return;
+    Move latestMv = movesMade.back();
+    for (auto deletedSq : latestMv.getDeleted()) {
+        // restore deleted
+        makePiece(deletedSq->getRow(),deletedSq->getCol(), 'p'); // fix makePiece
+    }
+    for (auto addedSq : latestMv.getAdded()) {
+        // remove added
+        deletePiece(addedSq->getRow(),addedSq->getCol()); // fix makePiece
+    }
+    movesMade.pop_back();
 }
