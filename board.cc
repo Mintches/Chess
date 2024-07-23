@@ -47,7 +47,8 @@ Square *Board::getSquare(int row, int col) {
 bool Board::verifyCheck(Colour player) {
     int kingRow = 0; // placeholders
     int kingCol = 0;
-    for (auto sq : possibleMoves())
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
             if (getSquare(i, j)->verifyMove(this, kingRow, kingCol)) {
                 return true;
             }

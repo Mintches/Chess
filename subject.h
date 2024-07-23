@@ -7,7 +7,7 @@ using namespace std;
 class Observer; //forward declaration
 
 class Subject {
-    vector<Observer*> observer;
+    vector<Observer*> observers;
     public:
         void attach(Observer *o);
         void detach(Observer *o);

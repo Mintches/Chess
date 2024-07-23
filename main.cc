@@ -2,8 +2,8 @@
 
 #include "game.h"
 #include "input.h"
-#include "textObserver.h"
-#include "graphicsObserver.h"
+#include "Observers/textObserver.h"
+#include "Observers/graphicsObserver.h"
 
 using namespace std;
 
@@ -11,13 +11,16 @@ using namespace std;
 
 int main() {
     string in;
-    Game *g;
+    Game *g = new Game();
     TextObserver *to = new TextObserver{g};
+    Input inp;
     GraphicsObserver *go = new GraphicsObserver{g};
+    g->attach(to);
+    g->attach(go);
     while (cin >> in) {
         if (in == "game") {
-            Player *p1 = createPlayer();
-            Player *p2 = createPlayer();
+            Player *p1 = inp.createPlayer();
+            Player *p2 = inp.createPlayer();
             g->setPlayerTypes(p1, p2);
             g->playGame(); // game should check if there's already a board. if not, it uses standard chess setup
         } else if (in == "setup") {
