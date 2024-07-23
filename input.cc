@@ -14,7 +14,7 @@ pair<int, int> Input::getSquare() {
     return p;
 }
 
-Player* createPlayer() {
+Player* Input::createPlayer() {
     string in;
     if (cin >> in && in == "human") {
         return new Human();

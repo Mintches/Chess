@@ -1,7 +1,8 @@
 #include "subject.h"
+#include "Observers/observer.h"
 using namespace std;
 
-void Subject::attach(Observer *o) { observer.push_back(o); }
+void Subject::attach(Observer *o) { observers.push_back(o); }
 
 void Subject::detach(Observer *o) {
     for (auto it = observers.begin(); it != observers.end();) {
@@ -10,4 +11,4 @@ void Subject::detach(Observer *o) {
     }
 }
 
-void Subject::notifyObservers() { for (auto o : observer) o->notify(); }
+void Subject::notifyObservers() { for (auto o : observers) o->notify(); }

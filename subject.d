@@ -1,1 +1,1 @@
-subject.o: subject.cc subject.h
+subject.o: subject.cc subject.h Observers/observer.h
