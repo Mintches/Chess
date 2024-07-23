@@ -2,6 +2,8 @@
 
 #include "game.h"
 #include "input.h"
+#include "textObserver.h"
+#include "graphicsObserver.h"
 
 using namespace std;
 
@@ -9,20 +11,22 @@ using namespace std;
 
 int main() {
     string in;
-    Game g;
+    Game *g;
+    TextObserver *to = new TextObserver{g};
+    GraphicsObserver *go = new GraphicsObserver{g};
     while (cin >> in) {
         if (in == "game") {
             Player *p1 = createPlayer();
             Player *p2 = createPlayer();
-            g.setPlayerTypes(p1, p2);
-            g.playGame(); // game should check if there's already a board. if not, it uses standard chess setup
+            g->setPlayerTypes(p1, p2);
+            g->playGame(); // game should check if there's already a board. if not, it uses standard chess setup
         } else if (in == "setup") {
-            g.setPlayer(Colour::WHITE);
-            g.setupGame(); // should add its setup into game's board
+            g->setPlayer(Colour::WHITE);
+            g->setupGame(); // should add its setup into game's board
         } else {
             cerr << "Not a valid commmand" << endl;
         }
     }
 
-    g.printScore();
+    g->printScore();
 }
