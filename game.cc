@@ -88,7 +88,7 @@ char Game::getState(int row, int col) {
 }
 
 void Game::printBoard() {
-    notifyObservers();
+    notifyObserver();
 }
 
 Board Game::standardBoard() {
