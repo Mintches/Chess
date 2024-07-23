@@ -3,6 +3,7 @@
 #include "level3.h"
 using namespace std;
 
-string Level3::getMove(Board *board, Colour player) const {
-    return ""; // TODO: return a Level 3 move
+Move Level3::getMove(Board *board, Colour player) const {
+    vector<Move> v = board->possibleMoves(player);
+    return v.back(); // placeholder so it doesn't crash
 }

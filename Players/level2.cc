@@ -5,15 +5,18 @@
 
 using namespace std;
 
-string Level2::getMove(Board *board, Colour player) const {
-
+Move Level2::getMove(Board *board, Colour player) const {
+    PieceType maxCapture = PieceType::EMPTY;
+    bool checkMv = false;
+    Move bestMv;
     for (auto mv : board->possibleMoves(player)) {
-        PieceType maxCapture = PieceType::EMPTY;
-        Move bestMv;
-        
-        if (mv.getCaptured()->returnType() >= maxCapture) {
-            bestMv = mv;
+        if (mv.getCheck() >= checkMv) {
+            if (mv.getDeleted().back()->returnType() > maxCapture) {
+                maxCapture = mv.getDeleted().back()->returnType();
+                checkMv = mv.getCheck();
+                bestMv = mv;
+            }
         }
     }
-    return ""; // return highest capture move
+    return bestMv; // return highest capture move
 }

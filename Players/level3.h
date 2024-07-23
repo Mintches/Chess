@@ -6,7 +6,7 @@
 using namespace std;
 
 class Level3: public Computer {
-    string getMove(Board *board, Colour player) const override;
+    Move getMove(Board *board, Colour player) const override;
 };
 
 #endif

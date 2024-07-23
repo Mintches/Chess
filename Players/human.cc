@@ -2,8 +2,10 @@
 #include <iostream>
 using namespace std;
 
-string Human::getMove(Board *board, Colour player) const {
-    string movement;
-    cin >> movement;
-    return movement;
+Move Human::getMove(Board *board, Colour player) const {
+    string strMv;
+    cin >> strMv;
+    // tokenize strMv, check that it exists in the possible player moves
+    vector<Move> v = board->possibleMoves(player); // placeholder
+    return v.back();
 }

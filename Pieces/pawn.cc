@@ -22,9 +22,8 @@ bool Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
                && board->getSquare(torow - forward, tocol)->returnType() != PieceType::EMPTY
                && board->getSquare(torow, tocol)->returnPlayer() != player) { // diagonal
         return true;
-    } else {
-        return false;
-    } // automatically checks if it moved at all
+    }
+    return false; // automatically checks if it moved at all
 }
 
 void Pawn::updatePos(int row, int col) {

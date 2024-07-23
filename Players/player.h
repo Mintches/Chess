@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "../board.h"
+#include "../move.h"
 #include "../colour.h"
 
 using namespace std;
@@ -11,7 +13,7 @@ class Board; // forward declaration
 
 class Player {
     public:
-        virtual string getMove(Board *board, Colour player) const = 0;
+        virtual Move getMove(Board *board, Colour player) const = 0;
         virtual ~Player() = default;
 };
 

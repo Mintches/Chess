@@ -2,7 +2,6 @@
 #define COMPUTER_H
 
 #include <string>
-
 #include "player.h"
 //#include "../board.h"
 //#include "../colour.h"
