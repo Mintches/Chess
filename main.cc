@@ -1,17 +1,28 @@
 #include <iostream>
 
 #include "game.h"
-#include "Players/level1.h"
-#include "Players/human.h"
+#include "input.h"
 
 using namespace std;
 
-const int BOARD_DIMENSION = 8;
+// maybe a global const for board dimensions?
 
 int main() {
-    Player *p = new Human();
-    Player *c = new Level1();
-    Game g(p, c);
-    g.setupGame();
-    g.playGame();
+    string in;
+    Game g;
+    while (cin >> in) {
+        if (in == "game") {
+            Player *p1 = createPlayer();
+            Player *p2 = createPlayer();
+            g.setPlayerTypes(p1, p2);
+            g.playGame(); // game should check if there's already a board. if not, it uses standard chess setup
+        } else if (in == "setup") {
+            g.setPlayer(Colour::WHITE);
+            g.setupGame(); // should add its setup into game's board
+        } else {
+            cerr << "Not a valid commmand" << endl;
+        }
+    }
+
+    g.printScore();
 }

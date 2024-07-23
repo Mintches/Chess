@@ -11,6 +11,7 @@
 #include "Pieces/bishop.h"
 #include "Pieces/rook.h"
 #include "Pieces/emptysquare.h"
+#include "Pieces/emptysquare.h"
 #include "colour.h"
 
 using namespace std;
@@ -38,8 +39,8 @@ Square *Board::getSquare(int row, int col) {
 }
 
 bool Board::verifyCheck(Colour player) {
-    int kingRow;
-    int kingCol;
+    int kingRow = 0; // placeholders
+    int kingCol = 0;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             if (getSquare(i, j)->verifyMove(this, kingRow, kingCol)) {
@@ -103,6 +104,8 @@ void Board::makePiece(int row, int col, int piece) {
     else if (piece == 'K') arr[row][col] = new King(row, col, Colour::WHITE);
     else if (piece == 'Q') arr[row][col] = new Queen(row, col, Colour::WHITE);
     else if (piece == 'R') arr[row][col] = new Rook(row, col, Colour::WHITE);
+    else if (piece == '_') arr[row][col] = new EmptySquare(row, col, Colour::BLACK);
+    else if (piece == '.') arr[row][col] = new EmptySquare(row, col, Colour::WHITE);
 }
 
 void Board::deletePiece(int row, int col) {

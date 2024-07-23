@@ -13,14 +13,15 @@ class Game : public Subject {
     Player *player2;
     Player *currPlayer;
     Board currentBoard;
-    public:
-        Game(Player *player1, Player *player2);
-        void setupGame();
-        void playGame();
-        void endGame();
-        void printScore();
-        void addScore(Colour player);
-        void setPlayer(Colour player);
-        char getState(int row, int col) override;
-        void printBoard();
+public:
+    Game();
+    void setPlayerTypes(Player *player1, Player *player2);
+    void setupGame();
+    void playGame();
+    void printScore();
+    void addScore(Colour player);
+    void setPlayer(Colour player);
+    char getState(int row, int col) override;
+    void printBoard();
+    Board standardBoard();
 };

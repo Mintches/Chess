@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <string>
+#include <iostream>
 
 #include "../board.h"
 #include "../move.h"
@@ -12,9 +13,10 @@ using namespace std;
 class Board; // forward declaration
 
 class Player {
-    public:
-        virtual Move getMove(Board *board, Colour player) const = 0;
-        virtual ~Player() = default;
+public:
+    virtual Move getMove(Board *board, Colour player) const = 0;
+
+    virtual ~Player() = default;
 };
 
 #endif
