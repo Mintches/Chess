@@ -68,7 +68,7 @@ bool Board::verifyStalemate(Colour player) { // if no possible moves for current
 
 bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) { // do move yep
     if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
-    Move m{arr[row1][col1], nullptr, arr[row2][col2], false, false};
+    Move m; //{arr[row1][col1], nullptr, arr[row2][col2], false, false};
     arr[row2][col2] = arr[row1][col1];
     arr[row1][col1] = new EmptySquare(row1, row2, Colour::WHITE);
     if (verifyCheck(player)) {
