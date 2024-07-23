@@ -10,7 +10,7 @@ Square::Square(int row, int col, Colour player) : row{row}, col{col}, player{pla
 }*/
 
 /*PieceType Square::returnType() { // incomplete
-    return PieceType::QUEEN;
+    return PieceType;
 }*/
 
 Colour Square::returnPlayer() {

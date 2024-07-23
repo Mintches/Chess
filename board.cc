@@ -17,9 +17,15 @@
 using namespace std;
 
 Board::Board() {
+    Colour player;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            arr[i][j] = new EmptySquare(i, j, Colour::WHITE);
+            if ((i + j) % 2 == 0) {
+                player = Colour::WHITE;
+            } else {
+                player = Colour::BLACK;
+            }
+            arr[i][j] = new EmptySquare(i, j, player);
         }
     }
 }
@@ -105,11 +111,15 @@ void Board::makePiece(int row, int col, int piece) {
     else if (piece == 'Q') arr[row][col] = new Queen(row, col, Colour::WHITE);
     else if (piece == 'R') arr[row][col] = new Rook(row, col, Colour::WHITE);
     else if (piece == '_') arr[row][col] = new EmptySquare(row, col, Colour::BLACK);
-    else if (piece == '.') arr[row][col] = new EmptySquare(row, col, Colour::WHITE);
+    else if (piece == ' ') arr[row][col] = new EmptySquare(row, col, Colour::WHITE);
 }
 
 void Board::deletePiece(int row, int col) {
-    arr[row][col] = new EmptySquare(row, col, Colour::WHITE);
+    Colour player= Colour::BLACK;
+    if ((row + col) % 2 == 0) {
+        player = Colour::WHITE;
+    }
+    arr[row][col] = new EmptySquare(row, col, player);
 }
 
 void Board::undoMove() {

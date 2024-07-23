@@ -84,7 +84,7 @@ char Game::getState(int row, int col) {
     else if (curPiece == PieceType::ROOK) return 'r' + cap;
     else if (curPiece == PieceType::KNIGHT) return 'n' + cap;
     else if (curPiece == PieceType::EMPTY && player == Colour::BLACK) return '_';
-    else return '.';
+    else return ' ';
 }
 
 void Game::printBoard() {
@@ -129,7 +129,7 @@ Board Game::standardBoard() {
     for (int i = 2; i < 6; ++i) {
         for (int j = 0; i < 8; ++j) {
             if ((i + j) % 2 == 0) {
-                b.makePiece(i, j, '.');
+                b.makePiece(i, j, ' ');
             } else {
                 b.makePiece(i, j, '_');
             }
