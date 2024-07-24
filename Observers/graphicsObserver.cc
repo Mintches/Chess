@@ -30,17 +30,21 @@ void GraphicsObserver::notify() {
             }
             cout << state << "\n";
             ifstream myfile;
-            if (state == 'K') myfile.open("help.txt");
-            else if (state == 'Q') myfile.open("help.txt");
+            if (state == 'K') myfile.open("king.txt");
+            else if (state == 'Q') myfile.open("queen.txt");
             else if (state == 'N') myfile.open("knight.txt");
             else if (state == 'B') myfile.open("bishop.txt");
             else if (state == 'R') myfile.open("rook.txt");
             else myfile.open("pawn.txt");
+            if (!myfile) {
+                cout << "nooo\n";
+            }
             for (int k = 0; k < 25; k++) {
                 for (int l = 0; l < 25; l++) {
                     int a;
                     myfile >> a;
                     arr[k][l] = a;
+                    //myfile << "o";
                 }
             }
             w.drawImage(i * 50 + 62, j * 50 + 62, arr, colour);
