@@ -3,19 +3,20 @@
 #include <X11/Xlib.h>
 #include <iostream>
 #include <string>
+using namespace std;
 
 class Xwindow {
   Display *d;
   Window w;
   int s, width, height;
   GC gc;
-  unsigned long colours[5];
+  unsigned long colours[7];
 
  public:
   Xwindow(int width=500, int height=500);  // Constructor; displays the window.
   ~Xwindow();                              // Destructor; destroys the window.
 
-  enum {White=0, Black, Red, Green, Blue}; // Available colours.
+  enum {White=0, Black, Red, Green, Blue, MediumSlateBlue, LightSkyBlue}; // Available colours.
 
   int getWidth() const;
   int getHeight() const;
@@ -25,6 +26,8 @@ class Xwindow {
 
   // Draws a string
   void drawString(int x, int y, std::string msg);
+
+  void drawImage(int x, int y, int arr[25][25], int colour=Black);
 
 };
 

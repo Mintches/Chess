@@ -11,9 +11,9 @@ using namespace std;
 
 int main() {
     string in;
+    Input inp;
     Game *g = new Game();
     TextObserver *to = new TextObserver{g};
-    Input inp;
     GraphicsObserver *go = new GraphicsObserver{g};
     g->attach(to);
     g->attach(go);
