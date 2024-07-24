@@ -14,9 +14,9 @@ int main() {
     Game *g = new Game();
     TextObserver *to = new TextObserver{g};
     Input inp;
-    GraphicsObserver *go = new GraphicsObserver{g};
+    //GraphicsObserver *go = new GraphicsObserver{g};
     g->attach(to);
-    g->attach(go);
+    //g->attach(go);
     while (cin >> in) {
         if (in == "game") {
             Player *p1 = inp.createPlayer();
@@ -24,7 +24,6 @@ int main() {
             g->setPlayerTypes(p1, p2);
             g->playGame(); // game should check if there's already a board. if not, it uses standard chess setup
         } else if (in == "setup") {
-            g->setPlayer(Colour::WHITE);
             g->setupGame(); // should add its setup into game's board
         } else {
             cerr << "Not a valid commmand" << endl;

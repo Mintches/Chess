@@ -16,19 +16,7 @@
 
 using namespace std;
 
-Board::Board() {
-    Colour player;
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            if ((i + j) % 2 == 0) {
-                player = Colour::WHITE;
-            } else {
-                player = Colour::BLACK;
-            }
-            arr[i][j] = new EmptySquare(i, j, player);
-        }
-    }
-}
+Board::Board() {} // default
 
 vector<Move> Board::possibleMoves(Colour player) {
     vector<Move> moves;
@@ -91,8 +79,8 @@ bool Board::verifyStalemate(Colour player) { // is player stuck
     }
 }*/
 
-bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) {
-    if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
+bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) { // attempts the given move and returns if it succeeded
+    if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false; // verfies everything except self-checks
     vector<Square *> emptyDeleted;
     vector<Square *> emptyAdded;
     Move m {emptyDeleted, emptyAdded, false, false};
@@ -151,7 +139,7 @@ void Board::undoMove() {
     }
     for (auto addedSq : latestMv.getAdded()) {
         // remove added
-        deletePiece(addedSq->getRow(), addedSq->getCol()); // fix makePiece
+        deletePiece(addedSq->getRow(), addedSq->getCol());
     }
     movesMade.pop_back();
 }

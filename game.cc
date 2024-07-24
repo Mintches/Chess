@@ -23,6 +23,7 @@ void Game::setupGame() {
     string op;
     //Board b = Board();
     //currentBoard = b;
+    //setCurrPlayer(Colour::WHITE);
     currPlayer = player1;
     Input inp;
     while (cin >> op) {
@@ -32,19 +33,18 @@ void Game::setupGame() {
         }
         else if (op == "+") { // add piece to square
             char p;
-            string sq;
             cin >> p;
             // parse input into row and col
-            pair<int, int> in = inp.getSquare();
+            pair<int, int> in = inp.getCoords();
             currentBoard.makePiece(in.first, in.second, p);
         } else if (op == "-") { // delete piece on square
-            pair<int, int> in = inp.getSquare();
+            pair<int, int> in = inp.getCoords();
             currentBoard.deletePiece(in.first, in.second);
         } else if (op == "=") { // set player colour to go first
             string colour;
             cin >> colour;
-            if (colour == "white") setPlayer(Colour::WHITE);
-            else if (colour == "black") setPlayer(Colour::BLACK);
+            if (colour == "white") currPlayer = player1;
+            else if (colour == "black") currPlayer = player2;
         }
         printBoard();
     }
@@ -53,6 +53,7 @@ void Game::setupGame() {
 void Game::playGame() {
     if (gameHistory.empty()) {
         gameHistory.push_back(standardBoard());
+        printBoard();
     }
     string in;
     while (cin >> in) {
@@ -62,9 +63,9 @@ void Game::playGame() {
             cout << getColourString() << " wins!" << endl;
             addScore(getColour(), 0.5);
             break;
-        } else if (in == "move") {
+        } /*else if (in == "move") {
             // receive move
-            Move mv = currPlayer->getMove(&currentBoard, getColour());
+            Move mv = currPlayer->getMove(&currentBoard, getColour()); // can this be done if currPlayer is human and doesn't take in the board
 
             // do move, if possible
             if (currentBoard.movePiece(getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
@@ -86,7 +87,7 @@ void Game::playGame() {
             } else {
                 cout << "invalid move" << endl;
             }
-        }
+        }*/
         printBoard();
     }
    return;
@@ -106,7 +107,7 @@ void Game::addScore(Colour player, float val) {
     }
 }
 
-void Game::setPlayer(Colour player) {
+void Game::setCurrPlayer(Colour player) {
     if (player == Colour::WHITE) currPlayer = player1;
     else currPlayer = player2;
 }
@@ -144,7 +145,7 @@ void Game::printBoard() {
 
 Board Game::standardBoard() {
     // white plays first
-    setPlayer(Colour::WHITE);
+    setCurrPlayer(Colour::WHITE);
     Board b;
     // setup pawns
     for (int i = 0; i < 8; ++ i) {
