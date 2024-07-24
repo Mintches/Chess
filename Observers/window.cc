@@ -31,10 +31,10 @@ Xwindow::Xwindow(int width, int height) : width{width}, height{height} {
   // Set up colours.
   XColor xcolour;
   Colormap cmap;
-  char color_vals[5][10]={"white", "black", "red", "green", "blue"};
+  char color_vals[7][30]={"white", "black", "red", "green", "blue", "mediumslateblue", "lightskyblue"};
 
   cmap=DefaultColormap(d,DefaultScreen(d));
-  for(int i=0; i < 5; ++i) {
+  for(int i=0; i < 7; ++i) {
       XParseColor(d,cmap,color_vals[i],&xcolour);
       XAllocColor(d,cmap,&xcolour);
       colours[i]=xcolour.pixel;
@@ -72,3 +72,12 @@ void Xwindow::drawString(int x, int y, string msg) {
   XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 }
 
+void Xwindow::drawImage(int x, int y, int arr[25][25], int colour) {
+    XSetForeground(d, gc, colours[colour]);
+    for (int i = 0; i < 25; i++) {
+        for (int j = 0; j < 25; j++) {
+            if (arr[i][j] == 1) XFillRectangle(d, w, gc, j + y, i + x, 1, 1);
+        }
+    }
+    XSetForeground(d, gc, colours[Black]);
+}

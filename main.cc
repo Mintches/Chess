@@ -11,12 +11,16 @@ using namespace std;
 
 int main() {
     string in;
+    Input inp;
     Game *g = new Game();
     TextObserver *to = new TextObserver{g};
+<<<<<<< HEAD
+=======
     Input inp;
-    //GraphicsObserver *go = new GraphicsObserver{g};
+    GraphicsObserver *go = new GraphicsObserver{g};
+>>>>>>> refs/remotes/origin/main
     g->attach(to);
-    //g->attach(go);
+    g->attach(go);
     while (cin >> in) {
         if (in == "game") {
             Player *p1 = inp.createPlayer();
