@@ -52,7 +52,9 @@ void Game::setupGame() {
 
 void Game::playGame() {
     if (gameHistory.empty()) {
-        gameHistory.push_back(standardBoard());
+        Board b = standardBoard();
+        gameHistory.push_back(b);
+        currentBoard = b;
         printBoard();
     }
     string in;
@@ -63,12 +65,13 @@ void Game::playGame() {
             cout << getColourString() << " wins!" << endl;
             addScore(getColour(), 0.5);
             break;
-        } /*else if (in == "move") {
+        } 
+        else if (in == "move") {
             // receive move
             Move mv = currPlayer->getMove(&currentBoard, getColour()); // can this be done if currPlayer is human and doesn't take in the board
 
             // do move, if possible
-            //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
+            if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
                 gameHistory.push_back(currentBoard);
                 swapPlayer();
                 currentBoard.movePiece(mv);
@@ -88,7 +91,7 @@ void Game::playGame() {
             } else {
                 cout << "invalid move" << endl;
             }
-        }*/
+        }
         printBoard();
     }
    return;
@@ -148,40 +151,11 @@ Board Game::standardBoard() {
     // white plays first
     setCurrPlayer(Colour::WHITE);
     Board b;
-    // setup pawns
-    for (int i = 0; i < 8; ++ i) {
-        b.makePiece(1, i, 'p');
-        b.makePiece(6, i, 'P');
-    }
-    //rooks
-    b.makePiece(0, 0, 'r');
-    b.makePiece(0, 8, 'r');
-    b.makePiece(7, 0, 'R');
-    b.makePiece(7, 8, 'R');
-
-    //knights
-    b.makePiece(0, 1, 'n');
-    b.makePiece(0, 7, 'n');
-    b.makePiece(7, 1, 'N');
-    b.makePiece(7, 7, 'N');
-
-    // bishops
-    b.makePiece(0, 2, 'b');
-    b.makePiece(0, 6, 'b');
-    b.makePiece(7, 2, 'B');
-    b.makePiece(7, 6, 'B');
-
-    // kings
-    b.makePiece(0, 3, 'k');
-    b.makePiece(7, 3, 'K');
-
-    // queens
-    b.makePiece(0, 4, 'q');
-    b.makePiece(0, 4, 'Q');
-
+    // setup 
+    
     // empty squares
-    for (int i = 2; i < 6; ++i) {
-        for (int j = 0; i < 8; ++j) {
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
             if ((i + j) % 2 == 0) {
                 b.makePiece(i, j, ' ');
             } else {
@@ -189,6 +163,36 @@ Board Game::standardBoard() {
             }
         }
     }
+
+    for (int i = 0; i < 8; ++ i) {
+        b.makePiece(1, i, 'p');
+        b.makePiece(6, i, 'P');
+    }
+    //rooks
+    b.makePiece(0, 0, 'r');
+    b.makePiece(0, 7, 'r');
+    b.makePiece(7, 0, 'R');
+    b.makePiece(7, 7, 'R');
+
+    //knights
+    b.makePiece(0, 1, 'n');
+    b.makePiece(0, 6, 'n');
+    b.makePiece(7, 1, 'N');
+    b.makePiece(7, 6, 'N');
+
+    // bishops
+    b.makePiece(0, 2, 'b');
+    b.makePiece(0, 5, 'b');
+    b.makePiece(7, 2, 'B');
+    b.makePiece(7, 5, 'B');
+
+    // kings
+    b.makePiece(0, 3, 'k');
+    b.makePiece(7, 3, 'K');
+
+    // queens
+    b.makePiece(0, 4, 'q');
+    b.makePiece(7, 4, 'Q');
 
     return b;
     

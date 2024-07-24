@@ -16,6 +16,7 @@ pair<int, int> Input::getCoords() {
 
 Player* Input::createPlayer() {
     string in;
+    cout << "Please input 'human' or 'computer [1-4]'" << endl;
     while (cin >> in) {
         if (in == "human") {
             return new Human();

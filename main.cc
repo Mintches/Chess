@@ -14,10 +14,11 @@ int main() {
     Input inp;
     Game *g = new Game();
     TextObserver *to = new TextObserver{g};
-    GraphicsObserver *go = new GraphicsObserver{g};
+    //GraphicsObserver *go = new GraphicsObserver{g};
     g->attach(to);
-    g->attach(go);
-    while (cin >> in) {
+    //g->attach(go);
+    cout << "Please input either 'game' or 'setup'" << endl;
+    while (getline(cin, in)) {
         if (in == "game") {
             Player *p1 = inp.createPlayer();
             Player *p2 = inp.createPlayer();

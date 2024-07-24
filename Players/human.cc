@@ -4,6 +4,7 @@
 using namespace std;
 
 Move Human::getMove(Board *board, Colour player) const {
+    cout << "Please input a move:" << "\n";
     Input in;
     pair<int, int> sq1 = in.getCoords();
     pair<int, int> sq2 = in.getCoords();
