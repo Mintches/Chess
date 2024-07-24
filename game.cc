@@ -71,13 +71,13 @@ void Game::playGame() {
             Move mv = currPlayer->getMove(&currentBoard, getColour()); // can this be done if currPlayer is human and doesn't take in the board
 
             // do move, if possible
-            if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
-                gameHistory.push_back(currentBoard);
+            //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
+                //gameHistory.push_back(currentBoard);
                 swapPlayer();
                 currentBoard.movePiece(mv);
 
                 // in case of checkmate, stalemate, or check
-                if (currentBoard.verifyCheckmate(getColour())) {
+                /*if (currentBoard.verifyCheckmate(getColour())) {
                     cout << "Checkmate! " << getColourString() << " wins!" << endl;
                     addScore(getColour(), 1);
                     break;
@@ -87,10 +87,10 @@ void Game::playGame() {
                     break;
                 } else if (currentBoard.verifyCheck(getColour())) {
                     cout << getColourString() << " is in check." << endl;
-                }
-            } else {
-                cout << "invalid move" << endl;
-            }
+                }*/
+            //} else {
+                //cout << "invalid move" << endl;
+            //}
         }
         printBoard();
     }

@@ -1,4 +1,7 @@
+#include <iostream>
+
 #include "pawn.h"
+#include "emptysquare.h"
 
 Pawn::Pawn(int row, int col, Colour player) : Square{row, col, player} {}
 
@@ -13,8 +16,13 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
     } else if (player == Colour::BLACK) {
         forward = 1;
     }
+    cout << (col - tocol) << "\n";
     if (col - tocol == 0 && board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) { // move straight forward
         if (row - torow == forward) {
+            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+            m.addAdded(new Pawn(torow, tocol, player));
+            m.addDeleted(this);
+            m.addDeleted(board->getSquare(torow, tocol));
             return m; //true;
         } else if (row - torow == forward * 2 && board->getSquare(torow - forward, tocol)->returnType() == PieceType::EMPTY) {
             return m; //true;
