@@ -16,7 +16,7 @@ void Queen::updatePos(int row, int col) {
 
 }
 
-vector<pair<int, int>> Queen::possibleMoves(Board *board) {
+vector<pair<int, int>> Queen::possibleCoords(Board *board) {
     vector<pair<int, int>> v;
     return v;
 }

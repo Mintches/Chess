@@ -14,7 +14,7 @@ class Queen : public Square { // queen inherits from square
 
         void updatePos(int row, int col);
 
-        vector<pair<int, int>> possibleMoves(Board *board) override;
+        vector<pair<int, int>> possibleCoords(Board *board) override;
         
         PieceType returnType() override;
 };

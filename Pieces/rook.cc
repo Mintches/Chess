@@ -36,7 +36,7 @@ void Rook::updatePos(int row, int col) {
 
 }
 
-vector<pair<int, int>> Rook::possibleMoves(Board *board) {
+vector<pair<int, int>> Rook::possibleCoords(Board *board) {
     vector<pair<int, int>> v;
     return v;
 }
