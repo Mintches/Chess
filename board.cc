@@ -16,19 +16,7 @@
 
 using namespace std;
 
-Board::Board() {
-    Colour player;
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            if ((i + j) % 2 == 0) {
-                player = Colour::WHITE;
-            } else {
-                player = Colour::BLACK;
-            }
-            arr[i][j] = new EmptySquare(i, j, player);
-        }
-    }
-}
+Board::Board() {} // default
 
 vector<Move> Board::possibleMoves(Colour player) {
     vector<Move> moves;
@@ -155,7 +143,7 @@ void Board::undoMove() {
     Move latestMv = movesMade.back();
     for (auto addedSq : latestMv.getAdded()) {
         // remove added
-        deletePiece(addedSq->getRow(), addedSq->getCol()); // fix makePiece
+        deletePiece(addedSq->getRow(), addedSq->getCol());
     }
     for (auto deletedSq : latestMv.getDeleted()) {
         // restore deleted

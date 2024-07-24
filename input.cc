@@ -4,7 +4,7 @@
 #include "input.h"
 using namespace std;
 
-pair<int, int> Input::getSquare() {
+pair<int, int> Input::getCoords() {
     string s;
     cin >> s;
     char rank = s[0];
@@ -16,20 +16,23 @@ pair<int, int> Input::getSquare() {
 
 Player* Input::createPlayer() {
     string in;
-    if (cin >> in && in == "human") {
-        return new Human();
-    } else if (in == "computer") {
-        if (cin >> in) {
-            if (in == "1") {
-                return new Level1();
-            } else if (in == "2") {
-                return new Level2();
-            } else if (in == "3") {
-                return new Level3();
-            } else if (in == "4") {
-                return new Level4();
+    while (cin >> in) {
+        if (in == "human") {
+            return new Human();
+        } else if (in == "computer") {
+            if (cin >> in) {
+                if (in == "1") {
+                    return new Level1();
+                } else if (in == "2") {
+                    return new Level2();
+                } else if (in == "3") {
+                    return new Level3();
+                } else if (in == "4") {
+                    return new Level4();
+                }
             }
         }
     }
-    return nullptr; // else if input is wrong
+    cerr << "You didn't enter a valid player" << endl;
+    return new Level4();
 }

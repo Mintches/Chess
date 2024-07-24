@@ -24,7 +24,6 @@ int main() {
             g->setPlayerTypes(p1, p2);
             g->playGame(); // game should check if there's already a board. if not, it uses standard chess setup
         } else if (in == "setup") {
-            g->setPlayer(Colour::WHITE);
             g->setupGame(); // should add its setup into game's board
         } else {
             cerr << "Not a valid commmand" << endl;

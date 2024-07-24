@@ -20,7 +20,7 @@ public:
     void playGame();
     void printScore();
     void addScore(Colour player, float val);
-    void setPlayer(Colour player);
+    void setCurrPlayer(Colour player);
     void swapPlayer();
     Colour getColour();
     char getState(int row, int col) override;

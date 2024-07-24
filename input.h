@@ -11,6 +11,6 @@ using namespace std;
 
 class Input {
 public:
-    pair<int, int> getSquare();
+    pair<int, int> getCoords();
     Player* createPlayer();
 };
