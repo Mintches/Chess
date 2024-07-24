@@ -14,11 +14,8 @@ int main() {
     Input inp;
     Game *g = new Game();
     TextObserver *to = new TextObserver{g};
-<<<<<<< HEAD
-=======
     Input inp;
     GraphicsObserver *go = new GraphicsObserver{g};
->>>>>>> refs/remotes/origin/main
     g->attach(to);
     g->attach(go);
     while (cin >> in) {
