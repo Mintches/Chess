@@ -9,6 +9,10 @@ vector<Square *> Move::getDeleted() { return deleted; }
 
 vector<Square *> Move::getAdded() { return added; }
 
+void Move::addDeleted(Square *s) { deleted.push_back(s); }
+
+void Move::addAdded(Square *s) { added.push_back(s); }
+
 bool Move::getCheck() { return check; }
 
 bool Move::getStalemate() { return stalemate; }

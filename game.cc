@@ -67,9 +67,10 @@ void Game::playGame() {
             Move mv = currPlayer->getMove(&currentBoard, getColour());
 
             // do move, if possible
-            if (currentBoard.movePiece(getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
+            //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
                 gameHistory.push_back(currentBoard);
                 swapPlayer();
+                currentBoard.movePiece(mv);
 
                 // in case of checkmate, stalemate, or check
                 if (currentBoard.verifyCheckmate(getColour())) {
@@ -83,9 +84,9 @@ void Game::playGame() {
                 } else if (currentBoard.verifyCheck(getColour())) {
                     cout << getColourString() << " is in check." << endl;
                 }
-            } else {
-                cout << "invalid move" << endl;
-            }
+            //} else {
+                //cout << "invalid move" << endl;
+            //}
         }
         printBoard();
     }

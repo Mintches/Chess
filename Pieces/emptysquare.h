@@ -11,11 +11,11 @@ class EmptySquare : public Square { // emptysquare inherits from square
         EmptySquare(int row, int col, Colour player); // constructor
         ~EmptySquare(); // destructor
 
-        bool verifyMove(Board *board, int row, int col) override;
+        Move verifyMove(Board *board, int row, int col) override;
 
         void updatePos(int row, int col);
 
-        vector<pair<int, int>> possibleCoords(Board *board) override;
+        vector<Move> possibleCoords(Board *board) override;
         
         PieceType returnType() override;
 };

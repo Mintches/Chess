@@ -10,11 +10,11 @@ class King : public Square { // king inherits from square
         King(int row, int col, Colour player); // constructor
         ~King(); // destructor
 
-        bool verifyMove(Board *board, int torow, int tocol) override;
+        Move verifyMove(Board *board, int torow, int tocol) override;
 
         void updatePos(int row, int col);
 
-        vector<pair<int, int>> possibleCoords(Board *board) override;
+        vector<Move> possibleCoords(Board *board) override;
         
         PieceType returnType() override;
 };

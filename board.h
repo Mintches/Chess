@@ -23,7 +23,7 @@ class Board {
         bool verifyStalemate(Colour player);
         bool verifyDraw();
         //bool verifyMove(Colour player, int row1, int col1, int row2, int col2);
-        bool movePiece(Colour player, int row1, int col1, int row2, int col2);
+        void movePiece(Move m);
         BoardIterator begin();
         BoardIterator end();
         void makePiece(int row, int col, char piece);

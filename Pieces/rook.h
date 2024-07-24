@@ -11,11 +11,11 @@ class Rook : public Square { // bishop inherits from square
         Rook(int row, int col, Colour player); // constructor
         ~Rook(); // destructor
 
-        bool verifyMove(Board *board, int row, int col) override;
+        Move verifyMove(Board *board, int torow, int tocol) override;
 
         void updatePos(int row, int col);
 
-        vector<pair<int, int>> possibleCoords(Board *board) override;
+        vector<Move> possibleCoords(Board *board) override;
         
         PieceType returnType() override;
 };

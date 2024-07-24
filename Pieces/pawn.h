@@ -11,11 +11,11 @@ public:
     Pawn(int row, int col, Colour player); // constructor
     ~Pawn(); // destructor
 
-    bool verifyMove(Board *board, int row, int col) override;
+    Move verifyMove(Board *board, int row, int col) override;
 
     void updatePos(int row, int col);
 
-    vector<pair<int, int>> possibleCoords(Board *board) override;
+    vector<Move> possibleCoords(Board *board) override;
 
     PieceType returnType() override;
     

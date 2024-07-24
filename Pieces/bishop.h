@@ -13,11 +13,11 @@ class Bishop : public Square { // bishop inherits from square
         Bishop(int row, int col, Colour player); // constructor
         ~Bishop(); // destructor
 
-        bool verifyMove(Board *board, int torow, int tocol) override;
+        Move verifyMove(Board *board, int torow, int tocol) override;
 
         void updatePos(int torow, int tocol);
 
-        vector<pair<int, int>> possibleCoords(Board *board);
+        vector<Move> possibleCoords(Board *board);
         
         PieceType returnType() override;
 };

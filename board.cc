@@ -35,12 +35,13 @@ vector<Move> Board::possibleMoves(Colour player) {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             if (arr[i][j]->returnPlayer() == player) {
-                vector<pair<int,int>> coords = arr[i][j]->possibleCoords(this);
-                for (auto coord : coords) {
-                    if (movePiece(player, i, j, coord.first, coord.second)) {
-                        moves.push_back(movesMade.back());
+                //vector<pair<int,int>> coords = arr[i][j]->possibleCoords(this);
+                //for (auto coord : coords) {
+                    Move m = getSquare(i, j)->verifyMove(this, i, j);
+                    if (m.getAdded().size() != 0) {
+                        moves.push_back(m);
                     }
-                }
+                //}
             }
         }
     }
@@ -67,7 +68,7 @@ bool Board::verifyCheck(Colour player) { // is player being checked
     // see if any pieces could capture king
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            if (arr[i][j]->returnPlayer() != player && arr[i][j]->verifyMove(this, kingRow, kingCol)) {
+            if (arr[i][j]->returnPlayer() != player && (arr[i][j]->verifyMove(this, kingRow, kingCol)).getAdded().size() != 0) {
                 return true;
             }
         }
@@ -91,8 +92,15 @@ bool Board::verifyStalemate(Colour player) { // is player stuck
     }
 }*/
 
-bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) {
-    if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
+void Board::movePiece(Move m) {//(Colour player, int row1, int col1, int row2, int col2) {
+    for (auto deletedSq : m.getDeleted()) {
+        deletePiece(deletedSq->getRow(), deletedSq->getCol());
+    }
+    for (auto addedSq : m.getAdded()) {
+        arr[addedSq->getRow()][addedSq->getCol()] = addedSq;
+    }
+    movesMade.push_back(m);
+    /*if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
     vector<Square *> emptyDeleted;
     vector<Square *> emptyAdded;
     Move m {emptyDeleted, emptyAdded, false, false};
@@ -113,7 +121,7 @@ bool Board::movePiece(Colour player, int row1, int col1, int row2, int col2) {
         }
         movesMade.push_back(m);
         return true;
-    }
+    }*/
 
 }
 
@@ -145,13 +153,13 @@ void Board::deletePiece(int row, int col) {
 void Board::undoMove() {
     if (movesMade.size() == 0) return;
     Move latestMv = movesMade.back();
-    for (auto deletedSq : latestMv.getDeleted()) {
-        // restore deleted
-        makePiece(deletedSq->getRow(),deletedSq->getCol(), 'p'); // fix makePiece
-    }
     for (auto addedSq : latestMv.getAdded()) {
         // remove added
         deletePiece(addedSq->getRow(), addedSq->getCol()); // fix makePiece
+    }
+    for (auto deletedSq : latestMv.getDeleted()) {
+        // restore deleted
+        makePiece(deletedSq->getRow(),deletedSq->getCol(), 'p'); // fix makePiece
     }
     movesMade.pop_back();
 }

@@ -1,11 +1,12 @@
 #include "human.h"
+#include "../input.h"
 #include <iostream>
 using namespace std;
 
 Move Human::getMove(Board *board, Colour player) const {
-    string strMv;
-    cin >> strMv;
-    // tokenize strMv, check that it exists in the possible player moves
-    vector<Move> v = board->possibleMoves(player); // placeholder
-    return v.back();
+    Input in;
+    pair<int, int> sq1 = in.getSquare();
+    pair<int, int> sq2 = in.getSquare();
+    Move m = board->getSquare(sq1.first, sq1.second)->verifyMove(board, sq2.first, sq2.second);
+    return m;
 }
