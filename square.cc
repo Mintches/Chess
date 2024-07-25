@@ -29,8 +29,9 @@ Colour Square::returnPlayer() {
 }
 
 int Square::pointValue() {
-    int num = 10;
-    if (returnType() == PieceType::BISHOP) num = 30;
+    int num = 0;
+    if (returnType() == PieceType::PAWN) num = 10;
+    else if (returnType() == PieceType::BISHOP) num = 30;
     else if (returnType() == PieceType::KNIGHT) num = 30;
     else if (returnType() == PieceType::ROOK) num = 50;
     else if (returnType() == PieceType::KING) num = 90;
