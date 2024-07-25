@@ -11,10 +11,9 @@ Bishop::~Bishop() {} // do nothing
 
 Move Bishop::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    // check if the bishop can physically move there
-    if (abs(torow - row) != abs(tocol - col)) return m;
-    // check if the bishop is not already on that square
-    if (row == torow && col == tocol) return m;
+    if (abs(torow - row) == abs(tocol - col) && row != torow) { // bishop move limit and that it'll actually moved
+
+    }
     // check if the destination square has one of your own pieces
     if (board->getSquare(row, col)->returnPlayer() == board->getSquare(torow, tocol)->returnPlayer()) return m;
 
