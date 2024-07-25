@@ -5,10 +5,10 @@ TextObserver::TextObserver(Subject *sub): sub{sub} {}
 
 void TextObserver::notify() {
     // add vertical border of numbers
-    int vertBorder = 0;
+    int vertBorder = 8;
     for (int i = 0; i < 8; ++i) {
-        ++vertBorder;
         cout << vertBorder << " ";
+        --vertBorder;
         for (int j = 0; j < 8; ++j) {
             cout << sub->getState(i, j);
         }

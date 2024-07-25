@@ -8,58 +8,56 @@ Queen::~Queen() {} // do nothing
 
 Move Queen::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    // a queen is just a bishop and a rook, 2 cases
-    if (abs(torow - row) == abs(tocol - col)) { // bishop case
-        if (abs(torow - row) != abs(tocol - col)) return m;
-        if (row == torow && col == tocol) return m;
-        if (board->getSquare(row, col)->returnPlayer() == board->getSquare(torow, tocol)->returnPlayer()) return m;
-    
-        int shiftrow = 1, shiftcol = 1;
-        if (torow < row) shiftrow *= -1;
-        if (tocol < col) shiftrow *= -1;
-        int currow = row, curcol = col;
-        currow += shiftrow;
-        curcol += shiftcol;
-        while (currow != torow) {
-            if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m; // false
+    if (abs(torow - row) == abs(tocol - col) && row != torow) { // bishop move limit and that it'll actually moved
+        if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
+        || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square
+            // go step by step and check each square on the way
+            int shiftrow = 1, shiftcol = 1;
+            if (torow < row) shiftrow *= -1;
+            if (tocol < col) shiftcol *= -1;
+            int currow = row, curcol = col;
             currow += shiftrow;
             curcol += shiftcol;
-        }
-        m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-        m.addAdded(new Queen(torow, tocol, player));
-        m.addDeleted(this);
-        m.addDeleted(board->getSquare(torow, tocol));
-        return m;
-    } else if (torow == row || tocol == col) { // rook case
-        Move m;
-        if (row != torow && col != tocol) return m; // false
-        if (row == torow && col == tocol) return m; // false;
-        if (board->getSquare(row, col)->returnPlayer() == board->getSquare(torow, tocol)->returnPlayer()) return m; // false;
-        
-        int currow = row, curcol = col;
-        int shift = 1;
-        if (row == torow) { // horizontally
-            if (col > tocol) shift = -1;
-            curcol += shift;
-            while (col != tocol) {
-                if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m; //false
-                curcol += shift;
+            while (currow != torow) {
+                //std::cout << currow << ":" << torow << ":" << curcol <<":" << tocol << endl;
+                if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m;
+                currow += shiftrow;
+                curcol += shiftcol;
             }
-        } else { // vertically
-            if (row > torow) shift = -1;
-            currow += shift;
-            while (row != torow) {
-                if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m; //false
-                currow += shift;
-            }
+            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+            m.addAdded(new Queen(torow, tocol, player));
+            m.addDeleted(this);
+            m.addDeleted(board->getSquare(torow, tocol));
         }
-        m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-        m.addAdded(new Queen(torow, tocol, player));
-        m.addDeleted(this);
-        m.addDeleted(board->getSquare(torow, tocol));
-        return m; 
+    } else if ((row != torow && col == tocol) || (row == torow && col != tocol)) { // rook move limits and not already on that square
+        if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
+        || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square
+            // go step by step and check each square on the way
+            // get shifts in horizontal and vertical direction
+            int shiftrow = torow - row;
+            int shiftcol = tocol - col;
+            if (shiftrow == 0) { // horizontal
+                shiftcol = 1;
+                if (tocol < col) shiftcol = -1;
+            } else { // vertical
+                shiftrow = 1;
+                if (torow < row) shiftrow = -1;
+            }
+            int currow = row, curcol = col;
+            currow += shiftrow;
+            curcol += shiftcol;
+            while (currow != torow || curcol != tocol) {
+                if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m;
+                currow += shiftrow;
+                curcol += shiftcol;
+            }
+            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+            m.addAdded(new Queen(torow, tocol, player));
+            m.addDeleted(this);
+            m.addDeleted(board->getSquare(torow, tocol));
+        }
     }
-    else return m; // invalid, empty move
+    return m;
 }
 
 vector<Move> Queen::possibleCoords(Board *board) {

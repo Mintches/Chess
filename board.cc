@@ -141,8 +141,12 @@ void Board::undoMove() {
     movesMade.pop_back();
 }
 
-pair<int,int> Board::returnPassantable() {
+pair<int,int> Board::getPassantable() {
     return passantable;
+}
+
+void Board::setPassantable(int row, int col) {
+    passantable = {row, col};
 }
 
 void Board::removePassantable() {

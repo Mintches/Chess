@@ -31,29 +31,48 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
             } else {
                 m.addAdded(new Pawn(torow, tocol, player));
             }
+            board->removePassantable(); // en passant only valid for immediate move after
             return m; //true;
-        } else if (torow - row == forward * 2 && board->getSquare(row + forward, tocol)->returnType() == PieceType::EMPTY && board->getSquare(row + forward * 2, tocol)->returnType() == PieceType::EMPTY) { // move forward 2
+        } else if (torow - row == forward * 2 
+        && board->getSquare(row + forward, tocol)->returnType() == PieceType::EMPTY 
+        && board->getSquare(row + forward * 2, tocol)->returnType() == PieceType::EMPTY) { // move forward 2
             m.addAdded(new EmptySquare(row, col, Colour::BLUE));
             m.addAdded(new Pawn(torow, tocol, player));
             m.addDeleted(this);
             m.addDeleted(board->getSquare(torow, tocol));
+            // this square is now passantable
+            board->setPassantable(torow, tocol);
             return m; //true;
         }
     } else if (abs(col - tocol) == 1 && torow - row == forward) { // move diagonal
-        int passantRow = board->returnPassantable().first;
-        int passantCol = board->returnPassantable().second;
-        if (board->getSquare(torow, tocol)->returnType() != PieceType::EMPTY && board->getSquare(torow, tocol)->returnPlayer() != player) { // normal capture
-            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-            m.addAdded(new Pawn(torow, tocol, player));
-            m.addDeleted(this);
-            m.addDeleted(board->getSquare(torow, tocol));
-            if (passantRow == row && passantCol == tocol) { // additional changes for en passant capture
-                m.addDeleted(board->getSquare(passantRow, passantCol));
-                m.addAdded(new EmptySquare(passantRow, passantCol, Colour::BLUE));
+    cout << "!" << endl;
+        if (board->getSquare(torow, tocol)->returnPlayer() != player) {
+            if (board->getSquare(torow, tocol)->returnType() != PieceType::EMPTY) { // normal capture
+                m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+                m.addAdded(new Pawn(torow, tocol, player));
+                m.addDeleted(this);
+                m.addDeleted(board->getSquare(torow, tocol));
+                board->removePassantable(); // en passant only valid for immediate move after
+                return m;
+            } else { // destination square is empty
+            cout << "word";
+                int passantRow = board->getPassantable().first;
+                int passantCol = board->getPassantable().second;
+                if (passantRow == row && passantCol == tocol) { // additional requirements for en passant capture
+                    m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+                    m.addAdded(new Pawn(torow, tocol, player));
+                    m.addDeleted(this);
+                    m.addDeleted(board->getSquare(torow, tocol));
+                    // remove en passant captured piece
+                    m.addDeleted(board->getSquare(passantRow, passantCol));
+                    m.addAdded(new EmptySquare(passantRow, passantCol, Colour::BLUE));
+                    board->removePassantable(); // en passant only valid for immediate move after
+                    return m;
+                }
             }
         }
     }
-    return m; // automatically checks if it moved at all
+    return m;
 }
 
 vector<Move> Pawn::possibleCoords(Board *board) {

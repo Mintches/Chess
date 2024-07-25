@@ -30,7 +30,8 @@ class Board {
         void makePiece(int row, int col, char piece);
         void deletePiece(int row, int col);
         void undoMove();
-        pair<int,int> returnPassantable();
+        pair<int,int> getPassantable();
+        void setPassantable(int row, int col);
         void removePassantable();
         void standardBoard();
         void resetBoard();

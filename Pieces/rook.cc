@@ -8,36 +8,35 @@ Rook::~Rook() {} // do nothing
 Move Rook::verifyMove(Board *board, int torow, int tocol) {
     // check if rook can physical move there
     Move m;
-    if (row != torow && col != tocol) return m; //false;
-    // check if the rook is not already on that square
-    if (row == torow && col == tocol) return m; //false;
-    // check if destination square has one of your own pieces
-    if (board->getSquare(row, col)->returnPlayer() == board->getSquare(torow, tocol)->returnPlayer()) return m;//return false;
-    
-    // go step by step to the destination and see if there's pieces blocking
-    int currow = row, curcol = col;
-    int shift = 1;
-    if (row == torow) { // the rook moves horizontally
-        if (col > tocol) shift = -1;
-        curcol += shift;
-        while (col != tocol) {
-            if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m;//false;
-            curcol += shift;
-        }
-    } else { // the rook moves vertically
-        if (row > torow) shift = -1;
-        currow += shift;
-        while (row != torow) {
-            if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m;//false;
-            currow += shift;
+    if ((row != torow && col == tocol) || (row == torow && col != tocol)) { // rook move limits and not already on that square
+        if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
+        || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square
+            // go step by step and check each square on the way
+            // get shifts in horizontal and vertical direction
+            int shiftrow = torow - row;
+            int shiftcol = tocol - col;
+            if (shiftrow == 0) { // horizontal
+                shiftcol = 1;
+                if (tocol < col) shiftcol = -1;
+            } else { // vertical
+                shiftrow = 1;
+                if (torow < row) shiftrow = -1;
+            }
+            int currow = row, curcol = col;
+            currow += shiftrow;
+            curcol += shiftcol;
+            while (currow != torow || curcol != tocol) {
+                if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m;
+                currow += shiftrow;
+                curcol += shiftcol;
+            }
+            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+            m.addAdded(new Rook(torow, tocol, player));
+            m.addDeleted(this);
+            m.addDeleted(board->getSquare(torow, tocol));
         }
     }
-    m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-    m.addAdded(new Rook(torow, tocol, player));
-    m.addDeleted(this);
-    m.addDeleted(board->getSquare(torow, tocol));
-    cout << "hi..\n";
-    return m; //true;
+    return m;
 }
 
 vector<Move> Rook::possibleCoords(Board *board) {
