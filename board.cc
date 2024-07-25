@@ -17,6 +17,7 @@ using namespace std;
 
 Board::Board() {
     passantable = {-1,-1};
+    resetBoard();
 }
 
 vector<Move> Board::possibleMoves(Colour player) {
