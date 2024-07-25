@@ -10,7 +10,6 @@ Pawn::~Pawn() {} // do nothing
 
 Move Pawn::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (board->getSquare(row, col)->returnPlayer() != player) return m; // right colour
     // determine foward direction based on colour
     int forward = 0;
     if (player == Colour::WHITE) {

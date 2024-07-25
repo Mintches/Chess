@@ -24,7 +24,7 @@ public:
     virtual ~Square() = default; // destructor
 
     Colour returnPlayer();
-    virtual Move verifyMove(Board *board, int row, int col) = 0;
+    virtual Move verifyMove(Board *board, int torow, int tocol) = 0;
     virtual vector<Move> possibleCoords(Board *board) = 0;
     int getRow();
     int getCol();

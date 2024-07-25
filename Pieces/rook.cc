@@ -2,12 +2,11 @@
 #include "emptysquare.h"
 #include <iostream>
 
-Rook::Rook(int row, int col, Colour player) : Square(row, col, player) {} 
+Rook::Rook(int row, int col, Colour player, bool moved) : Square(row, col, player), moved{moved} {} 
 Rook::~Rook() {} // do nothing
 
 Move Rook::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (board->getSquare(row, col)->returnPlayer() != player) return m; // right colour
     if ((row != torow && col == tocol) || (row == torow && col != tocol)) { // rook move limits and not already on that square
         if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
         || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square
@@ -32,7 +31,7 @@ Move Rook::verifyMove(Board *board, int torow, int tocol) {
             }
             //moved = true;
             m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-            m.addAdded(new Rook(torow, tocol, player));
+            m.addAdded(new Rook(torow, tocol, player, true));
             m.addDeleted(this);
             m.addDeleted(board->getSquare(torow, tocol));
         }
@@ -50,6 +49,6 @@ PieceType Rook::returnType() {
     return PieceType::ROOK;
 }
 
-/*bool Rook::getMoved() {
+bool Rook::isMoved() {
     return moved;
-}*/
+}

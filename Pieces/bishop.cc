@@ -12,7 +12,6 @@ Bishop::~Bishop() {} // do nothing
 
 Move Bishop::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (board->getSquare(row, col)->returnPlayer() != player) return m; // right colour
     //std::cout << torow << ":" << tocol << endl;
     if (abs(torow - row) == abs(tocol - col) && row != torow) { // bishop move limit and that it'll actually moved
         if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
