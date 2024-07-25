@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "pawn.h"
-#include "emptysquare.h"
 
 Pawn::Pawn(int row, int col, Colour player) : Square{row, col, player} {}
 
