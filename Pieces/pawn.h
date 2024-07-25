@@ -4,6 +4,13 @@
 #include "../board.h"
 #include "../square.h"
 
+#include "knight.h"
+#include "queen.h"
+#include "king.h"
+#include "bishop.h"
+#include "rook.h"
+#include "emptysquare.h"
+
 class Board; // forward declaration
 
 class Pawn : public Square { // pawn inherits from square
