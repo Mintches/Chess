@@ -20,6 +20,15 @@ Board::Board() {
     resetBoard();
 }
 
+Board::Board(Board& b) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            arr[i][j] = b.arr[i][j]->;
+        }
+    }
+    passantable = b.passantable;
+}
+
 vector<Move> Board::possibleMoves(Colour player) {
     vector<Move> moves;
     for (int i = 0; i < 8; i++) {

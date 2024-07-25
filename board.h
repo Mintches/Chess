@@ -17,6 +17,7 @@ class Board {
     pair<int,int> passantable;
     public:
         Board();
+        Board(Board& b);
         vector<Move> possibleMoves(Colour player);
         Square *getSquare(int row, int col);
         bool verifyCheck(Colour player);
