@@ -1,4 +1,6 @@
 #include "rook.h"
+#include "emptysquare.h"
+#include <iostream>
 
 Rook::Rook(int row, int col, Colour player) : Square(row, col, player) {} 
 Rook::~Rook() {} // do nothing
@@ -30,6 +32,11 @@ Move Rook::verifyMove(Board *board, int torow, int tocol) {
             currow += shift;
         }
     }
+    m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+    m.addAdded(new Rook(torow, tocol, player));
+    m.addDeleted(this);
+    m.addDeleted(board->getSquare(torow, tocol));
+    cout << "hi..\n";
     return m; //true;
 }
 
