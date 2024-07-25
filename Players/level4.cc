@@ -18,7 +18,7 @@ int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
     // minimax has reached a leaf node
     if (board->verifyCheckmate(Colour::WHITE) || board->verifyCheckmate(Colour::BLACK) || 
     board->verifyStalemate(Colour::WHITE) || board->verifyStalemate(Colour::BLACK) 
-    || board->verifyDraw() || depth == 0) return board->evaluate();
+    || /*board->verifyDraw() || */depth == 0) return board->evaluate();
     
     if (mxPlayer) { // maximizing player (white)
         int mxEval = -INF;
