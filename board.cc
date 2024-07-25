@@ -212,3 +212,14 @@ void Board::resetBoard() {
         }
     }
 }
+
+int Board::evaluate() {
+    int whiteTotal, blackTotal = 0;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if ((arr[i][j]->returnPlayer()) == Colour::WHITE) whiteTotal += arr[i][j]->pointValue();
+            else blackTotal += arr[i][j]->pointValue();
+        }
+    }
+    return whiteTotal - blackTotal;
+}
