@@ -4,17 +4,18 @@
 #include "level4.h"
 using namespace std;
 
-/*
 const int INF = 9999999;
 
 // minimax heuristic = sums of the values of all pieces for each player
 // maximizing player = white
 // minimizing player = black
+// eval: return weighted sum of pieces from white (mx player) - same thing from black (min player)
+// maybe minimax should work on a copy of the board each turn instead of the actual board
 
 int minimax(Board board, int depth, int alpha, int beta, bool mxPlayer) {
     // minimax has reached a leaf node
     if (verifyCheckmate(Colour::WHITE) || verifyCheckmate(Colour::BLACK) || 
-    verifyStalemate(Colour::WHITE) || verifyStalemate(Colour::BLACK) || verifyDraw() || depth == 0) return board.eval();
+    verifyStalemate(Colour::WHITE) || verifyStalemate(Colour::BLACK) || verifyDraw() || depth == 0) return board.evaluate();
     
     if (mxPlayer) { // maximizing player
         int mxEval = -INF;
@@ -43,12 +44,6 @@ int minimax(Board board, int depth, int alpha, int beta, bool mxPlayer) {
     }
 }
 
-// to-do:
-// eval: return weighted sum of pieces from white (mx player) - same thing from black (min player)
-// makeMove: makes a move on the board
-// undoMove: undos the move
-// maybe minimax should work on a copy of the board each turn instead of the actual board
-
 Move Level4::getMove(Board board, int depth) const {
     Move best;
     int mxEval = -INF;
@@ -65,16 +60,13 @@ Move Level4::getMove(Board board, int depth) const {
     return best;
 }
 
-// minimax currently assumes it's the white players' turn, deal with that later
-// bool movePiece(Colour player, int row1, int col1, int row2, int col2);
-
-*/
-
 /*string Level4::getMove(Board *board, int depth) const {
     return ""; // placeholder so it doesn't crash
 }*/
 
+/*
 Move Level4::getMove(Board *board, Colour player) const {
     vector<Move> v = board->possibleMoves(player);
     return v.back(); // placeholder so it doesn't crash
 }
+*/
