@@ -48,7 +48,7 @@ bool Board::verifyCheck(Colour player) { // is player being checked
     int kingCol = -1;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            if (arr[i][j]->returnType() == PieceType::KING && arr[i][j]->returnPlayer() != player) {
+            if (arr[i][j]->returnType() == PieceType::KING && arr[i][j]->returnPlayer() == player) {
                 kingRow = i;
                 kingCol = j;
                 break;
