@@ -7,7 +7,9 @@
 #include "input.h"
 #include "Observers/textObserver.h"
 
-Game::Game(): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{nullptr}, player2{nullptr}, currPlayer{nullptr}, currentBoard{Board()} {}
+Game::Game(): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{nullptr}, player2{nullptr}, currPlayer{nullptr}, currentBoard{Board()} {
+    currentBoard.standardBoard();
+}
 
 void Game::setPlayerTypes(Player *player1, Player *player2) {
     this->player1 = player1;
@@ -27,10 +29,7 @@ void Game::setupGame() {
     currPlayer = player1;
     Input inp;
     while (cin >> op) {
-        if (op == "done") {
-            gameHistory.push_back(currentBoard);
-            break;
-        }
+        if (op == "done") break;
         else if (op == "+") { // add piece to square
             char p;
             cin >> p;
@@ -46,19 +45,18 @@ void Game::setupGame() {
             if (colour == "white") currPlayer = player1;
             else if (colour == "black") currPlayer = player2;
         }
+        else if (op == "reset") currentBoard.resetBoard(); 
+        else if (op == "standard") currentBoard.standardBoard();
+        else cout << "invalid move\n";
         printBoard();
     }
 }
 
 void Game::playGame() {
-    if (gameHistory.empty()) {
-        Board b = standardBoard();
-        gameHistory.push_back(b);
-        currentBoard = b;
-        printBoard();
-    }
+    printBoard();
     string in;
     while (cin >> in) {
+        cout << "Please output 'move' or 'resign'" << endl;
         if (in == "resign") {
             gameHistory.push_back(currentBoard);
             swapPlayer();
@@ -88,10 +86,10 @@ void Game::playGame() {
                 } else if (currentBoard.verifyCheck(getColour())) {
                     cout << getColourString() << " is in check." << endl;
                 }*/
-            //} else {
-                //cout << "invalid move" << endl;
-            //}
-        }
+            } 
+            else {
+                cout << "invalid move" << endl;
+            }
         printBoard();
     }
    return;
@@ -117,8 +115,8 @@ void Game::setCurrPlayer(Colour player) {
 }
 
 void Game::swapPlayer() {
-    if (&currPlayer == &player1) currPlayer = player2;
-    else currPlayer = player1;
+    //if (&currPlayer == &player1) currPlayer = player2;
+    //else currPlayer = player1;
 }
 
 Colour Game::getColour() {
@@ -139,64 +137,13 @@ char Game::getState(int row, int col) {
     else if (curPiece == PieceType::BISHOP) return 'b' + cap;
     else if (curPiece == PieceType::ROOK) return 'r' + cap;
     else if (curPiece == PieceType::KNIGHT) return 'n' + cap;
-    else if (curPiece == PieceType::EMPTY && player == Colour::BLACK) return '_';
+    else if (curPiece == PieceType::EMPTY && player == Colour::BLUE) return '_';
     else return ' ';
 }
 
 void Game::printBoard() {
     notifyObservers();
 }
-
-Board Game::standardBoard() {
-    // white plays first
-    setCurrPlayer(Colour::WHITE);
-    Board b;
-    // setup 
-    
-    // empty squares
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if ((i + j) % 2 == 0) {
-                b.makePiece(i, j, ' ');
-            } else {
-                b.makePiece(i, j, '_');
-            }
-        }
-    }
-
-    for (int i = 0; i < 8; ++ i) {
-        b.makePiece(1, i, 'p');
-        b.makePiece(6, i, 'P');
-    }
-    //rooks
-    b.makePiece(0, 0, 'r');
-    b.makePiece(0, 7, 'r');
-    b.makePiece(7, 0, 'R');
-    b.makePiece(7, 7, 'R');
-
-    //knights
-    b.makePiece(0, 1, 'n');
-    b.makePiece(0, 6, 'n');
-    b.makePiece(7, 1, 'N');
-    b.makePiece(7, 6, 'N');
-
-    // bishops
-    b.makePiece(0, 2, 'b');
-    b.makePiece(0, 5, 'b');
-    b.makePiece(7, 2, 'B');
-    b.makePiece(7, 5, 'B');
-
-    // kings
-    b.makePiece(0, 3, 'k');
-    b.makePiece(7, 3, 'K');
-
-    // queens
-    b.makePiece(0, 4, 'q');
-    b.makePiece(7, 4, 'Q');
-
-    return b;
-    
-} // there's gotta be a better way 
 
 string Game::getColourString() {
     if (getColour() == Colour::WHITE) {

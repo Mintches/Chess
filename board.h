@@ -32,6 +32,8 @@ class Board {
         void undoMove();
         pair<int,int> returnPassantable();
         void removePassantable();
+        void standardBoard();
+        void resetBoard();
 };
 
 #endif
