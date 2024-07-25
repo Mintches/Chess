@@ -176,12 +176,12 @@ void Board::standardBoard() {
     makePiece(7, 5, 'B');
 
     // kings
-    makePiece(0, 3, 'k');
-    makePiece(7, 3, 'K');
+    makePiece(0, 4, 'k');
+    makePiece(7, 4, 'K');
 
     // queens
-    makePiece(0, 4, 'q');
-    makePiece(7, 4, 'Q');
+    makePiece(0, 3, 'q');
+    makePiece(7, 3, 'Q');
 }
 
 void Board::resetBoard() {

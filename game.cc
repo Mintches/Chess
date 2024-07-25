@@ -28,6 +28,7 @@ void Game::setupGame() {
     //setCurrPlayer(Colour::WHITE);
     currPlayer = player1;
     Input inp;
+    printBoard();
     while (cin >> op) {
         if (op == "done") break;
         else if (op == "+") { // add piece to square
@@ -47,7 +48,7 @@ void Game::setupGame() {
         }
         else if (op == "reset") currentBoard.resetBoard(); 
         else if (op == "standard") currentBoard.standardBoard();
-        else cout << "invalid move\n";
+        else cout << "Invalid Move\n";
         printBoard();
     }
 }
@@ -56,7 +57,7 @@ void Game::playGame() {
     printBoard();
     string in;
     while (cin >> in) {
-        cout << "Please output 'move' or 'resign'" << endl;
+        cout << "Please output 'move' or 'resign':" << endl;
         if (in == "resign") {
             gameHistory.push_back(currentBoard);
             swapPlayer();
@@ -71,25 +72,27 @@ void Game::playGame() {
             // do move, if possible
             //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
                 //gameHistory.push_back(currentBoard);
-                swapPlayer();
-                currentBoard.movePiece(mv);
+            swapPlayer();
+            currentBoard.movePiece(mv);
 
                 // in case of checkmate, stalemate, or check
-                /*if (currentBoard.verifyCheckmate(getColour())) {
+            /*if (currentBoard.verifyCheckmate(getColour())) {
                     cout << "Checkmate! " << getColourString() << " wins!" << endl;
                     addScore(getColour(), 1);
                     break;
-                } else if (currentBoard.verifyStalemate(getColour())) {
+            } 
+            else if (currentBoard.verifyStalemate(getColour())) {
                     cout << "Stalemate!" << endl;
                     addScore(getColour(), 1);
                     break;
-                } else if (currentBoard.verifyCheck(getColour())) {
-                    cout << getColourString() << " is in check." << endl;
-                }*/
             } 
-            else {
-                cout << "invalid move" << endl;
+            else */if (currentBoard.verifyCheck(getColour())) {
+                    cout << getColourString() << " is in check." << endl;
             }
+            } 
+        else {
+            cout << "Invalid Move" << endl;
+        }
         printBoard();
     }
    return;

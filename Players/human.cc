@@ -8,7 +8,6 @@ Move Human::getMove(Board *board, Colour player) const {
     Input in;
     pair<int, int> sq1 = in.getCoords();
     pair<int, int> sq2 = in.getCoords();
-    cout << sq1.first << " " << sq1.second << " " << sq2.first << " " << sq2.second << "\n";
     Move m = board->getSquare(sq1.first, sq1.second)->verifyMove(board, sq2.first, sq2.second);
     return m;
 }
