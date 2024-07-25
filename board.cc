@@ -29,16 +29,16 @@ Board::Board(const Board& b) {
     passantable = b.passantable;
 }
 
-vector<Move> Board::legalMoves() { // list of moves, considers checks
+vector<Move> Board::legalMoves(Colour player) { // list of moves, considers checks
     vector<Move> moves;
     // compile moves from each piece
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (arr[i][j]->returnPlayer() == currPlayer) {
+            if (arr[i][j]->returnPlayer() == player) {
                 vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
                 for (auto mv : pieceMoves) {
                     if (movePiece(mv)) { // do a temp move if possible
-                        if (!verifyCheck(currPlayer)) { // if no self-checked
+                        if (!verifyCheck(player)) { // if no self-checked
                             moves.push_back(mv);
                         }
                         undoMove(); // undo temp move
@@ -46,6 +46,8 @@ vector<Move> Board::legalMoves() { // list of moves, considers checks
                 }
             }
         }
+    }
+    if (moves.empty()) {
     }
     return moves;
 }
@@ -70,18 +72,18 @@ bool Board::verifyCheck(Colour player) { // is player being checked
     // see if any pieces could capture king
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            if (arr[i][j]->verifyMove(this, kingRow, kingCol).isEmpty()) return true;
+            if (!arr[i][j]->verifyMove(this, kingRow, kingCol).isEmpty()) return true;
         }
     }
     return false;
 }
 
 bool Board::verifyCheckmate(Colour player) { // is player checkmated
-    return legalMoves().empty() && verifyCheck(currPlayer);
+    return legalMoves(player).empty() && verifyCheck(player);
 }
 
 bool Board::verifyStalemate(Colour player) { // is player stuck
-    return legalMoves().empty() && !verifyCheck(currPlayer);
+    return legalMoves(player).empty() && !verifyCheck(player);
 }
 
 /*bool Board::verifyMove(Colour player, int row1, int col1, int row2, int col2) {
@@ -143,14 +145,16 @@ void Board::deletePiece(int row, int col) {
 void Board::undoMove() {
     if (movesMade.size() == 0) return;
     Move latestMv = movesMade.back();
+    Move undoMv;
     for (auto addedSq : latestMv.getAdded()) {
         // remove added
-        deletePiece(addedSq->getRow(), addedSq->getCol());
+        undoMv.addDeleted(addedSq);
     }
     for (auto deletedSq : latestMv.getDeleted()) {
         // restore deleted
-        mPiece(deletedSq->getRow(),deletedSq->getCol(), 'p'); // fix makePiece
+        undoMv.addAdded(deletedSq);
     }
+    movePiece(undoMv);
     movesMade.pop_back();
 }
 

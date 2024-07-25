@@ -15,11 +15,10 @@ class Board {
     vector<Move> movesMade;
     Square *arr[8][8];
     pair<int,int> passantable;
-    Colour currPlayer;
     public:
         Board();
         Board(const Board& b);
-        vector<Move> legalMoves();
+        vector<Move> legalMoves(Colour player);
         Square *getSquare(int row, int col);
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);

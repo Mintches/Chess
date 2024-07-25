@@ -56,15 +56,15 @@ void Game::setupGame() {
 void Game::playGame() {
     printBoard();
     string in;
+    cout << "Please output 'move' or 'resign':" << endl;
     while (cin >> in) {
-        cout << "Please output 'move' or 'resign':" << endl;
         if (in == "resign") {
             gameHistory.push_back(currentBoard);
             swapPlayer();
             cout << getColourString() << " wins!" << endl;
             addScore(getColour(), 1);
             break;
-        } 
+        }
         else if (in == "move") {
             // receive move
             Move mv = currPlayer->getMove(&currentBoard, getColour()); // can this be done if currPlayer is human and doesn't take in the board
@@ -72,30 +72,30 @@ void Game::playGame() {
             // do move, if possible
             //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
                 //gameHistory.push_back(currentBoard);
-            currentBoard.movePiece(mv);
-            swapPlayer();
-
-                // in case of checkmate, stalemate, or check
-            if (currentBoard.verifyCheckmate(getColour())) {
+            if(currentBoard.movePiece(mv)) {
+                swapPlayer();
+                // going from most requirments to least checkmate > stalemate > check
+                if (currentBoard.verifyCheckmate(getColour())) {
                     swapPlayer();
                     cout << "Checkmate! " << getColourString() << " wins!" << endl;
                     addScore(getColour(), 1);
                     break;
-            } 
-            else if (currentBoard.verifyStalemate(getColour())) {
+                } else if (currentBoard.verifyStalemate(getColour())) {
                     cout << "Stalemate!" << endl;
                     addScore(getColour(), 0.5);
+                    swapPlayer();
+                    addScore(getColour(), 0.5);
                     break;
-            } 
-            else if (currentBoard.verifyCheck(getColour())) {
-                    cout << getColourString() << " is in check." << endl;
+                } else if (currentBoard.verifyCheck(getColour())) {
+                        cout << getColourString() << " is in check." << endl;
+                }
+            } else {
+                cout << "Invalid move" << endl;
             }
-        } else {
-            cout << "Invalid Move" << endl;
         }
         printBoard();
+        cout << "Please output 'move' or 'resign':" << endl;
     }
-   return;
 }
 
 void Game::printScore() {
