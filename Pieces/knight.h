@@ -11,7 +11,7 @@ class Knight : public Square { // knight inherits from square
         Knight(int row, int col, Colour player); // constructor
         ~Knight(); // destructor
 
-        Move verifyMove(Board *board, int row, int col) override;
+        Move verifyMove(Board *board, int torow, int tocol) override;
 
         vector<Move> possibleCoords(Board *board) override;
         

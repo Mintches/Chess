@@ -8,7 +8,6 @@ Queen::~Queen() {} // do nothing
 
 Move Queen::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (board->getSquare(row, col)->returnPlayer() != player) return m; // right colour
     if (abs(torow - row) == abs(tocol - col) && row != torow) { // bishop move limit and that it'll actually moved
         if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
         || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square

@@ -6,7 +6,7 @@ EmptySquare::EmptySquare(int row, int col, Colour player): Square{row, col, ((ro
 } 
 EmptySquare::~EmptySquare() {} // do nothing
 
-Move EmptySquare::verifyMove(Board *board, int row, int col) {
+Move EmptySquare::verifyMove(Board *board, int torow, int tocol) {
     Move m;
     return m;
 }

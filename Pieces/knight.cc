@@ -6,7 +6,6 @@ Knight::~Knight() {} // do nothing
 
 Move Knight::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (board->getSquare(row, col)->returnPlayer() != player) return m; // right colour
     if (board->getSquare(row, col)->returnType() == PieceType::EMPTY || board->getSquare(torow, tocol)->returnPlayer() != player) {
         if ((abs(row - torow) == 2 && abs(col - tocol) == 1)
             || (abs(row - torow) == 1 && abs(col - tocol) == 2)) { // knight move limits
