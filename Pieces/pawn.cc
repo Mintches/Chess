@@ -8,9 +8,10 @@ Pawn::Pawn(int row, int col, Colour player) : Square{row, col, player} {}
 
 Pawn::~Pawn() {} // do nothing
 
-Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :SKULL:
-    // determine foward direction based on colour
+Move Pawn::verifyMove(Board *board, int torow, int tocol) {
     Move m;
+    if (board->getSquare(row, col)->returnPlayer() != player) return m; // right colour
+    // determine foward direction based on colour
     int forward = 0;
     if (player == Colour::WHITE) {
         forward = -1; // White moves up the grid

@@ -6,6 +6,7 @@ King::~King() {} // do nothing
 
 Move King::verifyMove(Board *board, int torow, int tocol) {
     Move m;
+    if (board->getSquare(row, col)->returnPlayer() != player) return m; // right colour
     if (abs(torow - row) + abs(tocol - col) == 1) { // king move limits
         // ~two kings, chillin in a hot tub, 5 ft apart cuz~
         for (int i = -1; i < 2; ++i) {
