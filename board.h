@@ -35,6 +35,7 @@ class Board {
         void removePassantable();
         void standardBoard();
         void resetBoard();
+        int evaluate();
 };
 
 #endif
