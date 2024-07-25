@@ -7,7 +7,7 @@ King::~King() {} // do nothing
 
 Move King::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (abs(torow - row) + abs(tocol - col) == 1 && (abs(torow - row) == 1 || abs(tocol - col) == 1)) { // king move limits
+    if (abs(torow - row) + abs(tocol - col) == 1) { // king move limits
         // ~two kings, chillin in a hot tub, 5 ft apart cuz~
         for (int i = -1; i < 2; ++i) {
             for (int j = -1; j < 2; ++j) {

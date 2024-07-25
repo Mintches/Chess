@@ -57,7 +57,6 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
         m.addAdded(new Queen(torow, tocol, player));
         m.addDeleted(this);
         m.addDeleted(board->getSquare(torow, tocol));
-        cout << "hi..\n";
         return m; 
     }
     else return m; // invalid, empty move

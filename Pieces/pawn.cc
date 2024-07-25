@@ -2,6 +2,8 @@
 
 #include "pawn.h"
 
+#include "../square.h"
+
 Pawn::Pawn(int row, int col, Colour player) : Square{row, col, player} {}
 
 Pawn::~Pawn() {} // do nothing
@@ -24,27 +26,13 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
             if (torow == 0 || torow == 7) { // pawn promotion
                 char piece;
                 cin >> piece;
-                Square *sq;
-                if (piece == 'p')sq = new Pawn(torow, tocol, Colour::BLACK);
-                else if (piece == 'n') sq = new Knight(torow, tocol, Colour::BLACK);
-                else if (piece == 'b') sq = new Bishop(torow, tocol, Colour::BLACK);
-                else if (piece == 'k') sq = new King(torow, tocol, Colour::BLACK);
-                else if (piece == 'q') sq = new Queen(torow, tocol, Colour::BLACK);
-                else if (piece == 'r') sq = new Rook(torow, tocol, Colour::BLACK);
-                else if (piece == 'P') sq = new Pawn(torow, tocol, Colour::WHITE);
-                else if (piece == 'N') sq = new Knight(torow, tocol, Colour::WHITE);
-                else if (piece == 'B') sq = new Bishop(torow, tocol, Colour::WHITE);
-                else if (piece == 'K') sq = new King(torow, tocol, Colour::WHITE);
-                else if (piece == 'Q') sq = new Queen(torow, tocol, Colour::WHITE);
-                else if (piece == 'R') sq = new Rook(torow, tocol, Colour::WHITE);
-                else if (piece == '_') sq = new EmptySquare(torow, tocol, Colour::BLACK);
-                else if (piece == ' ') sq = new EmptySquare(torow, tocol, Colour::WHITE);
-                m.addAdded(sq);
+                //Square *sq = mPiece(torow, tocol, piece);
+                m.addAdded(mPiece(torow, tocol, piece));
             } else {
                 m.addAdded(new Pawn(torow, tocol, player));
             }
             return m; //true;
-        } else if (torow - row == forward * 2 && board->getSquare(torow + forward, tocol)->returnType() == PieceType::EMPTY) { // move forward 2
+        } else if (torow - row == forward * 2 && board->getSquare(row + forward, tocol)->returnType() == PieceType::EMPTY && board->getSquare(row + forward * 2, tocol)->returnType() == PieceType::EMPTY) { // move forward 2
             m.addAdded(new EmptySquare(row, col, Colour::BLUE));
             m.addAdded(new Pawn(torow, tocol, player));
             m.addDeleted(this);

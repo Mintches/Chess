@@ -17,6 +17,7 @@ using namespace std;
 
 Board::Board() {
     passantable = {-1,-1};
+    resetBoard();
 }
 
 vector<Move> Board::possibleMoves(Colour player) {
@@ -146,4 +147,52 @@ pair<int,int> Board::returnPassantable() {
 
 void Board::removePassantable() {
     passantable = {-1, -1};
+}
+
+void Board::standardBoard() {
+    resetBoard();
+
+    //pawns
+    for (int i = 0; i < 8; ++ i) {
+        makePiece(1, i, 'p');
+        makePiece(6, i, 'P');
+    }
+    //rooks
+    makePiece(0, 0, 'r');
+    makePiece(0, 7, 'r');
+    makePiece(7, 0, 'R');
+    makePiece(7, 7, 'R');
+
+    //knights
+    makePiece(0, 1, 'n');
+    makePiece(0, 6, 'n');
+    makePiece(7, 1, 'N');
+    makePiece(7, 6, 'N');
+
+    // bishops
+    makePiece(0, 2, 'b');
+    makePiece(0, 5, 'b');
+    makePiece(7, 2, 'B');
+    makePiece(7, 5, 'B');
+
+    // kings
+    makePiece(0, 4, 'k');
+    makePiece(7, 4, 'K');
+
+    // queens
+    makePiece(0, 3, 'q');
+    makePiece(7, 3, 'Q');
+}
+
+void Board::resetBoard() {
+    // empty squares
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if ((i + j) % 2 == 0) {
+                makePiece(i, j, ' ');
+            } else {
+                makePiece(i, j, '_');
+            }
+        }
+    }
 }
