@@ -24,10 +24,6 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
     return m;
 }
 
-void King::updatePos(int row, int col) {
-
-}
-
 vector<Move> King::possibleCoords(Board *board) {
     vector<Move> v;
     return v;

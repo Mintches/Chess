@@ -2,6 +2,7 @@
 #define QUEEN_H
 
 #include "../square.h"
+#include "../board.h"
 
 class Board; // forward declaration
 
@@ -11,8 +12,6 @@ class Queen : public Square { // queen inherits from square
         ~Queen(); // destructor
 
         Move verifyMove(Board *board, int row, int col) override;
-
-        void updatePos(int row, int col);
 
         vector<Move> possibleCoords(Board *board) override;
         

@@ -46,10 +46,6 @@ vector<Move> Bishop::possibleCoords(Board *board) {
     return v;
 }
 
-void Bishop::updatePos(int torow, int tocol) {
-
-}
-
 PieceType Bishop::returnType() {
     return PieceType::BISHOP;
 }

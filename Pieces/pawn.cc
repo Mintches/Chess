@@ -68,10 +68,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
     return m; // automatically checks if it moved at all
 }
 
-void Pawn::updatePos(int row, int col) {
-
-}
-
 vector<Move> Pawn::possibleCoords(Board *board) {
     vector<Move> v;
     return v;
