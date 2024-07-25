@@ -9,7 +9,7 @@ Move Level2::getMove(Board *board, Colour player) const {
     PieceType maxCapture = PieceType::EMPTY;
     bool checkMv = false;
     Move bestMv;
-    for (auto mv : board->possibleMoves(player)) {
+    for (auto mv : board->legalMoves()) {
         if (mv.getCheck() >= checkMv) {
             if (mv.getDeleted().back()->returnType() > maxCapture) {
                 maxCapture = mv.getDeleted().back()->returnType();

@@ -24,19 +24,19 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
         int right = 7;
         int side;
         Rook *rook = nullptr;
-        if (tocol - col == 2 && board->getSquare(row, left)->returnType() == PieceType::ROOK) { // right castle
-            Square *sq = board->getSquare(row, left);
-            rook = dynamic_cast<Rook*>(sq);
-            side = left;
-        } else if (tocol - col == -2 && board->getSquare(row, right)->returnType() == PieceType::ROOK) { // left castle
+        if (tocol - col == 2 && board->getSquare(row, right)->returnType() == PieceType::ROOK) { // right castle
             Square *sq = board->getSquare(row, right);
             rook = dynamic_cast<Rook*>(sq);
             side = right;
+        } else if (tocol - col == -2 && board->getSquare(row, left)->returnType() == PieceType::ROOK) { // left castle
+            Square *sq = board->getSquare(row, left);
+            rook = dynamic_cast<Rook*>(sq);
+            side = left;
         }
         if (rook && !rook->isMoved()) {
             int curcol = col;
-            int shift = 1;
-            if (tocol < col) shift = -1;
+            int shift = 1; // if castle right, 
+            if (tocol < col) shift = -1; // if castle left
             curcol += shift;
             while (tocol != curcol) {
                 if (board->verifyCheck(player)) return m;
@@ -48,14 +48,14 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
             m.addDeleted(this);
             m.addDeleted(board->getSquare(torow, tocol));
             // move rook
-            m.addAdded(new Rook(row, tocol - shift, Colour::BLUE, true));
+            m.addAdded(new Rook(row, tocol - shift, player, true));
             m.addDeleted(board->getSquare(row, side));
         }
     }
     return m;
 }
 
-vector<Move> King::possibleCoords(Board *board) {
+vector<Move> King::possibleMoves(Board *board) {
     vector<Move> v;
     return v;
 }

@@ -15,7 +15,7 @@ class Bishop : public Square { // bishop inherits from square
 
         Move verifyMove(Board *board, int torow, int tocol) override;
 
-        vector<Move> possibleCoords(Board *board);
+        vector<Move> possibleMoves(Board *board);
         
         PieceType returnType() override;
 };

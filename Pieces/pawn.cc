@@ -75,7 +75,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
     return m;
 }
 
-vector<Move> Pawn::possibleCoords(Board *board) {
+vector<Move> Pawn::possibleMoves(Board *board) {
     vector<Move> v;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {

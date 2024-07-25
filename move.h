@@ -22,6 +22,7 @@ class Move {
         bool getStalemate();
         void setCheck(bool t);
         void setStalemate(bool t);
+        bool isEmpty();
 };
 
 #endif

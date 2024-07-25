@@ -19,7 +19,7 @@ Move Knight::verifyMove(Board *board, int torow, int tocol) {
     return m;
 }
 
-vector<Move> Knight::possibleCoords(Board *board) {
+vector<Move> Knight::possibleMoves(Board *board) {
     vector<Move> v;
     return v;
 }

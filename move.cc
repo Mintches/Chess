@@ -20,3 +20,8 @@ bool Move::getStalemate() { return stalemate; }
 void Move::setCheck(bool t) { check = t; }
 
 void Move::setStalemate(bool t) { stalemate = t; }
+
+bool Move::isEmpty() {
+    if (deleted.size() == 0 && added.size() == 0) return true;
+    return false;
+}

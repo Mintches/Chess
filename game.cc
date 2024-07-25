@@ -7,7 +7,7 @@
 #include "input.h"
 #include "Observers/textObserver.h"
 
-Game::Game(): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{nullptr}, player2{nullptr}, currPlayer{nullptr}, currentBoard{Board()} {
+Game::Game(): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{nullptr}, player2{nullptr}, currPlayer{player1}, currentBoard{Board()} {
     currentBoard.standardBoard();
 }
 
@@ -72,8 +72,8 @@ void Game::playGame() {
             // do move, if possible
             //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
                 //gameHistory.push_back(currentBoard);
-            swapPlayer();
             currentBoard.movePiece(mv);
+            swapPlayer();
 
                 // in case of checkmate, stalemate, or check
             if (currentBoard.verifyCheckmate(getColour())) {
@@ -84,14 +84,13 @@ void Game::playGame() {
             } 
             else if (currentBoard.verifyStalemate(getColour())) {
                     cout << "Stalemate!" << endl;
-                    //addScore(getColour(), 1);
+                    addScore(getColour(), 0.5);
                     break;
             } 
             else if (currentBoard.verifyCheck(getColour())) {
                     cout << getColourString() << " is in check." << endl;
             }
-            } 
-        else {
+        } else {
             cout << "Invalid Move" << endl;
         }
         printBoard();
@@ -119,8 +118,8 @@ void Game::setCurrPlayer(Colour player) {
 }
 
 void Game::swapPlayer() {
-    //if (&currPlayer == &player1) currPlayer = player2;
-    //else currPlayer = player1;
+    if (&currPlayer == &player1) currPlayer = player2;
+    else currPlayer = player1;
 }
 
 Colour Game::getColour() {

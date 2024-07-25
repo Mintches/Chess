@@ -29,21 +29,21 @@ Board::Board(const Board& b) {
     passantable = b.passantable;
 }
 
-vector<Move> Board::possibleMoves(Colour player) {
+vector<Move> Board::legalMoves() { // list of moves, considers checks
     vector<Move> moves;
+    // compile moves from each piece
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (arr[i][j]->returnPlayer() == player) {
-                //vector<pair<int,int>> coords = arr[i][j]->possibleCoords(this);
-                //for (auto coord : coords) {
-                    vector<Move> m = getSquare(i, j)->possibleCoords(this);
-                    for (auto mv : m) {
-                        if (mv.getAdded().size() != 0) {
+            if (arr[i][j]->returnPlayer() == currPlayer) {
+                vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
+                for (auto mv : pieceMoves) {
+                    if (movePiece(mv)) { // do a temp move if possible
+                        if (!verifyCheck(currPlayer)) { // if no self-checked
                             moves.push_back(mv);
                         }
+                        undoMove(); // undo temp move
                     }
-                    
-                //}
+                }
             }
         }
     }
@@ -70,20 +70,18 @@ bool Board::verifyCheck(Colour player) { // is player being checked
     // see if any pieces could capture king
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            if (arr[i][j]->returnPlayer() != player && (arr[i][j]->verifyMove(this, kingRow, kingCol)).getAdded().size() != 0) {
-                return true;
-            }
+            if (arr[i][j]->verifyMove(this, kingRow, kingCol).isEmpty()) return true;
         }
     }
     return false;
 }
 
 bool Board::verifyCheckmate(Colour player) { // is player checkmated
-    return possibleMoves(player).empty() && verifyCheck(player);
+    return legalMoves().empty() && verifyCheck(currPlayer);
 }
 
 bool Board::verifyStalemate(Colour player) { // is player stuck
-    return possibleMoves(player).empty();
+    return legalMoves().empty() && !verifyCheck(currPlayer);
 }
 
 /*bool Board::verifyMove(Colour player, int row1, int col1, int row2, int col2) {
@@ -94,7 +92,9 @@ bool Board::verifyStalemate(Colour player) { // is player stuck
     }
 }*/
 
-void Board::movePiece(Move m) {//(Colour player, int row1, int col1, int row2, int col2) {
+bool Board::movePiece(Move m) { // mindlessly follows given Move m, if given move isn't possible (ignoring checks), return false
+    if (m.isEmpty()) return false;
+    // do the move
     for (auto deletedSq : m.getDeleted()) {
         deletePiece(deletedSq->getRow(), deletedSq->getCol());
     }
@@ -102,6 +102,7 @@ void Board::movePiece(Move m) {//(Colour player, int row1, int col1, int row2, i
         arr[addedSq->getRow()][addedSq->getCol()] = addedSq;
     }
     movesMade.push_back(m);
+    return true;
     /*if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
     vector<Square *> emptyDeleted;
     vector<Square *> emptyAdded;
@@ -148,7 +149,7 @@ void Board::undoMove() {
     }
     for (auto deletedSq : latestMv.getDeleted()) {
         // restore deleted
-        makePiece(deletedSq->getRow(),deletedSq->getCol(), 'p'); // fix makePiece
+        mPiece(deletedSq->getRow(),deletedSq->getCol(), 'p'); // fix makePiece
     }
     movesMade.pop_back();
 }

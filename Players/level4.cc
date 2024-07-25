@@ -78,6 +78,6 @@ Move Level4::getMove(Board *board, Colour player) const {
 
 
 Move Level4::getMove(Board *board, Colour player) const {
-    vector<Move> v = board->possibleMoves(player);
+    vector<Move> v = board->legalMoves();
     return v.back(); // placeholder so it doesn't crash
 }
