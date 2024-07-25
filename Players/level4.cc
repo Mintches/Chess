@@ -13,10 +13,11 @@ const int INF = 9999999;
 // minimizing player = black
 // evaluate: return weighted sum of pieces from white (mx player) - same thing from black (min player)
 
-/*int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
+/*
+int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
     // minimax has reached a leaf node
     if (board->verifyCheckmate(Colour::WHITE) || board->verifyCheckmate(Colour::BLACK) || 
-    board->verifyStalemate(Colour::WHITE) || board->begin(Colour::BLACK) 
+    board->verifyStalemate(Colour::WHITE) || board->verifyStalemate(Colour::BLACK) 
     || board->verifyDraw() || depth == 0) return board->evaluate();
     
     if (mxPlayer) { // maximizing player (white)
@@ -61,7 +62,7 @@ Move Level4::getMove(Board *board, Colour player) const {
         int minEval = INF;
         for (auto m: board->possibleMoves(Colour::BLACK)) {
             board->movePiece(m);
-            int eval = minimax(boardCopy, 1, -INF, INF, true);
+            int eval = minimax(board, 1, -INF, INF, true);
             board->undoMove();
             if (eval < minEval) {
                 minEval = eval;
@@ -70,12 +71,12 @@ Move Level4::getMove(Board *board, Colour player) const {
         }
     }
     return best;
-}*/
+}
+*/
 
 /*string Level4::getMove(Board *board, int depth) const {
     return ""; // placeholder so it doesn't crash
 }*/
-
 
 Move Level4::getMove(Board *board, Colour player) const {
     vector<Move> v = board->possibleMoves(player);
