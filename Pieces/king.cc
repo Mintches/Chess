@@ -17,10 +17,6 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
     return m;
 } // maybe check that it's not right beside another king? althought verifyCheck() should deal with that case
 
-void King::updatePos(int row, int col) {
-
-}
-
 vector<Move> King::possibleCoords(Board *board) {
     vector<Move> v;
     return v;

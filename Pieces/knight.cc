@@ -14,10 +14,6 @@ Move Knight::verifyMove(Board *board, int torow, int tocol) {
     } else return m;
 }
 
-void Knight::updatePos(int row, int col) {
-
-}
-
 vector<Move> Knight::possibleCoords(Board *board) {
     vector<Move> v;
     return v;

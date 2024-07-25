@@ -20,8 +20,6 @@ public:
 
     Move verifyMove(Board *board, int row, int col) override;
 
-    void updatePos(int row, int col);
-
     vector<Move> possibleCoords(Board *board) override;
 
     PieceType returnType() override;

@@ -29,9 +29,12 @@ public:
     int getRow();
     int getCol();
     //Square getPiece();
+    Square *mPiece(int row, int col, char p);
 
     virtual PieceType returnType() = 0;
 };
+
+Square *mPiece(int row, int col, char piece);
 
 #endif
 

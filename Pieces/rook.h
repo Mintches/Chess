@@ -13,8 +13,6 @@ class Rook : public Square { // bishop inherits from square
 
         Move verifyMove(Board *board, int torow, int tocol) override;
 
-        void updatePos(int row, int col);
-
         vector<Move> possibleCoords(Board *board) override;
         
         PieceType returnType() override;

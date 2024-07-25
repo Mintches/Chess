@@ -12,8 +12,6 @@ class King : public Square { // king inherits from square
 
         Move verifyMove(Board *board, int torow, int tocol) override;
 
-        void updatePos(int row, int col);
-
         vector<Move> possibleCoords(Board *board) override;
         
         PieceType returnType() override;

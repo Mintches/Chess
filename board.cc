@@ -115,20 +115,7 @@ void Board::movePiece(Move m) {//(Colour player, int row1, int col1, int row2, i
 }
 
 void Board::makePiece(int row, int col, char piece) {
-    if (piece == 'p') arr[row][col] = new Pawn(row, col, Colour::BLACK);
-    else if (piece == 'n') arr[row][col] = new Knight(row, col, Colour::BLACK);
-    else if (piece == 'b') arr[row][col] = new Bishop(row, col, Colour::BLACK);
-    else if (piece == 'k') arr[row][col] = new King(row, col, Colour::BLACK);
-    else if (piece == 'q') arr[row][col] = new Queen(row, col, Colour::BLACK);
-    else if (piece == 'r') arr[row][col] = new Rook(row, col, Colour::BLACK);
-    else if (piece == 'P') arr[row][col] = new Pawn(row, col, Colour::WHITE);
-    else if (piece == 'N') arr[row][col] = new Knight(row, col, Colour::WHITE);
-    else if (piece == 'B') arr[row][col] = new Bishop(row, col, Colour::WHITE);
-    else if (piece == 'K') arr[row][col] = new King(row, col, Colour::WHITE);
-    else if (piece == 'Q') arr[row][col] = new Queen(row, col, Colour::WHITE);
-    else if (piece == 'R') arr[row][col] = new Rook(row, col, Colour::WHITE);
-    else if (piece == '_') arr[row][col] = new EmptySquare(row, col, Colour::BLACK);
-    else if (piece == ' ') arr[row][col] = new EmptySquare(row, col, Colour::WHITE);
+    arr[row][col] = mPiece(row, col, piece);
 }
 
 void Board::deletePiece(int row, int col) {

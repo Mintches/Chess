@@ -40,10 +40,6 @@ Move Rook::verifyMove(Board *board, int torow, int tocol) {
     return m; //true;
 }
 
-void Rook::updatePos(int row, int col) {
-
-}
-
 vector<Move> Rook::possibleCoords(Board *board) {
     vector<Move> v;
     return v;

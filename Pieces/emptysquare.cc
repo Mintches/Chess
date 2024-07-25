@@ -8,10 +8,6 @@ Move EmptySquare::verifyMove(Board *board, int row, int col) {
     return m;
 }
 
-void EmptySquare::updatePos(int row, int col) {
-
-}
-
 vector<Move> EmptySquare::possibleCoords(Board *board) {
     vector<Move> v;
     return v;

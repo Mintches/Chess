@@ -13,8 +13,6 @@ class EmptySquare : public Square { // emptysquare inherits from square
 
         Move verifyMove(Board *board, int row, int col) override;
 
-        void updatePos(int row, int col);
-
         vector<Move> possibleCoords(Board *board) override;
         
         PieceType returnType() override;

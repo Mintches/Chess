@@ -13,10 +13,6 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
     return m;
 }
 
-void Queen::updatePos(int row, int col) {
-
-}
-
 vector<Move> Queen::possibleCoords(Board *board) {
     vector<Move> v;
     return v;
