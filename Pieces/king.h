@@ -4,8 +4,11 @@
 #include "../board.h"
 #include "../square.h"
 #include "emptysquare.h"
+#include "../pieceType.h"
+
 
 class King : public Square { // king inherits from square
+    //bool moved;
     public:
         King(int row, int col, Colour player); // constructor
         ~King(); // destructor

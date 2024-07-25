@@ -30,6 +30,7 @@ Move Rook::verifyMove(Board *board, int torow, int tocol) {
                 currow += shiftrow;
                 curcol += shiftcol;
             }
+            //moved = true;
             m.addAdded(new EmptySquare(row, col, Colour::BLUE));
             m.addAdded(new Rook(torow, tocol, player));
             m.addDeleted(this);
@@ -48,3 +49,7 @@ vector<Move> Rook::possibleCoords(Board *board) {
 PieceType Rook::returnType() {
     return PieceType::ROOK;
 }
+
+/*bool Rook::getMoved() {
+    return moved;
+}*/

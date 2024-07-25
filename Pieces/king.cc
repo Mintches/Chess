@@ -1,5 +1,4 @@
 #include "king.h"
-#include "../pieceType.h"
 
 King::King(int row, int col, Colour player) : Square(row, col, player) {} 
 
@@ -20,7 +19,15 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
         m.addAdded(new King(torow, tocol, player));
         m.addDeleted(this);
         m.addDeleted(board->getSquare(torow, tocol));
-    }
+    } /*else if (!moved && torow == row) { // check for castle
+        if (tocol - col == 2 && board->getSquare(row, 7)->returnType() == PieceType::ROOK) { // right castle
+            if (rook moved) {
+            }
+        } else if (tocol - col == -2 && board->getSquare(row, 0)->returnType() == PieceType::ROOK) { // left castle
+            if (rook moved) {
+            }
+        }
+    }*/
     return m;
 }
 
