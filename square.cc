@@ -58,3 +58,15 @@ Square* mPiece(int row, int col, char piece) {
     else if (piece == ' ') s = new EmptySquare(row, col, Colour::LIGHT_BLUE);
     return s;
 }
+
+Square *cpyPiece(Square *piece) {
+    Square *s;
+    if (piece->returnType() == PieceType::PAWN) s = new Pawn(piece->getRow(), piece->getCol(), piece->returnPlayer());
+    if (piece->returnType() == PieceType::ROOK) s = new Rook(piece->getRow(), piece->getCol(), piece->returnPlayer(), false);
+    if (piece->returnType() == PieceType::BISHOP) s = new Bishop(piece->getRow(), piece->getCol(), piece->returnPlayer());
+    if (piece->returnType() == PieceType::KNIGHT) s = new Knight(piece->getRow(), piece->getCol(), piece->returnPlayer());
+    if (piece->returnType() == PieceType::QUEEN) s = new Queen(piece->getRow(), piece->getCol(), piece->returnPlayer());
+    if (piece->returnType() == PieceType::KING) s = new King(piece->getRow(), piece->getCol(), piece->returnPlayer(), false);
+    if (piece->returnType() == PieceType::EMPTY) s = new EmptySquare(piece->getRow(), piece->getCol(), piece->returnPlayer());
+    return s;
+}

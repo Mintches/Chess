@@ -35,6 +35,7 @@ public:
 };
 
 Square *mPiece(int row, int col, char piece);
+Square *cpyPiece(Square *piece);
 
 #endif
 
