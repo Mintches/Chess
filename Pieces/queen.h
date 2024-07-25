@@ -2,6 +2,7 @@
 #define QUEEN_H
 
 #include "../square.h"
+#include "../board.h"
 
 class Board; // forward declaration
 

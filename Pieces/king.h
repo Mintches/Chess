@@ -3,7 +3,7 @@
 
 #include "../board.h"
 #include "../square.h"
-
+#include "emptysquare.h"
 
 class King : public Square { // king inherits from square
     public:

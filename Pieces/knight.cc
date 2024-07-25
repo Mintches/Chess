@@ -1,4 +1,5 @@
 #include "knight.h"
+#include "emptysquare.h"
 
 Knight::Knight(int row, int col, Colour player) : Square(row, col, player) {} 
 Knight::~Knight() {} // do nothing
@@ -12,6 +13,11 @@ Move Knight::verifyMove(Board *board, int torow, int tocol) {
         }
         return m;
     } else return m;
+    m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+    m.addAdded(new Knight(torow, tocol, player));
+    m.addDeleted(this);
+    m.addDeleted(board->getSquare(torow, tocol));
+    return m;
 }
 
 vector<Move> Knight::possibleCoords(Board *board) {

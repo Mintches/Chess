@@ -1,4 +1,5 @@
 #include "queen.h"
+#include "emptysquare.h"
 
 Queen::Queen(int row, int col, Colour player) : Square(row, col, player) {} 
 
@@ -10,6 +11,10 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
     else if (torow == row || tocol == col) Rook::verifyMove(board, row, col); // rook case
     else return false; // invalid*/
     Move m;
+    m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+    m.addAdded(new Queen(torow, tocol, player));
+    m.addDeleted(this);
+    m.addDeleted(board->getSquare(torow, tocol));
     return m;
 }
 
