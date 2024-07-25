@@ -28,6 +28,17 @@ Colour Square::returnPlayer() {
     return player;
 }
 
+int Square::pointValue() {
+    int num = 0;
+    if (returnType() == PieceType::PAWN) num = 10;
+    else if (returnType() == PieceType::BISHOP) num = 30;
+    else if (returnType() == PieceType::KNIGHT) num = 30;
+    else if (returnType() == PieceType::ROOK) num = 50;
+    else if (returnType() == PieceType::KING) num = 90;
+    else if (returnType() == PieceType::QUEEN) num = 900;
+    return num;
+}
+
 
 Square* mPiece(int row, int col, char piece) {
     Square *s;

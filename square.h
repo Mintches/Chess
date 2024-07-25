@@ -31,6 +31,7 @@ public:
     //Square getPiece();
 
     virtual PieceType returnType() = 0;
+    int pointValue();
 };
 
 Square *mPiece(int row, int col, char piece);

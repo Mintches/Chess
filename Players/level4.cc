@@ -11,7 +11,7 @@ const int INF = 9999999;
 // minimax heuristic = sums of the values of all pieces for each player
 // maximizing player = white
 // minimizing player = black
-// eval: return weighted sum of pieces from white (mx player) - same thing from black (min player)
+// evaluate: return weighted sum of pieces from white (mx player) - same thing from black (min player)
 
 /*int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
     // minimax has reached a leaf node
