@@ -27,10 +27,13 @@ vector<Move> Board::possibleMoves(Colour player) {
             if (arr[i][j]->returnPlayer() == player) {
                 //vector<pair<int,int>> coords = arr[i][j]->possibleCoords(this);
                 //for (auto coord : coords) {
-                    Move m = getSquare(i, j)->verifyMove(this, i, j);
-                    if (m.getAdded().size() != 0) {
-                        moves.push_back(m);
+                    vector<Move> m = getSquare(i, j)->possibleCoords(this);
+                    for (auto mv : m) {
+                        if (mv.getAdded().size() != 0) {
+                            moves.push_back(mv);
+                        }
                     }
+                    
                 //}
             }
         }

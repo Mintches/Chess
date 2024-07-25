@@ -76,17 +76,18 @@ void Game::playGame() {
             currentBoard.movePiece(mv);
 
                 // in case of checkmate, stalemate, or check
-            /*if (currentBoard.verifyCheckmate(getColour())) {
+            if (currentBoard.verifyCheckmate(getColour())) {
+                    swapPlayer();
                     cout << "Checkmate! " << getColourString() << " wins!" << endl;
                     addScore(getColour(), 1);
                     break;
             } 
             else if (currentBoard.verifyStalemate(getColour())) {
                     cout << "Stalemate!" << endl;
-                    addScore(getColour(), 1);
+                    //addScore(getColour(), 1);
                     break;
             } 
-            else */if (currentBoard.verifyCheck(getColour())) {
+            else if (currentBoard.verifyCheck(getColour())) {
                     cout << getColourString() << " is in check." << endl;
             }
             } 

@@ -45,7 +45,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
             return m; //true;
         }
     } else if (abs(col - tocol) == 1 && torow - row == forward) { // move diagonal
-    cout << "!" << endl;
+    //cout << "!" << endl;
         if (board->getSquare(torow, tocol)->returnPlayer() != player) {
             if (board->getSquare(torow, tocol)->returnType() != PieceType::EMPTY) { // normal capture
                 m.addAdded(new EmptySquare(row, col, Colour::BLUE));
@@ -55,7 +55,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
                 board->removePassantable(); // en passant only valid for immediate move after
                 return m;
             } else { // destination square is empty
-            cout << "word";
+            //cout << "word";
                 int passantRow = board->getPassantable().first;
                 int passantCol = board->getPassantable().second;
                 if (passantRow == row && passantCol == tocol) { // additional requirements for en passant capture
@@ -77,6 +77,11 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) { // TODO: enpassant :
 
 vector<Move> Pawn::possibleCoords(Board *board) {
     vector<Move> v;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (verifyMove(board, i, j).getAdded().size() != 0) v.push_back(verifyMove(board, i, j));
+        }
+    }
     return v;
 }
 
