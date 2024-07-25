@@ -25,6 +25,5 @@ public:
     Colour getColour();
     char getState(int row, int col) override;
     void printBoard();
-    Board standardBoard();
     string getColourString();
 };
