@@ -11,12 +11,13 @@
 #include "Pieces/bishop.h"
 #include "Pieces/rook.h"
 #include "Pieces/emptysquare.h"
-#include "Pieces/emptysquare.h"
 #include "colour.h"
 
 using namespace std;
 
-Board::Board() {} // default
+Board::Board() {
+    passantable = {-1,-1};
+}
 
 vector<Move> Board::possibleMoves(Colour player) {
     vector<Move> moves;
@@ -150,4 +151,12 @@ void Board::undoMove() {
         makePiece(deletedSq->getRow(),deletedSq->getCol(), 'p'); // fix makePiece
     }
     movesMade.pop_back();
+}
+
+pair<int,int> Board::returnPassantable() {
+    return passantable;
+}
+
+void Board::removePassantable() {
+    passantable = {-1, -1};
 }

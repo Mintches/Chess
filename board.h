@@ -14,6 +14,7 @@ using namespace std;
 class Board {
     vector<Move> movesMade;
     Square *arr[8][8];
+    pair<int,int> passantable;
     public:
         Board();
         vector<Move> possibleMoves(Colour player);
@@ -29,6 +30,8 @@ class Board {
         void makePiece(int row, int col, char piece);
         void deletePiece(int row, int col);
         void undoMove();
+        pair<int,int> returnPassantable();
+        void removePassantable();
 };
 
 #endif

@@ -63,7 +63,7 @@ void Game::playGame() {
             gameHistory.push_back(currentBoard);
             swapPlayer();
             cout << getColourString() << " wins!" << endl;
-            addScore(getColour(), 0.5);
+            addScore(getColour(), 1);
             break;
         } 
         else if (in == "move") {
