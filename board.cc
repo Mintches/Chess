@@ -112,29 +112,6 @@ bool Board::movePiece(Move m) { // mindlessly follows given Move m, if given mov
     }
     movesMade.push_back(m);
     return true;
-    /*if (arr[row1][col1]->verifyMove(this, row2, col2) == false) return false;
-    vector<Square *> emptyDeleted;
-    vector<Square *> emptyAdded;
-    Move m {emptyDeleted, emptyAdded, false, false};
-    arr[row2][col2] = arr[row1][col1];
-    arr[row1][col1] = new EmptySquare(row1, row2, Colour::WHITE);
-    if (verifyCheck(player)) {
-        undoMove();
-        return false;
-    }
-    else {
-        if (player == Colour::WHITE) {
-            if (verifyCheck(Colour::BLACK)) m.setCheck(true);
-            if (verifyStalemate(Colour::BLACK)) m.setStalemate(true);
-        }
-        else {
-            if (verifyCheck(Colour::WHITE)) m.setCheck(true);
-            if (verifyStalemate(Colour::WHITE)) m.setStalemate(true);
-        }
-        movesMade.push_back(m);
-        return true;
-    }*/
-
 }
 
 void Board::makePiece(int row, int col, char piece) {
@@ -162,6 +139,7 @@ void Board::undoMove() {
         undoMv.addAdded(deletedSq);
     }
     movePiece(undoMv);
+    movesMade.pop_back();
     movesMade.pop_back();
 }
 
