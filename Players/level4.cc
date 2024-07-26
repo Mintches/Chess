@@ -82,15 +82,3 @@ Move Level4::getMove(Board *board, Colour player) const {
     }
     return bestMv;
 }
-
-
-/*string Level4::getMove(Board *board, int depth) const {
-    return ""; // placeholder so it doesn't crash
-}*/
-
-/*
-Move Level4::getMove(Board *board, Colour player) const {
-    vector<Move> v = board->legalMoves();
-    return v.back(); // placeholder so it doesn't crash
-}
-*/

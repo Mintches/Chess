@@ -36,7 +36,6 @@ class Board {
         void resetBoard();
         int evaluate();
         int getNumMoves();
-        void incNumMoves();
         Move lastMove();
 };
 

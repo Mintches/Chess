@@ -72,7 +72,8 @@ void Game::setupGame() {
 void Game::playGame() {
     printBoard();
     string in;
-    cout << "Please output 'move' or 'resign':" << endl;
+    cout << "Please output 'move', 'resign' or 'undo':" << endl;
+    cout << "It is currently " << getColourString() << "'s turn." << endl;
     while (cin >> in) {
         if (in == "resign") {
             swapPlayer();
@@ -90,7 +91,7 @@ void Game::playGame() {
                 repeat = true;
             }
             if (repeat) {
-                cout << "Please output 'move' or 'resign':" << endl;
+                cout << "Please output a valid move:" << endl;
                 continue;
             }
             currentBoard.movePiece(mv);
@@ -112,7 +113,23 @@ void Game::playGame() {
             }
             notifyObserversChange(mv);
         }
-        cout << "Please output 'move' or 'resign':" << endl;
+        else if (in == "undo") {
+            if (currentBoard.getNumMoves() != 0) {
+                Move mv;
+                Move lstmove = currentBoard.lastMove();
+                for (auto u : lstmove.getAdded()) {
+                    mv.addDeleted(u);
+                }
+                for (auto u : lstmove.getDeleted()) {
+                    mv.addAdded(u);
+                }
+                currentBoard.undoMove();
+                notifyObserversChange(mv);
+                swapPlayer();
+            }
+        }
+        cout << "Please output 'move', 'resign' or 'undo':" << endl;
+        cout << "It is currently " << getColourString() << "'s turn." << endl;
     }
     gameHistory.push_back(currentBoard);
     currentBoard = Board();

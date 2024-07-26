@@ -119,13 +119,6 @@ bool Board::verifySetup() {
     if (kingBlack + kingWhite != 0) return false;
     return true;
 }
-/*bool Board::verifyMove(Colour player, int row1, int col1, int row2, int col2) {
-    if (verifyCheck(player)) {
-        return false;
-    } else {
-        return true;
-    }
-}*/
 
 bool Board::movePiece(Move m) { // mindlessly follows given Move m, if given move isn't possible (ignoring checks), return false
     if (m.isEmpty()) return false;
@@ -228,11 +221,7 @@ int Board::evaluate() {
 }
 
 int Board::getNumMoves() {
-    return numMoves;
-}
-
-void Board::incNumMoves() {
-    numMoves++;
+    return movesMade.size();
 }
 
 Move Board::lastMove() {
