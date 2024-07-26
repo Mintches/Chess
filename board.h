@@ -15,7 +15,6 @@ using namespace std;
 class Board {
     vector<Move> movesMade;
     shared_ptr<Square> arr[8][8];
-    int numMoves = 0;
     public:
         Board();
         Board(const Board& b);

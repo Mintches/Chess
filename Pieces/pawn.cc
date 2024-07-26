@@ -33,7 +33,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
                 m.addAdded(make_shared<Pawn>(torow, tocol, player));
                 m.addDeleted(board->getSquare(row, col));
             }
-            //board->removePassantable(); // en passant only valid for immediate move after
             return m; //true;
         } else if (torow - row == forward * 2 
         && board->getSquare(row + forward, tocol)->returnType() == PieceType::EMPTY 
@@ -53,7 +52,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
                 m.addAdded(make_shared<Pawn>(torow, tocol, player));
                 m.addDeleted(board->getSquare(row, col));
                 m.addDeleted(board->getSquare(torow, tocol));
-                //board->removePassantable(); // en passant only valid for immediate move after
                 return m;
             } else { // destination square is empty
                 int passantRow = -1, passantCol = -1;
@@ -61,10 +59,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
                     passantRow = board->lastMove().getPassantable().first;
                     passantCol = board->lastMove().getPassantable().second;
                 }
-                //cout << passantRow <<":"<< passantCol << endl;
-                //Square *sq = board->getSquare(row, tocol).get();
-                //Pawn *pwn = dynamic_cast<Pawn*>(sq);
-                //if (pwn != nullptr && pwn->getMoveNum() == board->getNumMoves()) {
                 if (passantRow == row && passantCol == tocol) { // additional requirements for en passant capture
                     m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
                     m.addAdded(make_shared<Pawn>(torow, tocol, player));
@@ -95,8 +89,4 @@ vector<Move> Pawn::possibleMoves(Board *board) {
 
 PieceType Pawn::returnType() {
     return PieceType::PAWN;
-}
-
-int Pawn::getMoveNum() {
-    return moveNum;
 }
