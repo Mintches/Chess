@@ -11,7 +11,7 @@ bool BoardIterator::operator==( const BoardIterator& other ) const {
     return board == other.board && currRow == other.currRow && currCol == other.currCol;
 }
 
-Square *BoardIterator::operator*() const {
+shared_ptr<Square> BoardIterator::operator*() const {
     return board->getSquare(currRow, currCol);
 }
 

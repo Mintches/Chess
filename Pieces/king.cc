@@ -9,9 +9,9 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
     if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY
     || board->getSquare(torow, tocol)->returnPlayer() != player) {
         if (abs(torow - row) + abs(tocol - col) == 1) { // king move limits
-            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-            m.addAdded(new King(torow, tocol, player, true));
-            m.addDeleted(this);
+            m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
+            m.addAdded(make_shared<King>(torow, tocol, player, true));
+            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
             m.addDeleted(board->getSquare(torow, tocol));
             moved = true;
         }
@@ -21,11 +21,11 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
         int side;
         Rook *rook = nullptr;
         if (tocol - col == 2 && board->getSquare(row, right)->returnType() == PieceType::ROOK) { // right castle
-            Square *sq = board->getSquare(row, right);
+            Square *sq = board->getSquare(row, right).get();
             rook = dynamic_cast<Rook*>(sq);
             side = right;
         } else if (tocol - col == -3 && board->getSquare(row, left)->returnType() == PieceType::ROOK) { // left castle
-            Square *sq = board->getSquare(row, left);
+            Square *sq = board->getSquare(row, left).get();
             rook = dynamic_cast<Rook*>(sq);
             side = left;
         }
@@ -39,12 +39,12 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
                 curcol += shift;
             }
             // move king
-            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-            m.addAdded(new King(torow, tocol, player, true));
-            m.addDeleted(this);
+            m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
+            m.addAdded(make_shared<King>(torow, tocol, player, true));
+            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
             m.addDeleted(board->getSquare(torow, tocol));
             // move rook
-            m.addAdded(new Rook(row, tocol - shift, player, true));
+            m.addAdded(make_shared<Rook>(row, tocol - shift, player, true));
             m.addDeleted(board->getSquare(row, side));
         }
     }

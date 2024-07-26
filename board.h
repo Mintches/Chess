@@ -14,13 +14,13 @@ using namespace std;
 
 class Board {
     vector<Move> movesMade;
-    Square *arr[8][8];
+    shared_ptr<Square> arr[8][8];
     pair<int,int> passantable;
     public:
         Board();
         Board(const Board& b);
         vector<Move> legalMoves(Colour player);
-        Square *getSquare(int row, int col);
+        shared_ptr<Square> getSquare(int row, int col);
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);
         bool verifyStalemate(Colour player);
