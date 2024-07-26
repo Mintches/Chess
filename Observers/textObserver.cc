@@ -10,7 +10,7 @@ void TextObserver::notifyFull() {
         cout << vertBorder << " ";
         --vertBorder;
         for (int j = 0; j < 8; ++j) {
-            cout << sub->getState(i, j);
+            cout << sub->getState(i, j) << " ";
         }
         cout << endl;
     }
@@ -18,7 +18,7 @@ void TextObserver::notifyFull() {
     cout << "  ";
     for (int i = 'a'; i <= 'h'; ++i) {
         char horBorder = i;
-        cout << horBorder;
+        cout << horBorder << " ";
     }
     cout << endl;
 }

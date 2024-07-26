@@ -4,7 +4,7 @@
 
 #include "../square.h"
 
-Pawn::Pawn(int row, int col, Colour player) : Square{row, col, player} {}
+Pawn::Pawn(int row, int col, Colour player) : Square{row, col, player}, moveNum{-1} {}
 
 Pawn::~Pawn() {} // do nothing
 
@@ -25,7 +25,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
             if (torow == 0 || torow == 7) { // pawn promotion
                 char piece;
                 cin >> piece;
-                //Square *sq = mPiece(torow, tocol, piece);
                 if (piece != 'k' && piece != 'K') {
                     m.addAdded(mPiece(torow, tocol, piece));
                     m.addDeleted(board->getSquare(row, col));
@@ -34,7 +33,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
                 m.addAdded(make_shared<Pawn>(torow, tocol, player));
                 m.addDeleted(board->getSquare(row, col));
             }
-            board->removePassantable(); // en passant only valid for immediate move after
+            //board->removePassantable(); // en passant only valid for immediate move after
             return m; //true;
         } else if (torow - row == forward * 2 
         && board->getSquare(row + forward, tocol)->returnType() == PieceType::EMPTY 
@@ -44,34 +43,39 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
             m.addDeleted(board->getSquare(row, col));
             m.addDeleted(board->getSquare(torow, tocol));
             // this square is now passantable
-            board->setPassantable(torow, tocol);
+            m.setPassantable(torow, tocol);
             return m; 
         }
     } else if (abs(col - tocol) == 1 && torow - row == forward) { // move diagonal
-    cout << "!" << endl;
         if (board->getSquare(torow, tocol)->returnPlayer() != player) {
             if (board->getSquare(torow, tocol)->returnType() != PieceType::EMPTY) { // normal capture
                 m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
                 m.addAdded(make_shared<Pawn>(torow, tocol, player));
                 m.addDeleted(board->getSquare(row, col));
                 m.addDeleted(board->getSquare(torow, tocol));
-                board->removePassantable(); // en passant only valid for immediate move after
+                //board->removePassantable(); // en passant only valid for immediate move after
                 return m;
             } else { // destination square is empty
-            cout << "word" << endl;
-                int passantRow = board->getPassantable().first;
-                int passantCol = board->getPassantable().second;
-                cout << passantRow <<":"<< passantCol << endl;
+                int passantRow = -1, passantCol = -1;
+                if (!board->lastMove().isEmpty()) {
+                    passantRow = board->lastMove().getPassantable().first;
+                    passantCol = board->lastMove().getPassantable().second;
+                }
+                //cout << passantRow <<":"<< passantCol << endl;
+                //Square *sq = board->getSquare(row, tocol).get();
+                //Pawn *pwn = dynamic_cast<Pawn*>(sq);
+                //if (pwn != nullptr && pwn->getMoveNum() == board->getNumMoves()) {
                 if (passantRow == row && passantCol == tocol) { // additional requirements for en passant capture
                     m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
                     m.addAdded(make_shared<Pawn>(torow, tocol, player));
                     m.addDeleted(board->getSquare(row, col));
                     m.addDeleted(board->getSquare(torow, tocol));
                     // remove en passant captured piece
-                    m.addAdded(make_shared<EmptySquare>(passantRow, passantCol, Colour::BLUE));
-                    m.addDeleted(board->getSquare(passantRow, passantCol));
-                    board->removePassantable(); // en passant only valid for immediate move after
+                    m.addAdded(make_shared<EmptySquare>(row, tocol, Colour::BLUE));
+                    m.addDeleted(board->getSquare(row, tocol));
+                    //board->removePassantable(); // en passant only valid for immediate move after
                     return m;
+                //}
                 }
             }
         }
@@ -91,4 +95,8 @@ vector<Move> Pawn::possibleMoves(Board *board) {
 
 PieceType Pawn::returnType() {
     return PieceType::PAWN;
+}
+
+int Pawn::getMoveNum() {
+    return moveNum;
 }

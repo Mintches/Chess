@@ -83,7 +83,6 @@ void Game::playGame() {
             bool repeat = false;
 
             if (!currentBoard.checkLegal(mv, getColour())) {
-                //mv = currPlayer->getMove(&currentBoard, getColour()); 
                 repeat = true;
             }
             if (repeat) {
@@ -91,30 +90,23 @@ void Game::playGame() {
                 continue;
             }
             currentBoard.movePiece(mv);
-            // do move, if possible
-            /*if (currentBoard.movePiece(mv) && currentBoard.verifyCheck(getColour())) { // move piece and no self check
-                currentBoard.undoMove();
-                cout << "Invalid move" << endl;
-            } else {
-                */swapPlayer();
-                // going from most requirments to least checkmate > stalemate > check
-                if (currentBoard.verifyCheckmate(getColour())) {
-                    swapPlayer();
-                    cout << "Checkmate! " << getColourString() << " wins!" << endl;
-                    addScore(getColour(), 1);
-                    break;
-                } else if (currentBoard.verifyStalemate(getColour())) {
-                    cout << "Stalemate!" << endl;
-                    addScore(getColour(), 0.5);
-                    swapPlayer();
-                    addScore(getColour(), 0.5);
-                    break;
-                } else if (currentBoard.verifyCheck(getColour())) {
-                    cout << getColourString() << " is in check." << endl;
-                }
-                notifyObserversChange(mv);
-                //printBoard();
-            //}
+            swapPlayer();
+            // going from most requirments to least checkmate > stalemate > check
+            if (currentBoard.verifyCheckmate(getColour())) {
+                swapPlayer();
+                cout << "Checkmate! " << getColourString() << " wins!" << endl;
+                addScore(getColour(), 1);
+                break;
+            } else if (currentBoard.verifyStalemate(getColour())) {
+                cout << "Stalemate!" << endl;
+                addScore(getColour(), 0.5);
+                swapPlayer();
+                addScore(getColour(), 0.5);
+                break;
+            } else if (currentBoard.verifyCheck(getColour())) {
+                cout << getColourString() << " is in check." << endl;
+            }
+            notifyObserversChange(mv);
         }
         cout << "Please output 'move' or 'resign':" << endl;
     }
