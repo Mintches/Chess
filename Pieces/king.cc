@@ -15,11 +15,12 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
             m.addDeleted(board->getSquare(torow, tocol));
             moved = true;
         }
-    } else if (!moved && torow == row && (torow = 7 || torow == 0)) { // check for castle
+    } else if (!moved && torow == row && (torow = 7 || torow == 0)
+    && board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) { // check for castle
         int left = 0; // left and right 
         int right = 7;
         int side;
-        Rook *rook = nullptr;
+        Rook *rook;
         if (tocol - col == 2 && board->getSquare(row, right)->returnType() == PieceType::ROOK) { // right castle
             Square *sq = board->getSquare(row, right).get();
             rook = dynamic_cast<Rook*>(sq);
@@ -28,13 +29,18 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
             Square *sq = board->getSquare(row, left).get();
             rook = dynamic_cast<Rook*>(sq);
             side = left;
+        } else {
+            return m;
         }
-        if (rook && !rook->isMoved()) {
+
+        if (!rook->isMoved()) {
             int curcol = col;
             int shift = 1; // if castle right, 
             if (tocol < col) shift = -1; // if castle left
+            // make sure it's not moving through a check or another piece
             curcol += shift;
             while (tocol != curcol) {
+                if (board->getSquare(row, curcol)->returnType() != PieceType::EMPTY) return m;
                 if (board->verifyCheck(player)) return m;
                 curcol += shift;
             }
