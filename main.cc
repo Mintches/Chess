@@ -14,9 +14,9 @@ int main() {
     Input inp;
     Game *g = new Game();
     TextObserver *to = new TextObserver{g};
-    GraphicsObserver *go = new GraphicsObserver{g};
+    //GraphicsObserver *go = new GraphicsObserver{g};
     g->attach(to);
-    g->attach(go);
+    //g->attach(go);
     cout << "Please input either 'game' or 'setup'" << endl;
     while (cin >> in) {
         if (in == "game") {
