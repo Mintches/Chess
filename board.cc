@@ -37,9 +37,11 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
             if (arr[i][j]->returnPlayer() == player) {
                 vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
                 for (auto mv : pieceMoves) {
+                    bool alreadyChecking = false;
+                    Colour oppPlayer = (player == Colour::WHITE ? Colour::BLACK : Colour::WHITE);
+                    if (verifyCheck(oppPlayer)) alreadyChecking = true;
                     if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
-                        if (player == Colour::WHITE && verifyCheck(Colour::BLACK)) mv.setCheck(true);
-                        else if (player == Colour::BLACK && verifyCheck(Colour::WHITE)) mv.setCheck(true);
+                        if (!alreadyChecking && verifyCheck(oppPlayer)) mv.setCheck(true);
                         moves.push_back(mv);
                     }
                     undoMove();
@@ -51,7 +53,7 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
 }
 
 bool Board::checkLegal(Move m, Colour player) {
-    if (m.getAdded().size() == 0) return false;
+    if (m.isEmpty()) return false;
     bool retval = true;
     movePiece(m);
     if (verifyCheck(player)) retval = false;
@@ -93,30 +95,13 @@ bool Board::verifyStalemate(Colour player) { // is player stuck
     return legalMoves(player).empty() && !verifyCheck(player);
 }
 
-/*bool Board::verifyMove(Colour player, int row1, int col1, int row2, int col2) {
-    if (verifyCheck(player)) {
-        return false;
-    } else {
-        return true;
-    }
-}*/
-
 bool Board::movePiece(Move m) { // mindlessly follows given Move m, if given move isn't possible (ignoring checks), return false
     if (m.isEmpty()) return false;
     // do the move
-    //int numRow = -1;
     for (auto deletedSq : m.getDeleted()) {
-        //checking if this is a pawn's first move
-        //Pawn *p = dynamic_cast<Pawn*>(deletedSq);
-        //if (p != nullptr && p->returnPlayer() == colour) numRow = p->getRow();
         deletePiece(deletedSq->getRow(), deletedSq->getCol());
     }
     for (auto addedSq : m.getAdded()) {
-        //Pawn *p = dynamic_cast<Pawn*>(addedSq);
-        //if (p != nullptr && p->returnPlayer() == colour) {
-            //if (abs(p->getRow() - numRow) == 2)
-            //numRow = p->getRow();
-        //}
         arr[addedSq->getRow()][addedSq->getCol()] = addedSq;
     }
     movesMade.push_back(m);
@@ -147,9 +132,7 @@ void Board::undoMove() {
         // restore deleted
         arr[deletedSq->getRow()][deletedSq->getCol()] = deletedSq;
     }
-    //movePiece(undoMv);
     movesMade.pop_back();
-    //movesMade.pop_back();
 }
 
 pair<int,int> Board::getPassantable() {
