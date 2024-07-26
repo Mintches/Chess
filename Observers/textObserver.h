@@ -7,5 +7,6 @@ class TextObserver : public Observer {
     Subject *sub;
     public:
         TextObserver(Subject *sub);
-        void notify() override;
+        void notifyFull() override;
+        void notifyChange(Move m) override;
 };

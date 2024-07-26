@@ -15,9 +15,9 @@ void run() {
     Input inp;
     unique_ptr<Game> g = make_unique<Game>();
     unique_ptr<TextObserver> to = make_unique<TextObserver>(g.get());
-    //GraphicsObserver *go = new GraphicsObserver{g};
+    unique_ptr<GraphicsObserver> go = make_unique<GraphicsObserver>(g.get());
     g->attach(to.get());
-    //g->attach(go);
+    g->attach(go.get());
     cout << "Please input either 'game' or 'setup'" << endl;
     while (cin >> in) {
         if (in == "game") {
