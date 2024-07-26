@@ -50,7 +50,7 @@ Move Level4::getMove(Board *board, Colour player) const {
         int mxEval = -INF;
         for (auto m: board->legalMoves(player)) {
             board->movePiece(m);
-            int eval = minimax(board, 0, -INF, INF, false);
+            int eval = minimax(board, 1, -INF, INF, false);
             board->undoMove();
             if (eval > mxEval) {
                 mxEval = eval;
@@ -61,7 +61,7 @@ Move Level4::getMove(Board *board, Colour player) const {
         int minEval = INF;
         for (auto m: board->legalMoves(player)) {
             board->movePiece(m);
-            int eval = minimax(board, 0, -INF, INF, true);
+            int eval = minimax(board, 1, -INF, INF, true);
             board->undoMove();
             if (eval < minEval) {
                 minEval = eval;
