@@ -20,7 +20,7 @@ public:
 
     Move verifyMove(Board *board, int torow, int tocol) override;
 
-    vector<Move> possibleCoords(Board *board) override;
+    vector<Move> possibleMoves(Board *board) override;
 
     PieceType returnType() override;
     

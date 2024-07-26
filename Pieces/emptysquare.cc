@@ -11,7 +11,7 @@ Move EmptySquare::verifyMove(Board *board, int torow, int tocol) {
     return m;
 }
 
-vector<Move> EmptySquare::possibleCoords(Board *board) {
+vector<Move> EmptySquare::possibleMoves(Board *board) {
     vector<Move> v;
     return v;
 }

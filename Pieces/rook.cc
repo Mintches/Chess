@@ -39,7 +39,7 @@ Move Rook::verifyMove(Board *board, int torow, int tocol) {
     return m;
 }
 
-vector<Move> Rook::possibleCoords(Board *board) {
+vector<Move> Rook::possibleMoves(Board *board) {
     vector<Move> v;
     return v;
 }

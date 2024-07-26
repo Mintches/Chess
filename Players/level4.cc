@@ -22,7 +22,7 @@ int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
     
     if (mxPlayer) { // maximizing player (white)
         int mxEval = -INF;
-        for (auto m: board->possibleMoves(Colour::WHITE)) {
+        for (auto m: board->legalMoves(Colour::WHITE)) {
             board->movePiece(m); // test move and continue traversing the search tree
             int eval = minimax(board, depth - 1, alpha, beta, false); // call minimax with minimizing player on next depth
             board->undoMove(); // undo the move to try other moves
@@ -33,7 +33,7 @@ int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
         return mxEval;
     } else { // minimizing player (black)
         int minEval = INF;
-        for (auto m: board->possibleMoves(Colour::BLACK)) {
+        for (auto m: board->legalMoves(Colour::BLACK)) {
             board->movePiece(m); 
             int eval = minimax(board, depth - 1, alpha, beta, true); // call minimax with maximizing player on next depth
             board->undoMove();
@@ -49,7 +49,7 @@ Move Level4::getMove(Board *board, Colour player) const {
     Move best;
     if (player == Colour::WHITE) {
         int mxEval = -INF;
-        for (auto m: board->possibleMoves(Colour::WHITE)) {
+        for (auto m: board->legalMoves(player)) {
             board->movePiece(m);
             int eval = minimax(board, 1, -INF, INF, false);
             board->undoMove();
@@ -60,7 +60,7 @@ Move Level4::getMove(Board *board, Colour player) const {
         }
     } else {
         int minEval = INF;
-        for (auto m: board->possibleMoves(Colour::BLACK)) {
+        for (auto m: board->legalMoves(player)) {
             board->movePiece(m);
             int eval = minimax(board, 1, -INF, INF, true);
             board->undoMove();
@@ -80,7 +80,7 @@ Move Level4::getMove(Board *board, Colour player) const {
 
 /*
 Move Level4::getMove(Board *board, Colour player) const {
-    vector<Move> v = board->possibleMoves(player);
+    vector<Move> v = board->legalMoves();
     return v.back(); // placeholder so it doesn't crash
 }
 */

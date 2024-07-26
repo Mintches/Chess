@@ -19,14 +19,12 @@ class Board {
     public:
         Board();
         Board(const Board& b);
-        vector<Move> possibleMoves(Colour player);
+        vector<Move> legalMoves(Colour player);
         Square *getSquare(int row, int col);
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);
         bool verifyStalemate(Colour player);
-        bool verifyDraw();
-        //bool verifyMove(Colour player, int row1, int col1, int row2, int col2);
-        void movePiece(Move m);
+        bool movePiece(Move m);
         BoardIterator begin();
         BoardIterator end();
         void makePiece(int row, int col, char piece);

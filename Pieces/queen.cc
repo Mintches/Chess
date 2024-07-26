@@ -60,7 +60,7 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
     return m;
 }
 
-vector<Move> Queen::possibleCoords(Board *board) {
+vector<Move> Queen::possibleMoves(Board *board) {
     vector<Move> v;
     return v;
 }
