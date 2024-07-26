@@ -24,9 +24,6 @@ void Game::setupGame() {
     // lowercase = black
     // uppercase = white
     string op;
-    //Board b = Board();
-    //currentBoard = b;
-    //setCurrPlayer(Colour::WHITE);
     currPlayer = player1;
     Input inp;
     printBoard();
