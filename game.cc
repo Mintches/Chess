@@ -72,8 +72,7 @@ void Game::playGame() {
             Move mv = currPlayer->getMove(&currentBoard, getColour()); // can this be done if currPlayer is human and doesn't take in the board
 
             // do move, if possible
-            currentBoard.movePiece(mv);
-            if (currentBoard.verifyCheck(getColour())) { // move piece and no self check
+            if (currentBoard.movePiece(mv) && currentBoard.verifyCheck(getColour())) { // move piece and no self check
                 currentBoard.undoMove();
                 cout << "Invalid move" << endl;
             } else {

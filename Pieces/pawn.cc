@@ -72,7 +72,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
             }
         }
     }
-    if (torow == 7)
     return m;
 }
 
@@ -85,7 +84,6 @@ vector<Move> Pawn::possibleMoves(Board *board) {
     }
     return v;
 }
-
 
 PieceType Pawn::returnType() {
     return PieceType::PAWN;
