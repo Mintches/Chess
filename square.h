@@ -34,8 +34,8 @@ public:
     int pointValue();
 };
 
-Square *mPiece(int row, int col, char piece);
-Square *cpyPiece(Square *piece);
+shared_ptr<Square> mPiece(int row, int col, char piece);
+shared_ptr<Square> cpyPiece(shared_ptr<Square> piece);
 
 #endif
 

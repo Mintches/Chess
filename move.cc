@@ -3,15 +3,15 @@
 
 Move::Move() {}
 
-Move::Move(vector<Square *> deleted, vector<Square *> added, bool check, bool stalemate): deleted{deleted}, added{added}, check{check}, stalemate{stalemate} {}
+Move::Move(vector<shared_ptr<Square>> deleted, vector<shared_ptr<Square>> added, bool check, bool stalemate): deleted{deleted}, added{added}, check{check}, stalemate{stalemate} {}
 
-vector<Square *> Move::getDeleted() { return deleted; }
+vector<shared_ptr<Square>> Move::getDeleted() { return deleted; }
 
-vector<Square *> Move::getAdded() { return added; }
+vector<shared_ptr<Square>> Move::getAdded() { return added; }
 
-void Move::addDeleted(Square *s) { deleted.push_back(s); }
+void Move::addDeleted(shared_ptr<Square> s) { deleted.push_back(s); }
 
-void Move::addAdded(Square *s) { added.push_back(s); }
+void Move::addAdded(shared_ptr<Square> s) { added.push_back(s); }
 
 bool Move::getCheck() { return check; }
 

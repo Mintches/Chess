@@ -15,7 +15,7 @@ void GraphicsObserver::notify() {
     int arr[25][25];
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if ((i + j) % 2 == 0) w.fillRectangle(i * 50 + 50, j * 50 + 50, 50, 50, Xwindow::MediumSlateBlue);
+            if ((i + j) % 2 == 1) w.fillRectangle(i * 50 + 50, j * 50 + 50, 50, 50, Xwindow::MediumSlateBlue);
             else w.fillRectangle(i * 50 + 50, j * 50 + 50, 50, 50, Xwindow::LightSkyBlue);
         }
     }

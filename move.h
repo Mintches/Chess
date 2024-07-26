@@ -8,17 +8,17 @@ using namespace std;
 class Square; // forward declaration
 
 class Move {
-    vector<Square *> deleted;
-    vector<Square *> added;
+    vector<shared_ptr<Square>> deleted;
+    vector<shared_ptr<Square>> added;
     bool check; 
     bool stalemate;
     public:
         Move();
-        Move(vector<Square *> deleted, vector<Square *> added, bool check, bool stalemate);
-        vector<Square *> getDeleted();
-        vector<Square *> getAdded();
-        void addDeleted(Square *s);
-        void addAdded(Square *s);
+        Move(vector<shared_ptr<Square>> deleted, vector<shared_ptr<Square>> added, bool check, bool stalemate);
+        vector<shared_ptr<Square>> getDeleted();
+        vector<shared_ptr<Square>> getAdded();
+        void addDeleted(shared_ptr<Square> s);
+        void addAdded(shared_ptr<Square> s);
         bool getCheck();
         bool getStalemate();
         void setCheck(bool t);
