@@ -96,7 +96,6 @@ void Game::playGame() {
                         cout << getColourString() << " is in check." << endl;
                 }
                 printBoard();
-                gameHistory.push_back(currentBoard);
             }
         }
         cout << "Please output 'move' or 'resign':" << endl;
