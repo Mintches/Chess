@@ -15,7 +15,6 @@ using namespace std;
 class Board {
     vector<Move> movesMade;
     shared_ptr<Square> arr[8][8];
-    pair<int,int> passantable;
     int numMoves = 0;
     public:
         Board();
@@ -26,15 +25,13 @@ class Board {
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);
         bool verifyStalemate(Colour player);
+        bool verifySetup();
         bool movePiece(Move m);
         BoardIterator begin();
         BoardIterator end();
         void makePiece(int row, int col, char piece);
         void deletePiece(int row, int col);
         void undoMove();
-        pair<int,int> getPassantable();
-        void setPassantable(int row, int col);
-        void removePassantable();
         void standardBoard();
         void resetBoard();
         int evaluate();
