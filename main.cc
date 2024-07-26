@@ -8,14 +8,20 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
     string in;
     Input inp;
     unique_ptr<Game> g = make_unique<Game>();
     unique_ptr<TextObserver> to = make_unique<TextObserver>(g.get());
-    //unique_ptr<GraphicsObserver> go = make_unique<GraphicsObserver>(g.get());
     g->attach(to.get());
-    //g->attach(go.get());
+    for (int i = 0; i < argc; i++) {
+        string tst = "graphics";
+        if (argv[i] == tst) {
+            unique_ptr<GraphicsObserver> go = make_unique<GraphicsObserver>(g.get());
+            g->attach(go.get());
+            break;
+        }
+    }
     cout << "Please input either 'game' or 'setup':" << endl;
     while (cin >> in) {
         if (in == "game") {
