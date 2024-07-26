@@ -17,7 +17,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
     } else if (player == Colour::BLACK) {
         forward = 1; // Black moves down the grid
     }
-    //cout << (col - tocol) << "\n";
     if (col == tocol && board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) { // move straight forward
         if (torow - row == forward) { // move forward 1
             m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
@@ -26,7 +25,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
             if (torow == 0 || torow == 7) { // pawn promotion
                 char piece;
                 cin >> piece;
-                //Square *sq = mPiece(torow, tocol, piece);
                 m.addAdded(mPiece(torow, tocol, piece));
             } else {
                 m.addAdded(make_shared<Pawn>(torow, tocol, player));
@@ -42,10 +40,9 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
             m.addDeleted(board->getSquare(torow, tocol));
             // this square is now passantable
             board->setPassantable(torow, tocol);
-            return m; //true;
+            return m; 
         }
     } else if (abs(col - tocol) == 1 && torow - row == forward) { // move diagonal
-    //cout << "!" << endl;
         if (board->getSquare(torow, tocol)->returnPlayer() != player) {
             if (board->getSquare(torow, tocol)->returnType() != PieceType::EMPTY) { // normal capture
                 m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
@@ -55,7 +52,6 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
                 board->removePassantable(); // en passant only valid for immediate move after
                 return m;
             } else { // destination square is empty
-            //cout << "word";
                 int passantRow = board->getPassantable().first;
                 int passantCol = board->getPassantable().second;
                 if (passantRow == row && passantCol == tocol) { // additional requirements for en passant capture
