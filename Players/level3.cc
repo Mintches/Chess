@@ -5,26 +5,18 @@ using namespace std;
 
 Move Level3::getMove(Board *board, Colour colour) const {
     Move bestMv;
-    /*PieceType maxCapture = PieceType::EMPTY;
+    PieceType maxCapture = PieceType::EMPTY;
     bool checkMv = false;
     bool escapeCapture = false;
 
     Colour oppColour = (colour == Colour::WHITE ? Colour::BLACK : Colour::WHITE);
     vector<Square *> willBeCaptured;
 
-    for (auto mv : board->legalMoves(oppColour)) {
-        for (auto willCapture : mv.getAdded()) {
-            if (willCapture->returnPlayer() == colour && find(willBeCaptured.begin(), willBeCaptured.end(), willCapture) != willBeCaptured.end()) 
-                willBeCaptured.push_back(willCapture).get();
-        }
-    }
-
     for (auto mv : board->legalMoves(colour)) {
         if (bestMv.isEmpty()) bestMv = mv;
+        bool isCapturedPiece = false;
         for (auto mvPiece : mv.getAdded()) {
-            if (find(willBeCaptured.begin(), willBeCaptured.end(), mvPiece)) {
-                board->movePiece()
-            }
+            if (mvPiece->returnPlayer() == colour && willCapture(board, oppColour, colour, mvPiece)) isCapturedPiece = true;
         }
     }
 
@@ -61,8 +53,16 @@ Move Level3::getMove(Board *board, Colour colour) const {
                 bestMv = mv;
             }
         }
-    }*/
+    }
     return bestMv; 
 }
 
-//bool notCaptured()
+bool willCapture(Board *board, Colour oppPlayer, Colour currPlayer, Square *s) {
+    for (auto mv : board->legalMoves(oppPlayer)) {
+        for (auto target : mv.getDeleted()) {
+            if (target.get() == s) 
+                return true;
+        }
+    }
+    return false;
+}
