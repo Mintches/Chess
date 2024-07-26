@@ -24,10 +24,6 @@ class Pawn : public Square { // pawn inherits from square
         vector<Move> possibleMoves(Board *board) override;
 
         PieceType returnType() override;
-        
-        void promote(PieceType type);
-
-        int getMoveNum();
     };
 
 #endif

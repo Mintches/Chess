@@ -7,10 +7,16 @@ using namespace std;
 pair<int, int> Input::getCoords() {
     string s;
     cin >> s;
-    char rank = s[0];
-    int row = 8 - ((int) s[1] - '0'); 
-    int col = (int) rank - 97;
-    pair<int, int> p = {row, col};
+    pair<int, int> p;
+    if (s.size() != 2) {
+        p = {-1, -1};
+    }
+    else {
+        char rank = s[0];
+        int row = 8 - ((int) s[1] - '0'); 
+        int col = (int) rank - 97;
+        p = {row, col};
+    }
     return p;
 }
 

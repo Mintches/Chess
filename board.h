@@ -15,7 +15,6 @@ using namespace std;
 class Board {
     vector<Move> movesMade;
     shared_ptr<Square> arr[8][8];
-    int numMoves = 0;
     public:
         Board();
         Board(const Board& b);
@@ -36,7 +35,6 @@ class Board {
         void resetBoard();
         int evaluate();
         int getNumMoves();
-        void incNumMoves();
         Move lastMove();
 };
 

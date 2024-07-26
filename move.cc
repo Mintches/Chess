@@ -26,7 +26,7 @@ bool Move::isEmpty() {
 }
 
 pair<int,int> Move::getPassantable() { return passantable; }
+
 void Move::setPassantable(int row, int col) {
     passantable = {row, col};
 };
-//void Move::removePassantable()
