@@ -85,11 +85,6 @@ vector<Move> Pawn::possibleMoves(Board *board) {
     return v;
 }
 
-
 PieceType Pawn::returnType() {
     return PieceType::PAWN;
-}
-
-void Pawn::promote(PieceType type) {
-    
 }
