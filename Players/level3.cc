@@ -16,7 +16,7 @@ Move Level3::getMove(Board *board, Colour colour) const {
         if (bestMv.isEmpty()) bestMv = mv;
         bool isCapturedPiece = false;
         for (auto mvPiece : mv.getAdded()) {
-            if (mvPiece->returnPlayer() == colour && willBeCaptured(board, oppColour, colour, mvPiece)) isCapturedPiece = true;
+            if (mvPiece->returnPlayer() == colour && willBeCaptured(board, oppColour, colour, mvPiece) isCapturedPiece = true;
         }
     }
 
