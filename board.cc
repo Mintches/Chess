@@ -37,10 +37,10 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
             if (arr[i][j]->returnPlayer() == player) {
                 vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
                 for (auto mv : pieceMoves) {
-                if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
-                    moves.push_back(mv);
-                }
-                undoMove(); // undo temp move
+                    if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
+                        moves.push_back(mv);
+                    }
+                    undoMove(); // undo temp move
                 }
             }
         }
@@ -50,7 +50,7 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
     return moves;
 }
 
-shared_ptr<Square> Board::getSquare(int row, int col) {
+Square *Board::getSquare(int row, int col) {
     return arr[row][col]; // TODO: check the row and col are valid
 }
 
@@ -137,7 +137,7 @@ void Board::deletePiece(int row, int col) {
     if ((row + col) % 2 == 0) {
         player = Colour::WHITE;
     }
-    arr[row][col] = make_shared<EmptySquare>(row, col, player);
+    arr[row][col] = new EmptySquare(row, col, player);
 }
 
 void Board::undoMove() {

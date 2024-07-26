@@ -74,7 +74,8 @@ void Game::playGame() {
             // do move, if possible
             //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
                 //gameHistory.push_back(currentBoard);
-            if(!currentBoard.movePiece(mv) || currentBoard.verifyCheck(getColour())) { // move piece and no self check
+            currentBoard.movePiece(mv);
+            if(currentBoard.verifyCheck(getColour())) { // move piece and no self check
                 currentBoard = gameHistory.back();
                 cout << "Invalid move" << endl;
             } else {
