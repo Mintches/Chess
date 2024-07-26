@@ -16,6 +16,7 @@ class Board {
     vector<Move> movesMade;
     shared_ptr<Square> arr[8][8];
     pair<int,int> passantable;
+    int numMoves = 0;
     public:
         Board();
         Board(const Board& b);
@@ -37,6 +38,9 @@ class Board {
         void standardBoard();
         void resetBoard();
         int evaluate();
+        int getNumMoves();
+        void incNumMoves();
+        Move lastMove();
 };
 
 #endif

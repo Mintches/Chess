@@ -14,17 +14,20 @@
 class Board; // forward declaration
 
 class Pawn : public Square { // pawn inherits from square
-public:
-    Pawn(int row, int col, Colour player); // constructor
-    ~Pawn(); // destructor
+    int moveNum;
+    public:
+        Pawn(int row, int col, Colour player); // constructor
+        ~Pawn(); // destructor
 
-    Move verifyMove(Board *board, int torow, int tocol) override;
+        Move verifyMove(Board *board, int torow, int tocol) override;
 
-    vector<Move> possibleMoves(Board *board) override;
+        vector<Move> possibleMoves(Board *board) override;
 
-    PieceType returnType() override;
-    
-    void promote(PieceType type);
-};
+        PieceType returnType() override;
+        
+        void promote(PieceType type);
+
+        int getMoveNum();
+    };
 
 #endif
