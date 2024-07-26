@@ -13,9 +13,9 @@ Bishop::~Bishop() {} // do nothing
 Move Bishop::verifyMove(Board *board, int torow, int tocol) {
     Move m;
     //std::cout << torow << ":" << tocol << endl;
-    if (abs(torow - row) == abs(tocol - col) && row != torow) { // bishop move limit and that it'll actually moved
-        if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
-        || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square
+    if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
+    || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square
+        if (abs(torow - row) == abs(tocol - col) && row != torow) { // bishop move limit and that it'll actually moved
             // go step by step and check each square on the way
             int shiftrow = 1, shiftcol = 1;
             if (torow < row) shiftrow *= -1;

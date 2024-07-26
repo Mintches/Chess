@@ -6,13 +6,15 @@ King::~King() {} // do nothing
 
 Move King::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (board->getSquare(torow, tocol)->returnPlayer() != player || board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) {
+    if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY
+    || board->getSquare(torow, tocol)->returnPlayer() != player) {
         if (abs(torow - row) + abs(tocol - col) == 1) { // king move limits
-        m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-        m.addAdded(new King(torow, tocol, player, true));
-        m.addDeleted(this);
-        m.addDeleted(board->getSquare(torow, tocol));
-        moved = true;
+            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
+            m.addAdded(new King(torow, tocol, player, true));
+            m.addDeleted(this);
+            m.addDeleted(board->getSquare(torow, tocol));
+            moved = true;
+        }
     } else if (!moved && torow == row && (torow = 7 || torow == 0)) { // check for castle
         int left = 0; // left and right 
         int right = 7;
@@ -22,7 +24,7 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
             Square *sq = board->getSquare(row, right);
             rook = dynamic_cast<Rook*>(sq);
             side = right;
-        } else if (tocol - col == -2 && board->getSquare(row, left)->returnType() == PieceType::ROOK) { // left castle
+        } else if (tocol - col == -3 && board->getSquare(row, left)->returnType() == PieceType::ROOK) { // left castle
             Square *sq = board->getSquare(row, left);
             rook = dynamic_cast<Rook*>(sq);
             side = left;
