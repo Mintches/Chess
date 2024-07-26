@@ -48,6 +48,15 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
     return moves;
 }
 
+bool Board::checkLegal(Move m, Colour player) {
+    if (m.getAdded().size() == 0) return false;
+    bool retval = true;
+    movePiece(m);
+    if (verifyCheck(player)) retval = false;
+    undoMove();
+    return retval;
+}
+
 shared_ptr<Square> Board::getSquare(int row, int col) {
     return arr[row][col]; // TODO: check the row and col are valid
 }
