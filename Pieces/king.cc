@@ -9,7 +9,7 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
     Move m;
     if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY
     || board->getSquare(torow, tocol)->returnPlayer() != player) {
-        if (abs(torow - row) + abs(tocol - col) == 1 && board->getSquare(torow, tocol)->returnPlayer() != player) { // king move limits
+        if (abs(torow - row) <= 1 && abs(tocol - col) <= 1 && abs(torow - row) + abs(tocol - col) > 0 && board->getSquare(torow, tocol)->returnPlayer() != player) { // king move limits
             m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
             m.addAdded(make_shared<King>(torow, tocol, player, true));
             m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
