@@ -7,15 +7,20 @@ using namespace std;
 
 Move Level2::getMove(Board *board, Colour colour) const {
     PieceType maxCapture = PieceType::EMPTY;
-    bool checkMv = false;
     Move bestMv;
     for (auto mv : board->legalMoves(colour)) {
-        if (mv.getCheck() >= checkMv) {
-            if (mv.getDeleted().back()->returnType() > maxCapture) {
-                maxCapture = mv.getDeleted().back()->returnType();
-                checkMv = mv.getCheck();
+        if (bestMv.getAdded().size() == 0) bestMv = mv;
+        PieceType thisCapture = PieceType::EMPTY;
+        for (auto c : mv.getDeleted()) {
+            if (c->returnPlayer() != colour) thisCapture = c->returnType();
+            if (thisCapture > maxCapture) {
+                maxCapture = thisCapture;
                 bestMv = mv;
             }
+        }
+        if (mv.getCheck() > bestMv.getCheck() && thisCapture >= maxCapture) {
+            maxCapture = thisCapture;
+            bestMv = mv;
         }
     }
     return bestMv; // return highest capture move
