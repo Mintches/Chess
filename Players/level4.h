@@ -11,5 +11,6 @@ class Level4: public Computer {
 };
 
 int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer);
+void printBoard(Board *board);
 
 #endif
