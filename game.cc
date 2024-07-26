@@ -6,6 +6,7 @@
 #include "move.h"
 #include "input.h"
 #include "Observers/textObserver.h"
+#include "Pieces/emptysquare.h"
 
 Game::Game(): gameHistory{}, state{0}, player1Score{0}, player2Score{0}, player1{nullptr}, player2{nullptr}, currPlayer{player1}, currentBoard{Board()} {
     currentBoard.standardBoard();
@@ -40,19 +41,30 @@ void Game::setupGame() {
             // parse input into row and col
             pair<int, int> in = inp.getCoords();
             currentBoard.makePiece(in.first, in.second, p);
+            Move m = Move();
+            m.addAdded(mPiece(in.first, in.second, p));
+            notifyObserversChange(m);
         } else if (op == "-") { // delete piece on square
             pair<int, int> in = inp.getCoords();
             currentBoard.deletePiece(in.first, in.second);
+            Move m = Move();
+            m.addDeleted(make_shared<EmptySquare>(in.first, in.second, Colour::BLUE));
+            notifyObserversChange(m);
         } else if (op == "=") { // set player colour to go first
             string colour;
             cin >> colour;
             if (colour == "white") currPlayer = player1;
             else if (colour == "black") currPlayer = player2;
         }
-        else if (op == "reset") currentBoard.resetBoard(); 
-        else if (op == "standard") currentBoard.standardBoard();
+        else if (op == "reset") {
+            currentBoard.resetBoard();
+            printBoard();
+        }
+        else if (op == "standard") {
+            currentBoard.standardBoard();
+            printBoard();
+        }
         else cout << "Invalid Move\n";
-        printBoard();
     }
 }
 
@@ -92,11 +104,15 @@ void Game::playGame() {
                 } else if (currentBoard.verifyCheck(getColour())) {
                     cout << getColourString() << " is in check." << endl;
                 }
-                printBoard();
+                notifyObserversChange(mv);
+                //printBoard();
             }
         }
         cout << "Please output 'move' or 'resign':" << endl;
     }
+    gameHistory.push_back(currentBoard);
+    currentBoard = Board();
+    currentBoard.standardBoard();
 }
 
 void Game::printScore() {
@@ -146,7 +162,7 @@ char Game::getState(int row, int col) {
 }
 
 void Game::printBoard() {
-    notifyObservers();
+    notifyObserversFull();
 }
 
 string Game::getColourString() {

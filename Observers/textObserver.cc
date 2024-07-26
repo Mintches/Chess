@@ -3,7 +3,7 @@ using namespace std;
 
 TextObserver::TextObserver(Subject *sub): sub{sub} {}
 
-void TextObserver::notify() {
+void TextObserver::notifyFull() {
     // add vertical border of numbers
     int vertBorder = 8;
     for (int i = 0; i < 8; ++i) {
@@ -21,4 +21,8 @@ void TextObserver::notify() {
         cout << horBorder;
     }
     cout << endl;
+}
+
+void TextObserver::notifyChange(Move m) {
+    notifyFull();
 }

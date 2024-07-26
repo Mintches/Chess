@@ -11,4 +11,6 @@ void Subject::detach(Observer *o) {
     }
 }
 
-void Subject::notifyObservers() { for (auto o : observers) o->notify(); }
+void Subject::notifyObserversFull() { for (auto o : observers) o->notifyFull(); }
+
+void Subject::notifyObserversChange(Move m) { for (auto o : observers) o->notifyChange(m); }

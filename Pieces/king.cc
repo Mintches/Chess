@@ -41,6 +41,11 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
             curcol += shift;
             while (tocol != curcol) {
                 if (board->getSquare(row, curcol)->returnType() != PieceType::EMPTY) return m;
+                char piece;
+                if (player == Colour::WHITE) piece = 'K';
+                else piece = 'k';
+                board->makePiece(row, curcol, piece);
+                board->deletePiece(row, curcol - shift);
                 if (board->verifyCheck(player)) return m;
                 curcol += shift;
             }

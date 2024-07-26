@@ -1,1 +1,2 @@
-subject.o: subject.cc subject.h Observers/observer.h
+subject.o: subject.cc subject.h move.h Observers/observer.h \
+ Observers/../move.h
