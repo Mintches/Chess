@@ -45,7 +45,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
             m.addDeleted(board->getSquare(torow, tocol));
             // this square is now passantable
             board->setPassantable(torow, tocol);
-            return m; //true;
+            return m; 
         }
     } else if (abs(col - tocol) == 1 && torow - row == forward) { // move diagonal
         if (board->getSquare(torow, tocol)->returnPlayer() != player) {
