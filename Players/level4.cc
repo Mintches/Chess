@@ -1,4 +1,5 @@
 #include <string>
+#include <map>
 #include <algorithm>
 #include "computer.h"
 #include "level4.h"

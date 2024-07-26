@@ -38,4 +38,3 @@ shared_ptr<Square> mPiece(int row, int col, char piece);
 shared_ptr<Square> cpyPiece(shared_ptr<Square> piece);
 
 #endif
-

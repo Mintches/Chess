@@ -14,7 +14,7 @@ MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}	# makefile name
 SOURCES = $(wildcard *.cc Pieces/*.cc Players/*.cc Observers/*.cc)			# source files (*.cc)
 OBJECTS = ${SOURCES:.cc=.o}			# object files forming executable
 DEPENDS = ${OBJECTS:.o=.d}			# substitute ".o" with ".d"
-EXEC = a.out					# executable name
+EXEC = chess					# executable name
 
 ########## Targets ##########
 
