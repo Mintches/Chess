@@ -37,12 +37,10 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
             if (arr[i][j]->returnPlayer() == player) {
                 vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
                 for (auto mv : pieceMoves) {
-                    if (movePiece(mv)) { // do a temp move if possible
-                        if (!verifyCheck(player)) { // if no self-checked
-                            moves.push_back(mv);
-                        }
-                        undoMove(); // undo temp move
+                    if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
+                        moves.push_back(mv);
                     }
+                    undoMove(); // undo temp move
                 }
             }
         }
