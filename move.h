@@ -2,6 +2,7 @@
 #define MOVE_H
 
 #include <vector>
+#include <memory>
 using namespace std;
 
 class Square; // forward declaration
