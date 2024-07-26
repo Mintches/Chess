@@ -30,7 +30,10 @@ void Game::setupGame() {
     Input inp;
     printBoard();
     while (cin >> op) {
-        if (op == "done") break;
+        if (op == "done") {
+            gameHistory.push_back(currentBoard);
+            break;
+        }
         else if (op == "+") { // add piece to square
             char p;
             cin >> p;
@@ -71,7 +74,10 @@ void Game::playGame() {
             // do move, if possible
             //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
                 //gameHistory.push_back(currentBoard);
-            if(currentBoard.movePiece(mv)) {
+            if(!currentBoard.movePiece(mv) || currentBoard.verifyCheck(getColour())) { // move piece and no self check
+                currentBoard = gameHistory.back();
+                cout << "Invalid move" << endl;
+            } else {
                 swapPlayer();
                 // going from most requirments to least checkmate > stalemate > check
                 if (currentBoard.verifyCheckmate(getColour())) {
@@ -88,14 +94,10 @@ void Game::playGame() {
                 } else if (currentBoard.verifyCheck(getColour())) {
                         cout << getColourString() << " is in check." << endl;
                 }
-            } else {
-                cout << "Invalid move" << endl;
+                printBoard();
+                gameHistory.push_back(currentBoard);
             }
         }
-        printBoard();
-        gameHistory.push_back(currentBoard);
-        currentBoard = Board();
-        currentBoard.standardBoard();
         cout << "Please output 'move' or 'resign':" << endl;
     }
 }
