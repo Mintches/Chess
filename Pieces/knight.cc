@@ -21,6 +21,11 @@ Move Knight::verifyMove(Board *board, int torow, int tocol) {
 
 vector<Move> Knight::possibleMoves(Board *board) {
     vector<Move> v;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (verifyMove(board, i, j).getAdded().size() != 0) v.push_back(verifyMove(board, i, j));
+        }
+    }
     return v;
 }
 

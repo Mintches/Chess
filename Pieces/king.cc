@@ -6,20 +6,14 @@ King::~King() {} // do nothing
 
 Move King::verifyMove(Board *board, int torow, int tocol) {
     Move m;
-    if (abs(torow - row) + abs(tocol - col) == 1) { // king move limits
-        // ~two kings, chillin in a hot tub, 5 ft apart cuz~
-        for (int i = -1; i < 2; ++i) {
-            for (int j = -1; j < 2; ++j) {
-                if (board->getSquare(torow + i, tocol + j)->returnType() == PieceType::KING && i != 0 && j != 0) {
-                    return m;
-                }
-            }
-        }
+    if (board->getSquare(torow, tocol)->returnPlayer() != player || board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) {
+        if (abs(torow - row) + abs(tocol - col) == 1) { // king move limits
         m.addAdded(new EmptySquare(row, col, Colour::BLUE));
         m.addAdded(new King(torow, tocol, player, true));
         m.addDeleted(this);
         m.addDeleted(board->getSquare(torow, tocol));
-    } else if (!moved && torow == row) { // check for castle
+        moved = true;
+    } else if (!moved && torow == row && (torow = 7 || torow == 0)) { // check for castle
         int left = 0; // left and right 
         int right = 7;
         int side;
@@ -57,6 +51,11 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
 
 vector<Move> King::possibleMoves(Board *board) {
     vector<Move> v;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (verifyMove(board, i, j).getAdded().size() != 0) v.push_back(verifyMove(board, i, j));
+        }
+    }
     return v;
 }
 
