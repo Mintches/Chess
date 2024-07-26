@@ -59,7 +59,6 @@ void Game::playGame() {
     cout << "Please output 'move' or 'resign':" << endl;
     while (cin >> in) {
         if (in == "resign") {
-            gameHistory.push_back(currentBoard);
             swapPlayer();
             cout << getColourString() << " wins!" << endl;
             addScore(getColour(), 1);
@@ -94,6 +93,8 @@ void Game::playGame() {
             }
         }
         printBoard();
+        gameHistory.push_back(currentBoard);
+        currentBoard = Board();
         cout << "Please output 'move' or 'resign':" << endl;
     }
 }
