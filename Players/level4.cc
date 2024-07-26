@@ -16,9 +16,8 @@ const int INF = 9999999;
 
 int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
     // minimax has reached a leaf node
-    if (board->verifyCheckmate(Colour::WHITE) || board->verifyCheckmate(Colour::BLACK) || 
-    board->verifyStalemate(Colour::WHITE) || board->verifyStalemate(Colour::BLACK) 
-    || /*board->verifyDraw() || */depth == 0) return board->evaluate();
+    if (depth == 0 || board->verifyCheckmate(Colour::WHITE) || board->verifyCheckmate(Colour::BLACK) || 
+    board->verifyStalemate(Colour::WHITE) || board->verifyStalemate(Colour::BLACK)) return board->evaluate();
     
     if (mxPlayer) { // maximizing player (white)
         int mxEval = -INF;
@@ -46,31 +45,31 @@ int minimax(Board *board, int depth, int alpha, int beta, bool mxPlayer) {
 }
 
 Move Level4::getMove(Board *board, Colour player) const {
-    Move best;
+    Move bestMv;
     if (player == Colour::WHITE) {
         int mxEval = -INF;
         for (auto m: board->legalMoves(player)) {
             board->movePiece(m);
-            int eval = minimax(board, 1, -INF, INF, false);
+            int eval = minimax(board, 0, -INF, INF, false);
             board->undoMove();
             if (eval > mxEval) {
                 mxEval = eval;
-                best = m;
+                bestMv = m;
             }
         }
     } else {
         int minEval = INF;
         for (auto m: board->legalMoves(player)) {
             board->movePiece(m);
-            int eval = minimax(board, 1, -INF, INF, true);
+            int eval = minimax(board, 0, -INF, INF, true);
             board->undoMove();
             if (eval < minEval) {
                 minEval = eval;
-                best = m;
+                bestMv = m;
             }
         }
     }
-    return best;
+    return bestMv;
 }
 
 
