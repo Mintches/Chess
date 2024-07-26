@@ -44,8 +44,10 @@ Move King::verifyMove(Board *board, int torow, int tocol) {
             m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
             m.addDeleted(board->getSquare(torow, tocol));
             // move rook
+            m.addAdded(make_shared<EmptySquare>(row, side, Colour::BLUE));
             m.addAdded(make_shared<Rook>(row, tocol - shift, player, true));
             m.addDeleted(board->getSquare(row, side));
+            m.addDeleted(board->getSquare(row, tocol - shift));
         }
     }
     return m;
