@@ -12,11 +12,11 @@
 #include "Pieces/rook.h"
 #include "Pieces/emptysquare.h"
 #include "colour.h"
+#include "boardIterator.h"
 
 using namespace std;
 
 Board::Board() {
-    passantable = {-1,-1};
     resetBoard();
 }
 
@@ -26,7 +26,6 @@ Board::Board(const Board& b) {
             arr[i][j] = cpyPiece(b.arr[i][j]);
         }
     }
-    passantable = b.passantable;
 }
 
 vector<Move> Board::legalMoves(Colour player) { // list of moves, considers checks
@@ -37,9 +36,11 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
             if (arr[i][j]->returnPlayer() == player) {
                 vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
                 for (auto mv : pieceMoves) {
+                    bool alreadyChecking = false;
+                    Colour oppPlayer = (player == Colour::WHITE ? Colour::BLACK : Colour::WHITE);
+                    if (verifyCheck(oppPlayer)) alreadyChecking = true;
                     if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
-                        if (player == Colour::WHITE && verifyCheck(Colour::BLACK)) mv.setCheck(true);
-                        else if (player == Colour::BLACK && verifyCheck(Colour::WHITE)) mv.setCheck(true);
+                        if (!alreadyChecking && verifyCheck(oppPlayer)) mv.setCheck(true);
                         moves.push_back(mv);
                     }
                     undoMove();
@@ -51,7 +52,7 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
 }
 
 bool Board::checkLegal(Move m, Colour player) {
-    if (m.getAdded().size() == 0) return false;
+    if (m.isEmpty()) return false;
     bool retval = true;
     movePiece(m);
     if (verifyCheck(player)) retval = false;
@@ -93,6 +94,31 @@ bool Board::verifyStalemate(Colour player) { // is player stuck
     return legalMoves(player).empty() && !verifyCheck(player);
 }
 
+bool Board::verifySetup() {
+    int kingBlack = 0;
+    int kingWhite = 0;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (arr[i][j]->returnPlayer() == Colour::WHITE) {
+                if (arr[i][j]->returnType() == PieceType::KING) {
+                    ++kingWhite;
+                    if (kingWhite > 1) return false;
+                } else if (arr[i][j]->returnType() == PieceType::PAWN) {
+                    if (arr[i][j]->getRow() == 0) return false;
+                }
+            } else if (arr[i][j]->returnPlayer() == Colour::BLACK) {
+                if (arr[i][j]->returnType() == PieceType::KING) {
+                    ++kingBlack;
+                    if (kingBlack > 1) return false;
+                } else if (arr[i][j]->returnType() == PieceType::PAWN) {
+                    if (arr[i][j]->getRow() == 7) return false;
+                }
+            }
+        }
+    }
+    if (kingBlack + kingWhite != 0) return false;
+    return true;
+}
 /*bool Board::verifyMove(Colour player, int row1, int col1, int row2, int col2) {
     if (verifyCheck(player)) {
         return false;
@@ -129,31 +155,18 @@ void Board::deletePiece(int row, int col) {
 void Board::undoMove() {
     if (movesMade.size() == 0) return;
     Move latestMv = movesMade.back();
-    Move undoMv;
+    //Move undoMv;
     for (auto addedSq : latestMv.getAdded()) {
         // remove added
-        undoMv.addDeleted(addedSq);
+        deletePiece(addedSq->getRow(), addedSq->getCol());
     }
     for (auto deletedSq : latestMv.getDeleted()) {
         // restore deleted
-        undoMv.addAdded(deletedSq);
+        arr[deletedSq->getRow()][deletedSq->getCol()] = deletedSq;
     }
-    movePiece(undoMv);
-    movesMade.pop_back();
     movesMade.pop_back();
 }
 
-pair<int,int> Board::getPassantable() {
-    return passantable;
-}
-
-void Board::setPassantable(int row, int col) {
-    passantable = {row, col};
-}
-
-void Board::removePassantable() {
-    passantable = {-1, -1};
-}
 
 void Board::standardBoard() {
     resetBoard();
@@ -212,4 +225,19 @@ int Board::evaluate() {
         }
     }
     return whiteTotal - blackTotal;
+}
+
+int Board::getNumMoves() {
+    return numMoves;
+}
+
+void Board::incNumMoves() {
+    numMoves++;
+}
+
+Move Board::lastMove() {
+    Move m;
+    if (movesMade.size() == 0) return m;
+    m = movesMade.back();
+    return m;
 }
