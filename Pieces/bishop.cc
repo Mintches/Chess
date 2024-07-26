@@ -31,7 +31,7 @@ Move Bishop::verifyMove(Board *board, int torow, int tocol) {
             }
             m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
             m.addAdded(make_shared<Bishop>(torow, tocol, player));
-            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
+            m.addDeleted(board->getSquare(row, col));
             m.addDeleted(board->getSquare(torow, tocol));
         }
     }

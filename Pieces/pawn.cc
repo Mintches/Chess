@@ -20,7 +20,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
     //cout << (col - tocol) << "\n";
     if (col == tocol && board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) { // move straight forward
         if (torow - row == forward) { // move forward 1
-            m.addAdded(make_shared<Pawn>(row, col, Colour::BLUE));
+            m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
             m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
             m.addDeleted(board->getSquare(torow, tocol));
             if (torow == 0 || torow == 7) { // pawn promotion
@@ -38,7 +38,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
         && board->getSquare(row + forward * 2, tocol)->returnType() == PieceType::EMPTY) { // move forward 2
             m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
             m.addAdded(make_shared<Pawn>(torow, tocol, player));
-            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
+            m.addDeleted(board->getSquare(row, col));
             m.addDeleted(board->getSquare(torow, tocol));
             // this square is now passantable
             board->setPassantable(torow, tocol);
