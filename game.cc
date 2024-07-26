@@ -95,6 +95,7 @@ void Game::playGame() {
         printBoard();
         gameHistory.push_back(currentBoard);
         currentBoard = Board();
+        currentBoard.standardBoard();
         cout << "Please output 'move' or 'resign':" << endl;
     }
 }
