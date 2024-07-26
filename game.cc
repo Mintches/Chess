@@ -120,12 +120,12 @@ void Game::setCurrPlayer(Colour player) {
 }
 
 void Game::swapPlayer() {
-    if (&currPlayer == &player1) currPlayer = player2;
+    if (currPlayer == player1) currPlayer = player2;
     else currPlayer = player1;
 }
 
 Colour Game::getColour() {
-    if (&currPlayer == &player1) return Colour::WHITE;
+    if (currPlayer == player1) return Colour::WHITE;
     else return Colour::BLACK;
 }
 
