@@ -20,6 +20,7 @@ class Board {
         Board();
         Board(const Board& b);
         vector<Move> legalMoves(Colour player);
+        bool checkLegal(Move m, Colour player);
         shared_ptr<Square> getSquare(int row, int col);
         bool verifyCheck(Colour player);
         bool verifyCheckmate(Colour player);

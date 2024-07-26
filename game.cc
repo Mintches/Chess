@@ -80,12 +80,23 @@ void Game::playGame() {
             // receive move
             Move mv = currPlayer->getMove(&currentBoard, getColour()); // can this be done if currPlayer is human and doesn't take in the board
 
+            bool repeat = false;
+
+            if (!currentBoard.checkLegal(mv, getColour())) {
+                //mv = currPlayer->getMove(&currentBoard, getColour()); 
+                repeat = true;
+            }
+            if (repeat) {
+                cout << "Please output 'move' or 'resign':" << endl;
+                continue;
+            }
+            currentBoard.movePiece(mv);
             // do move, if possible
-            if (currentBoard.movePiece(mv) && currentBoard.verifyCheck(getColour())) { // move piece and no self check
+            /*if (currentBoard.movePiece(mv) && currentBoard.verifyCheck(getColour())) { // move piece and no self check
                 currentBoard.undoMove();
                 cout << "Invalid move" << endl;
             } else {
-                swapPlayer();
+                */swapPlayer();
                 // going from most requirments to least checkmate > stalemate > check
                 if (currentBoard.verifyCheckmate(getColour())) {
                     swapPlayer();
@@ -103,7 +114,7 @@ void Game::playGame() {
                 }
                 notifyObserversChange(mv);
                 //printBoard();
-            }
+            //}
         }
         cout << "Please output 'move' or 'resign':" << endl;
     }

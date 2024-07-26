@@ -38,6 +38,8 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
                 vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
                 for (auto mv : pieceMoves) {
                     if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
+                        if (player == Colour::WHITE && verifyCheck(Colour::BLACK)) mv.setCheck(true);
+                        else if (player == Colour::BLACK && verifyCheck(Colour::WHITE)) mv.setCheck(true);
                         moves.push_back(mv);
                     }
                     undoMove();
@@ -46,6 +48,15 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
         }
     }
     return moves;
+}
+
+bool Board::checkLegal(Move m, Colour player) {
+    if (m.getAdded().size() == 0) return false;
+    bool retval = true;
+    movePiece(m);
+    if (verifyCheck(player)) retval = false;
+    undoMove();
+    return retval;
 }
 
 shared_ptr<Square> Board::getSquare(int row, int col) {
