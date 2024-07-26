@@ -40,12 +40,11 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
                     if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
                         moves.push_back(mv);
                     }
+                    movesMade.push_back(mv);
                     undoMove();
                 }
             }
         }
-    }
-    if (moves.empty()) {
     }
     return moves;
 }
