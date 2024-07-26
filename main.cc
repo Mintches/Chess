@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include "game.h"
 #include "input.h"
@@ -9,20 +10,20 @@ using namespace std;
 
 // maybe a global const for board dimensions?
 
-int main() {
+void run() {
     string in;
     Input inp;
-    Game *g = new Game();
-    TextObserver *to = new TextObserver{g};
+    unique_ptr<Game> g = make_unique<Game>();
+    unique_ptr<TextObserver> to = make_unique<TextObserver>(g.get());
     //GraphicsObserver *go = new GraphicsObserver{g};
-    g->attach(to);
+    g->attach(to.get());
     //g->attach(go);
     cout << "Please input either 'game' or 'setup'" << endl;
     while (cin >> in) {
         if (in == "game") {
-            Player *p1 = inp.createPlayer();
-            Player *p2 = inp.createPlayer();
-            g->setPlayerTypes(p1, p2);
+            unique_ptr<Player> p1 = inp.createPlayer();
+            unique_ptr<Player> p2 = inp.createPlayer();
+            g->setPlayerTypes(p1.get(), p2.get());
             g->playGame();// game should check if there's already a board. if not, it uses standard chess setup
             continue;
         } 
@@ -36,4 +37,9 @@ int main() {
     }
 
     g->printScore();
+
+}
+
+int main() {
+    run();
 }

@@ -14,26 +14,26 @@ pair<int, int> Input::getCoords() {
     return p;
 }
 
-Player* Input::createPlayer() {
+unique_ptr<Player> Input::createPlayer() {
     string in;
     cout << "Please input 'human' or 'computer [1-4]'" << endl;
     while (cin >> in) {
         if (in == "human") {
-            return new Human();
+            return make_unique<Human>();
         } else if (in == "computer") {
             if (cin >> in) {
                 if (in == "1") {
-                    return new Level1();
+                    return make_unique<Level1>();
                 } else if (in == "2") {
-                    return new Level2();
+                    return make_unique<Level2>();
                 } else if (in == "3") {
-                    return new Level3();
+                    return make_unique<Level3>();
                 } else if (in == "4") {
-                    return new Level4();
+                    return make_unique<Level4>();
                 }
             }
         }
     }
     cerr << "You didn't enter a valid player" << endl;
-    return new Level4();
+    return make_unique<Level4>();
 }

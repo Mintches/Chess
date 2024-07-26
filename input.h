@@ -12,5 +12,5 @@ using namespace std;
 class Input {
 public:
     pair<int, int> getCoords();
-    Player* createPlayer();
+    unique_ptr<Player> createPlayer();
 };

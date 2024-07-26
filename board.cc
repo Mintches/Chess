@@ -133,9 +133,9 @@ void Board::makePiece(int row, int col, char piece) {
 }
 
 void Board::deletePiece(int row, int col) {
-    Colour player= Colour::BLACK;
+    Colour player= Colour::BLUE;
     if ((row + col) % 2 == 0) {
-        player = Colour::WHITE;
+        player = Colour::LIGHT_BLUE;
     }
     arr[row][col] = make_shared<EmptySquare>(row, col, player);
 }

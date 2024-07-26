@@ -26,7 +26,7 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
             }
             m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
             m.addAdded(make_shared<Queen>(torow, tocol, player));
-            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
+            m.addDeleted(board->getSquare(row, col));
             m.addDeleted(board->getSquare(torow, tocol));
         }
     } else if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
@@ -53,7 +53,7 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
             }
             m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
             m.addAdded(make_shared<Queen>(torow, tocol, player));
-            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
+            m.addDeleted(board->getSquare(row, col));
             m.addDeleted(board->getSquare(torow, tocol));
         }
     }

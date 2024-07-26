@@ -21,7 +21,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
     if (col == tocol && board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY) { // move straight forward
         if (torow - row == forward) { // move forward 1
             m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
-            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
+            m.addDeleted(board->getSquare(row, col));
             m.addDeleted(board->getSquare(torow, tocol));
             if (torow == 0 || torow == 7) { // pawn promotion
                 char piece;
@@ -50,7 +50,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
             if (board->getSquare(torow, tocol)->returnType() != PieceType::EMPTY) { // normal capture
                 m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
                 m.addAdded(make_shared<Pawn>(torow, tocol, player));
-                m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
+                m.addDeleted(board->getSquare(row, col));
                 m.addDeleted(board->getSquare(torow, tocol));
                 board->removePassantable(); // en passant only valid for immediate move after
                 return m;
@@ -61,7 +61,7 @@ Move Pawn::verifyMove(Board *board, int torow, int tocol) {
                 if (passantRow == row && passantCol == tocol) { // additional requirements for en passant capture
                     m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
                     m.addAdded(make_shared<Pawn>(torow, tocol, player));
-                    m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
+                    m.addDeleted(board->getSquare(row, col));
                     m.addDeleted(board->getSquare(torow, tocol));
                     // remove en passant captured piece
                     m.addDeleted(board->getSquare(passantRow, passantCol));
