@@ -72,11 +72,9 @@ void Game::playGame() {
             Move mv = currPlayer->getMove(&currentBoard, getColour()); // can this be done if currPlayer is human and doesn't take in the board
 
             // do move, if possible
-            //if (currentBoard.movePiece(mv)) {//getColour(), 1, 1, 2, 2)) { //placeholder, ideally dont be switching between mv and coordinates
-                //gameHistory.push_back(currentBoard);
             currentBoard.movePiece(mv);
             if (currentBoard.verifyCheck(getColour())) { // move piece and no self check
-                currentBoard = gameHistory.back();
+                currentBoard.undoMove();
                 cout << "Invalid move" << endl;
             } else {
                 swapPlayer();
@@ -93,7 +91,7 @@ void Game::playGame() {
                     addScore(getColour(), 0.5);
                     break;
                 } else if (currentBoard.verifyCheck(getColour())) {
-                        cout << getColourString() << " is in check." << endl;
+                    cout << getColourString() << " is in check." << endl;
                 }
                 printBoard();
             }

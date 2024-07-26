@@ -19,7 +19,6 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
             currow += shiftrow;
             curcol += shiftcol;
             while (currow != torow) {
-                //std::cout << currow << ":" << torow << ":" << curcol <<":" << tocol << endl;
                 if (board->getSquare(currow, curcol)->returnType() != PieceType::EMPTY) return m;
                 currow += shiftrow;
                 curcol += shiftcol;
@@ -29,9 +28,7 @@ Move Queen::verifyMove(Board *board, int torow, int tocol) {
             m.addDeleted(board->getSquare(row, col));
             m.addDeleted(board->getSquare(torow, tocol));
         }
-    } else if (board->getSquare(torow, tocol)->returnType() == PieceType::EMPTY 
-    || board->getSquare(torow, tocol)->returnPlayer() != player) { // destination is capture or empty square
-        if ((row != torow && col == tocol) || (row == torow && col != tocol)) { // rook move limit and that it'll actually moved
+        else if ((row != torow && col == tocol) || (row == torow && col != tocol)) { // rook move limit and that it'll actually moved
             // go step by step and check each square on the way
             // get shifts in horizontal and vertical direction
             int shiftrow = torow - row;
