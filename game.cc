@@ -29,8 +29,12 @@ void Game::setupGame() {
     printBoard();
     while (cin >> op) {
         if (op == "done") {
+            if (!currentBoard.verifySetup()) {
+                cout << "invalid board setup" << endl;
+            } else {
             gameHistory.push_back(currentBoard);
             break;
+            }
         }
         else if (op == "+") { // add piece to square
             char p;

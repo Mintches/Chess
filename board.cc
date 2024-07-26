@@ -16,7 +16,6 @@
 using namespace std;
 
 Board::Board() {
-    passantable = {-1,-1};
     resetBoard();
 }
 
@@ -26,7 +25,6 @@ Board::Board(const Board& b) {
             arr[i][j] = cpyPiece(b.arr[i][j]);
         }
     }
-    passantable = b.passantable;
 }
 
 vector<Move> Board::legalMoves(Colour player) { // list of moves, considers checks
@@ -93,6 +91,29 @@ bool Board::verifyStalemate(Colour player) { // is player stuck
     return legalMoves(player).empty() && !verifyCheck(player);
 }
 
+bool Board::verifySetup() {
+    int kingBlack = 0;
+    int kingWhite = 0;
+    for (auto sq : *this) {
+        if (sq->returnPlayer() == Colour::WHITE) {
+            if (sq->returnType() == PieceType::KING) {
+                ++kingWhite;
+                if (kingWhite > 1) return false;
+            } else if (sq->returnType() == PieceType::PAWN) {
+                if (sq->getRow() == 0) return false;
+            }
+        } else if (sq->returnPlayer() == Colour::BLACK) {
+            if (sq->returnType() == PieceType::KING) {
+                ++kingBlack;
+                if (kingBlack > 1) return false;
+            } else if (sq->returnType() == PieceType::PAWN) {
+                if (sq->getRow() == 7) return false;
+            }
+        }
+    }
+    if (kingBlack + kingWhite != 0) return false;
+    return true;
+}
 /*bool Board::verifyMove(Colour player, int row1, int col1, int row2, int col2) {
     if (verifyCheck(player)) {
         return false;
@@ -152,17 +173,6 @@ void Board::undoMove() {
     //movesMade.pop_back();
 }
 
-pair<int,int> Board::getPassantable() {
-    return passantable;
-}
-
-void Board::setPassantable(int row, int col) {
-    passantable = {row, col};
-}
-
-void Board::removePassantable() {
-    passantable = {-1, -1};
-}
 
 void Board::standardBoard() {
     resetBoard();
