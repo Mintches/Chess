@@ -30,9 +30,9 @@ Move Rook::verifyMove(Board *board, int torow, int tocol) {
                 curcol += shiftcol;
             }
             //moved = true;
-            m.addAdded(new EmptySquare(row, col, Colour::BLUE));
-            m.addAdded(new Rook(torow, tocol, player, true));
-            m.addDeleted(this);
+            m.addAdded(make_shared<EmptySquare>(row, col, Colour::BLUE));
+            m.addAdded(make_shared<Rook>(torow, tocol, player, true));
+            m.addDeleted(board->getSquare(this->getRow(), this->getCol()));
             m.addDeleted(board->getSquare(torow, tocol));
         }
     }

@@ -50,7 +50,7 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
     return moves;
 }
 
-Square *Board::getSquare(int row, int col) {
+shared_ptr<Square> Board::getSquare(int row, int col) {
     return arr[row][col]; // TODO: check the row and col are valid
 }
 
@@ -137,7 +137,7 @@ void Board::deletePiece(int row, int col) {
     if ((row + col) % 2 == 0) {
         player = Colour::WHITE;
     }
-    arr[row][col] = new EmptySquare(row, col, player);
+    arr[row][col] = make_shared<EmptySquare>(row, col, player);
 }
 
 void Board::undoMove() {
