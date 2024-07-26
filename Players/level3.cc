@@ -6,50 +6,36 @@ using namespace std;
 Move Level3::getMove(Board *board, Colour colour) const {
     Move bestMv;
     PieceType maxCapture = PieceType::EMPTY;
-    bool checkMv = false;
     bool escapeCapture = false;
 
     Colour oppColour = (colour == Colour::WHITE ? Colour::BLACK : Colour::WHITE);
-    vector<Square *> willBeCaptured;
 
     for (auto mv : board->legalMoves(colour)) {
         if (bestMv.isEmpty()) bestMv = mv;
-        bool isCapturedPiece = false;
-        for (auto mvPiece : mv.getAdded()) {
-            if (mvPiece->returnPlayer() == colour && willBeCaptured(board, oppColour, colour, mvPiece) isCapturedPiece = true;
-        }
-    }
-
-    // loop through all legal moves, check one by one
-    for (auto mv : board->legalMoves(colour)) {
-        if (bestMv.isEmpty()) bestMv = mv;
-        board->movePiece(mv);
-        bool safeMove = true;
-
-        // check opponent moves and see if any of them attack a piece
-        
-        for (auto oppMv : board->legalMoves(oppColour)) {
-            if (oppMv.getDeleted().back()->returnType() != PieceType::EMPTY) {
-                safeMove = false;
-                break;
+        bool escapeCaptureMove = false;
+        for (auto mvPiece : mv.getDeleted()) {
+            willCapture(board, oppColour, colour, mvPiece);
+            if (mvPiece->returnPlayer() == colour && willCapture(board, oppColour, colour, mvPiece)) {
+                board->movePiece(mv);
+                if (!willCapture(board, oppColour, colour, mvPiece)) escapeCaptureMove = true;
+                board->undoMove();
             }
         }
-        board->undoMove();
-
-        if (safeMove) { // the move avoids capture, go with it
-            if (mv.getCheck() > checkMv ||
-            (mv.getCheck() == checkMv && mv.getDeleted().back()->returnType() > maxCapture)) {
-                // next prioritize capturing and checks (like level 2)
-                maxCapture = mv.getDeleted().back()->returnType();
-                checkMv = mv.getCheck();
-                bestMv = mv;
+        if (escapeCaptureMove && !escapeCapture) {
+            escapeCapture = true;
+            bestMv = mv;
+        }
+        if (!escapeCapture || escapeCaptureMove) {
+            PieceType thisCapture = PieceType::EMPTY;
+            for (auto c : mv.getDeleted()) {
+                if (c->returnPlayer() != colour) thisCapture = c->returnType();
+                if (thisCapture > maxCapture) {
+                    maxCapture = thisCapture;
+                    bestMv = mv;
+                }
             }
-        } 
-        else { // no moves avoid capture, follow via level 2 priority
-            if (mv.getCheck() > checkMv ||
-            (mv.getCheck() == checkMv && mv.getDeleted().back()->returnType() > maxCapture)) {
-                maxCapture = mv.getDeleted().back()->returnType();
-                checkMv = mv.getCheck();
+            if (mv.getCheck() > bestMv.getCheck() && thisCapture >= maxCapture) {
+                maxCapture = thisCapture;
                 bestMv = mv;
             }
         }
@@ -57,11 +43,13 @@ Move Level3::getMove(Board *board, Colour colour) const {
     return bestMv; 
 }
 
-bool willCapture(Board *board, Colour oppPlayer, Colour currPlayer, Square *s) {
+bool willCapture(Board *board, Colour oppPlayer, Colour currPlayer, shared_ptr<Square> s) {
+    board->legalMoves(oppPlayer);
     for (auto mv : board->legalMoves(oppPlayer)) {
         for (auto target : mv.getDeleted()) {
-            if (target.get() == s) 
+            if (target == s) {
                 return true;
+            }
         }
     }
     return false;

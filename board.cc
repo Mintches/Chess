@@ -12,6 +12,7 @@
 #include "Pieces/rook.h"
 #include "Pieces/emptysquare.h"
 #include "colour.h"
+#include "boardIterator.h"
 
 using namespace std;
 
@@ -35,9 +36,11 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
             if (arr[i][j]->returnPlayer() == player) {
                 vector<Move> pieceMoves = arr[i][j]->possibleMoves(this);
                 for (auto mv : pieceMoves) {
+                    bool alreadyChecking = false;
+                    Colour oppPlayer = (player == Colour::WHITE ? Colour::BLACK : Colour::WHITE);
+                    if (verifyCheck(oppPlayer)) alreadyChecking = true;
                     if (movePiece(mv) && !verifyCheck(player)) { // if no self-checked
-                        if (player == Colour::WHITE && verifyCheck(Colour::BLACK)) mv.setCheck(true);
-                        else if (player == Colour::BLACK && verifyCheck(Colour::WHITE)) mv.setCheck(true);
+                        if (!alreadyChecking && verifyCheck(oppPlayer)) mv.setCheck(true);
                         moves.push_back(mv);
                     }
                     undoMove();
@@ -49,7 +52,7 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
 }
 
 bool Board::checkLegal(Move m, Colour player) {
-    if (m.getAdded().size() == 0) return false;
+    if (m.isEmpty()) return false;
     bool retval = true;
     movePiece(m);
     if (verifyCheck(player)) retval = false;
@@ -94,20 +97,22 @@ bool Board::verifyStalemate(Colour player) { // is player stuck
 bool Board::verifySetup() {
     int kingBlack = 0;
     int kingWhite = 0;
-    for (auto sq : *this) {
-        if (sq->returnPlayer() == Colour::WHITE) {
-            if (sq->returnType() == PieceType::KING) {
-                ++kingWhite;
-                if (kingWhite > 1) return false;
-            } else if (sq->returnType() == PieceType::PAWN) {
-                if (sq->getRow() == 0) return false;
-            }
-        } else if (sq->returnPlayer() == Colour::BLACK) {
-            if (sq->returnType() == PieceType::KING) {
-                ++kingBlack;
-                if (kingBlack > 1) return false;
-            } else if (sq->returnType() == PieceType::PAWN) {
-                if (sq->getRow() == 7) return false;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (arr[i][j]->returnPlayer() == Colour::WHITE) {
+                if (arr[i][j]->returnType() == PieceType::KING) {
+                    ++kingWhite;
+                    if (kingWhite > 1) return false;
+                } else if (arr[i][j]->returnType() == PieceType::PAWN) {
+                    if (arr[i][j]->getRow() == 0) return false;
+                }
+            } else if (arr[i][j]->returnPlayer() == Colour::BLACK) {
+                if (arr[i][j]->returnType() == PieceType::KING) {
+                    ++kingBlack;
+                    if (kingBlack > 1) return false;
+                } else if (arr[i][j]->returnType() == PieceType::PAWN) {
+                    if (arr[i][j]->getRow() == 7) return false;
+                }
             }
         }
     }
@@ -125,19 +130,10 @@ bool Board::verifySetup() {
 bool Board::movePiece(Move m) { // mindlessly follows given Move m, if given move isn't possible (ignoring checks), return false
     if (m.isEmpty()) return false;
     // do the move
-    //int numRow = -1;
     for (auto deletedSq : m.getDeleted()) {
-        //checking if this is a pawn's first move
-        //Pawn *p = dynamic_cast<Pawn*>(deletedSq);
-        //if (p != nullptr && p->returnPlayer() == colour) numRow = p->getRow();
         deletePiece(deletedSq->getRow(), deletedSq->getCol());
     }
     for (auto addedSq : m.getAdded()) {
-        //Pawn *p = dynamic_cast<Pawn*>(addedSq);
-        //if (p != nullptr && p->returnPlayer() == colour) {
-            //if (abs(p->getRow() - numRow) == 2)
-            //numRow = p->getRow();
-        //}
         arr[addedSq->getRow()][addedSq->getCol()] = addedSq;
     }
     movesMade.push_back(m);
@@ -168,9 +164,7 @@ void Board::undoMove() {
         // restore deleted
         arr[deletedSq->getRow()][deletedSq->getCol()] = deletedSq;
     }
-    //movePiece(undoMv);
     movesMade.pop_back();
-    //movesMade.pop_back();
 }
 
 
