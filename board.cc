@@ -45,8 +45,6 @@ vector<Move> Board::legalMoves(Colour player) { // list of moves, considers chec
             }
         }
     }
-    if (moves.empty()) {
-    }
     return moves;
 }
 
